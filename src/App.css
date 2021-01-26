@@ -1,0 +1,60 @@
+.App {
+ 
+}
+
+.sidenav {
+  height: 100%;
+  width: 20%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgb(243, 245, 139);
+  overflow-x: hidden;
+  padding-top: 20px;
+  text-align: center;
+}
+
+.sidenav button {
+  padding: 10px;
+  background: red;
+  margin-top: 200%;
+  font-weight: 600;
+}
+
+.Main {
+  margin-left: 200px;
+  margin-right: 20%;
+}
+
+.search-bar input{
+  margin: 30px;
+  padding: 15px;
+  font-size: 17px;
+  border: 1px solid rgb(209, 208, 208);
+  float: left;
+  width: 60%;
+  background: #fffefe;
+  border-radius: 10px;
+}
+
+.filter-box{
+  width: 200px;
+  margin: 10px;
+  padding: 5px;
+  text-align: left;
+  border: .5px solid rgb(163, 163, 163);
+  border-radius: 5px;
+}
+
+.leftside {
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+  text-align: center; 
+}
