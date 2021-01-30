@@ -26,6 +26,35 @@
   margin-left: 200px;
   margin-right: 20%;
 }
+.deletebutton{
+  position: absolute;
+  top: 85%;
+  left:65%; 
+}
+.combox{
+  width: 50;
+  height: 10;
+  position: absolute;
+  top:85%;
+  left:45%;
+
+}
+.ibutton{
+  padding: 10px;
+  border: radius 50px;;
+  position: absolute;
+  top: 40%;
+  left:68%; 
+}
+.itemBox{
+  width: 500px;
+  height:500px;
+background-color: green;
+position: absolute;
+top: 35%;
+left:35%;
+}
+
 
 .search-bar input{
   margin: 30px;
