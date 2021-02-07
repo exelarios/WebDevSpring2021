@@ -1,7 +1,65 @@
 .App {
- 
+  background-color: #eaeaea;
+  height: 100vh;
+  width: 100%;
 }
 
+button {
+  outline: none;
+  border: none;
+}
+
+input[type="checkbox"] {
+  visibility: hidden;
+}
+
+/*Entry Page*/
+#EntryPage {
+  width: 100%;
+  height: 100vh;
+  background-image: url("./Artboard\ 1.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#entryModal {
+  box-shadow: 15px 0px 53.94px 8.06px rgba(0, 0, 0, 0.19);
+  padding: 30px;
+  background-color: #e9e9e9;
+}
+
+#entryModal > h2 {
+  font-size: 2.5em;
+}
+
+#entryModal > form {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+}
+
+.entryInput {
+  height: 40px;
+  margin-top: .5em;
+  font-size: 1.2em;
+  padding: 5px;
+  outline: none;
+}
+
+.labelEntry {
+  color: #3f3c3c;
+  margin-top: 2em;
+  font-size: 1em;
+}
+
+.entryButton {
+  margin-top: 3em;
+}
+
+/* Main/Blog Page */
 .sidenav {
   height: 100%;
   width: 20%;
@@ -15,22 +73,206 @@
   text-align: center;
 }
 
-.sidenav button {
+
+.Main {
+  margin-left: 200px;
+  margin-right: 20%;
+}
+
+.search-bar input{
+  margin: 30px;
+  padding: 15px;
+  font-size: 17px;
+  border: 1px solid rgb(209, 208, 208);
+  float: left;
+  width: 60%;
+  background: #fffefe;
+  border-radius: 10px;
+}
+
+.filter-box{
+  width: 200px;
+  margin: 10px;
+  padding: 5px;
+  text-align: left;
+  border: .5px solid rgb(163, 163, 163);
+  border-radius: 5px;
+}
+
+* {
+  font-family: sans-serif;
+}
+
+h2 {
+  font-weight: normal;
+}
+
+#blogPage {
   padding: 10px;
-  background: red;
-  margin-top: 200%;
-  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+}
+
+#mainLogo{
+  width: 20vw;
+}
+
+#modalScreen {
+  display: none;
+  position: absolute;
+  top:0;
+  left:0;
+  bottom:0;
+  right:0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 15;
+  align-items: center; 
+  justify-content: center;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  width: 55vw;
+  max-width: 700px;
+  min-height: 50vh;
+  max-height: 1000px;
+  background-color: white;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+#modalBody > form {
+  display: flex;
+  flex-direction: column;
+}
+
+#modalBody {
+  background-color: #eeeff0;
+  max-height: 800px;
+  width: 100%;
+  padding-left: 60px;
+  box-sizing: border-box;
+}
+
+input, select, textarea{
+  -ms-box-sizing:content-box;
+  -moz-box-sizing:content-box;
+  box-sizing:content-box;
+  -webkit-box-sizing:content-box; 
+  outline: none;
+}
+
+.uploadInput {
+  margin-top: 40px;
+  border: #444444 1px solid;
+  width: 85%;
+  min-height: 45px;
+  border-radius: 5px;
+  font-size: 1.2em;
+  padding: 0px 10px 0px;
+}
+
+
+#typeInput {
+  text-align: end;
+}
+
+#uploadDescription {
+  height: 200px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  resize: none;
+}
+
+#optionPlaceholder {
+  color: rgb(68, 68, 68);
+  display: none;
+}
+
+#modal > form > button {
+  margin-top: 40px;
+  width: 30%;
+}
+
+#modal > form > button:hover {
+  background: #0c4279;
+  color: #dbdbdb;
+  transition: .2s;
+  cursor: pointer;
+}
+
+#modal > form > button:focus {
+  outline: none;
+}
+
+
+#modalHeader {
+  display: flex;
+  min-height: 120px;
+  width: 100%;
+  text-align: center;
+  align-items: center;
+  font-size: 1.3em;
+  font-weight: normal;
+  padding-left: 60px;
+}
+
+#questionText {
+  resize: none;
+  height: 400px;
+  padding: 5px;
+}
+
+#labelForFile {
+  border: none;
+  padding: 0;
+}
+
+#inputFile {
+  width: 50%;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.uploadItem {
+  width: 12vw;
+  min-height: 50px;
+  border: none;
+  background: #1464b6;
+  font-size: 1.2em;
+  color: white;
+  text-align: start;
+  padding-left: 8px;
+  margin-bottom: 2em;
+}
+
+.uploadItem:hover {
+  background: #0c4279;
+  color: #dbdbdb;
+  transition: .2s;
+  cursor: pointer;
+}
+
+.uploadItem:focus {
+  outline: none;
+  border: none;
 }
 
 .Main {
   margin-left: 200px;
   margin-right: 20%;
 }
+
 .deletebutton{
   position: absolute;
   top: 85%;
   left:65%; 
 }
+
 .combox{
   width: 50;
   height: 10;
@@ -39,6 +281,7 @@
   left:45%;
 
 }
+
 .ibutton{
   padding: 10px;
   border: radius 50px;;
@@ -46,6 +289,7 @@
   top: 40%;
   left:68%; 
 }
+
 .itemBox{
   width: 500px;
   height:500px;
