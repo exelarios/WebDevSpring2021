@@ -1,7 +1,65 @@
 .App {
- 
+  background-color: #eaeaea;
+  height: 100vh;
+  width: 100%;
 }
 
+button {
+  outline: none;
+  border: none;
+}
+
+input[type="checkbox"] {
+  visibility: hidden;
+}
+
+/*Entry Page*/
+#EntryPage {
+  width: 100%;
+  height: 100vh;
+  background-image: url("./Artboard\ 1.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#entryModal {
+  box-shadow: 15px 0px 53.94px 8.06px rgba(0, 0, 0, 0.19);
+  padding: 30px;
+  background-color: #e9e9e9;
+}
+
+#entryModal > h2 {
+  font-size: 2.5em;
+}
+
+#entryModal > form {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+}
+
+.entryInput {
+  height: 40px;
+  margin-top: .5em;
+  font-size: 1.2em;
+  padding: 5px;
+  outline: none;
+}
+
+.labelEntry {
+  color: #3f3c3c;
+  margin-top: 2em;
+  font-size: 1em;
+}
+
+.entryButton {
+  margin-top: 3em;
+}
+
+/* Main/Blog Page */
 .sidenav {
   height: 100%;
   width: 20%;
@@ -15,12 +73,6 @@
   text-align: center;
 }
 
-.sidenav button {
-  padding: 10px;
-  background: red;
-  margin-top: 200%;
-  font-weight: 600;
-}
 
 .Main {
   margin-left: 200px;
@@ -45,18 +97,6 @@
   text-align: left;
   border: .5px solid rgb(163, 163, 163);
   border-radius: 5px;
-}
-
-.leftside {
-  height: 100%;
-  width: 250px;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  right: 0;
-  overflow-x: hidden;
-  padding-top: 20px;
-  text-align: center; 
 }
 
 * {
@@ -92,7 +132,7 @@ h2 {
   justify-content: center;
 }
 
-#modal {
+.modal {
   display: flex;
   flex-direction: column;
   width: 55vw;
@@ -207,7 +247,6 @@ input, select, textarea{
   color: white;
   text-align: start;
   padding-left: 8px;
-  margin-top: 1em;
   margin-bottom: 2em;
 }
 
@@ -223,35 +262,17 @@ input, select, textarea{
   border: none;
 }
 
-.sidenav {
-  height: 100%;
-  width: 20%;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: rgb(243, 245, 139);
-  overflow-x: hidden;
-  padding-top: 20px;
-  text-align: center;
-}
-
-.sidenav button {
-  padding: 10px;
-  background: red;
-  margin-top: 200%;
-  font-weight: 600;
-}
-
 .Main {
   margin-left: 200px;
   margin-right: 20%;
 }
+
 .deletebutton{
   position: absolute;
   top: 85%;
   left:65%; 
 }
+
 .combox{
   width: 50;
   height: 10;
@@ -260,6 +281,7 @@ input, select, textarea{
   left:45%;
 
 }
+
 .ibutton{
   padding: 10px;
   border: radius 50px;;
@@ -267,6 +289,7 @@ input, select, textarea{
   top: 40%;
   left:68%; 
 }
+
 .itemBox{
   width: 500px;
   height:500px;
