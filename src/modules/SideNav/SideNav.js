@@ -11,9 +11,9 @@ class SideNav extends Component {
   }
 
   render() {
-    console.log(this.props)
+    console.log(this.sideNavActive)
     return (
-      <nav class="sidenav">
+      <nav className="sidenav" style={{left: (this.props.sideNavActive) ? '0' : '-300px'}}>
           <img src={Logo} alt="logo"/>
           <nav id="navigation">
               <button id="home" className="sideButton">Home</button>

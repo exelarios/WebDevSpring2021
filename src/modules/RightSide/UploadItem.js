@@ -11,7 +11,7 @@ class UploadItem extends Component {
         return (
             <form style={{display: (this.props.itemModal) ? "flex" : "none"}}>
                 <input type="text" className="uploadInput" placeholder="Item Title"></input>
-                <select id="typeInput" className="uploadInput" defaultValue={'DEFAULT'}>
+                <select className="uploadInput typeInput" defaultValue={'DEFAULT'}>
                     <option id="optionPlaceholder" value="DEFAULT" disabled={true}>Item Type</option>
                     <option value="Apparel">Apparel</option>
                     <option value="Electronics">Electronics</option>
