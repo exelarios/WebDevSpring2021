@@ -1,16 +1,11 @@
 .App {
   background-color: #eaeaea;
-  height: 100vh;
   width: 100%;
 }
 
 button {
   outline: none;
   border: none;
-}
-
-input[type="checkbox"] {
-  visibility: hidden;
 }
 
 /*Entry Page*/
@@ -59,7 +54,28 @@ input[type="checkbox"] {
   margin-top: 3em;
 }
 
-/* Main/Blog Page */
+/* Home/Blog Page */
+.container {
+  padding: 20px;
+}
+
+#buffer {
+  height: 5vh;
+  min-height: 63px;
+}
+
+#mainContainer {
+  width: 85%;
+  margin-left: auto;
+}
+
+#mainPage {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+}
+
 .sidenav {
   height: 100%;
   width: 20%;
@@ -88,15 +104,6 @@ input[type="checkbox"] {
   width: 60%;
   background: #fffefe;
   border-radius: 10px;
-}
-
-.filter-box{
-  width: 200px;
-  margin: 10px;
-  padding: 5px;
-  text-align: left;
-  border: .5px solid rgb(163, 163, 163);
-  border-radius: 5px;
 }
 
 * {
@@ -176,7 +183,7 @@ input, select, textarea{
 }
 
 
-#typeInput {
+.typeInput {
   text-align: end;
 }
 

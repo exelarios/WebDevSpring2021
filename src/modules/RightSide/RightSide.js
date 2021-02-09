@@ -47,12 +47,12 @@ class RightSide extends Component {
                 <UploadModal ref={this.modalRef} heading={this.state.heading} itemModal={this.state.itemModal} questionModal={this.state.questionModal}></UploadModal>
                 <div class="rightside">
                     <div>
+                        <FilterBox />
+                    </div>
+                    <button id="homeUpload" onClick={this.EnterItemModal} className="uploadItem">Upload</button>
+                    <div id="userInfo">
                         <p>Account:</p>
                         <p>[nickname]</p>
-                    </div>
-                        <button onClick={this.EnterItemModal} className="uploadItem">Upload</button>
-                    <div>
-                        <FilterBox />
                     </div>
                 </div>
             </>
