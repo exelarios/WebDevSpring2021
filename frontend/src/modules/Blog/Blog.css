@@ -1,0 +1,41 @@
+#blogPage {
+    width: 65%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.threadCard {
+    background: white;
+    margin-bottom: .5em;
+    border-radius: 5px;
+    padding: 1em;
+}
+
+.threadTitle {
+    margin-top: 0%;
+    margin-bottom: 0%;
+}
+
+.info {
+    margin: 0px;
+    color: grey;
+    display: inline;
+    font-size: 90%;
+    font-style: italic;
+}
+
+#author {
+    margin-right: 1em;
+}
+
+.summary {
+    margin-left: 0%;
+    border-left: 5px solid #9fc6a5;
+}
+
+.summary p {
+    margin-left: 1vw;
+}
+
