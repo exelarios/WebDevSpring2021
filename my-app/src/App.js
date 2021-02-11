@@ -1,10 +1,15 @@
 import './App.css';
-import Blog from './modules/Home'
+import MainPage from './modules/MainPage';
+
+
 
 function App() {
   return (
-    <Blog></Blog>
+    <div class="App">
+      <MainPage />
+    </div>
   );
 }
+
 
 export default App;

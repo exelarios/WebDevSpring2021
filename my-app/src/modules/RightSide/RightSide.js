@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import Logo from '../cpp-octo-web.svg'
+import FilterBox from './FilterBox'
 import UploadModal from './UploadModal';
+import './RightSide.css'
 
-class Home extends Component {
+class RightSide extends Component {
     constructor(props) {
         super(props)
         this.modalRef = React.createRef();
@@ -13,7 +14,7 @@ class Home extends Component {
         }
     }
 
-    EnterModal = () => {
+    ToggleModal = () => {
         const { display } = this.modalRef.current.modalScreen.current.style;
         if(display === 'flex')  {
             this.modalRef.current.modalScreen.current.style.display = 'none';
@@ -23,7 +24,7 @@ class Home extends Component {
     }
 
     EnterItemModal = () => {
-        this.EnterModal();
+        this.ToggleModal();
         this.setState({
             heading: 'Upload Item',
             itemModal: true,
@@ -32,7 +33,7 @@ class Home extends Component {
     }
 
     EnterQuestionModal = () => {
-        this.EnterModal();
+        this.ToggleModal();
         this.setState({
             heading: 'Ask a Question',
             itemModal: false,
@@ -41,16 +42,22 @@ class Home extends Component {
     }
 
     render() {
-        console.log(this.modalRef);
         return (
-            <div id="blogPage">
-                <UploadModal ref={this.modalRef} heading={this.state.heading} itemModal={this.state.itemModal} questionModal={this.state.questionModal}></UploadModal>
-                <img src={Logo} id="mainLogo"></img>
-                <button onClick={this.EnterItemModal} className="uploadItem">Upload</button>
-                <button onClick={this.EnterQuestionModal} className="uploadItem">Upload Question</button>
-            </div>
-        )
+            <>
+                <UploadModal ref={this.modalRef} heading={this.state.heading} itemModal={this.state.itemModal} questionModal={this.state.questionModal} ToggleModal={this.ToggleModal}></UploadModal>
+                <div class="rightside">
+                    <div>
+                        <FilterBox />
+                    </div>
+                    <button id="homeUpload" onClick={this.EnterItemModal} className="uploadItem siteButton">Upload</button>
+                    <div id="userInfo">
+                        <p>Account:</p>
+                        <p>[nickname]</p>
+                    </div>
+                </div>
+            </>
+          )
     }
-}
+  }
 
-export default Home;
+export default RightSide
