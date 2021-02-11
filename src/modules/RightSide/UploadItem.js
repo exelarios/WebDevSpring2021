@@ -23,7 +23,7 @@ class UploadItem extends Component {
                 <label id="labelForFile" htmlFor="file" className="uploadInput">Insert Photo:</label>
                 <input id="inputFile" name="file" type="file" className="uploadInput"></input>
                 <textarea id="uploadDescription" className="uploadInput" placeholder="Item Description"></textarea>
-                <button className="uploadItem">Upload</button>
+                <button className="uploadItem uploadModalButton siteButton">Upload</button>
             </form>
         )
     }

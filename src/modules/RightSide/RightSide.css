@@ -64,7 +64,7 @@
 .customCheckbox:before {
     position: relative;
     bottom: 3px;
-    right: 1pxz;
+    right: 1px;
     display: block;
     width: 15px;
     height: 15px;
@@ -75,4 +75,8 @@
 
 #userInfo {
     margin-top: auto;
+}
+
+.uploadModalButton {
+    margin-top: 2em;
 }

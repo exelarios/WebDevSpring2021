@@ -9,7 +9,7 @@
 .itemCard {
     width: 30%;
     margin-bottom: 2em;
-    height: 300px;
+    height: 280px;
 }
 
 .itemCard {
@@ -48,4 +48,132 @@
     margin: 0;
     font-size: .8em;
     color: #606060;
+}
+
+#mainModalImage {
+    width: 70%;
+    height: 100%;
+    background-image: url('../../Es3UYDXXIAMYXiQ.jpeg');
+    background-size: cover;
+
+}
+
+#sideBar {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+}
+
+#itemInfo {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    position: relative;
+}
+
+#break {
+    color: #a2a2a2;
+    width: 90%;
+}
+
+#itemDescription {
+    padding: 5%;
+}
+
+#itemDescription > h2 {
+    margin: 0;
+}
+
+#itemDescription > h3 {
+    font-weight: normal;
+    color: #a2a2a2;
+    margin-top: .2em;
+}
+
+#itemDescription > p {
+    color: #525252;
+    line-height: 1.3em;
+}
+
+#commentBox {
+    padding: 5%;
+}
+
+#commentBar {
+    min-height: 70px;
+    width: 100%;
+    bottom: 0;
+    display: flex;
+    background-color: #e2dede;
+    align-items: center;
+    justify-content: center;
+}
+
+#bottomDescription {
+    display: flex;
+    flex-direction: row;
+    max-height: 20px;
+    justify-content: space-between;
+    margin-top: 2em;
+}
+
+#bottomDescription > h4 {
+    margin: 0;
+}
+
+#homeModalButton {
+    padding: 5px;
+    width: 20%;
+    height: 25px;
+}
+
+#itemInfo::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
+
+#comment {
+    min-height: 30px;
+    width: 92%;
+    border: none;
+    border-radius: 50px;
+    padding-left: 10px;
+    box-shadow: -4px 2px 8px 0px rgba(0, 0, 0, 0.26);
+    font-size: 1em;
+    box-sizing: border-box;
+    resize: none;
+    z-index: 10;
+}
+
+.comments {
+    display: grid;
+    grid-template-columns: 1fr 6fr;
+    grid-template-rows: 40px auto;
+    grid-template-areas: 
+        "photo username"
+        ". text";
+    margin-bottom: 1em;
+}
+
+.userPhoto {
+    grid-area: photo;
+    height: 30px;
+    width: 30px;
+    background-image: url('../../Es3UYDXXIAMYXiQ.jpeg');
+   background-size: cover;
+    border-radius: 50px;
+    margin-right: 1em;
+}
+
+.usernameComment {
+    grid-area: username;
+    margin: 3px 0 0 0;
+    font-weight: normal;
+}
+
+.commentText {
+    grid-area: text;
+    margin: 0;
+    color: #6c6c6c;
+    line-height: 1.3em;
 }

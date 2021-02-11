@@ -13,7 +13,7 @@ class UploadQuestion extends Component {
                     <option value="Events">Events</option>
                     <option value="Others">Others</option>
                 </select>
-                <button className="uploadItem">Send</button>
+                <button className="uploadItem uploadModalButton siteButton">Send</button>
             </form>
         )
     }
