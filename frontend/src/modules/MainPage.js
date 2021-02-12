@@ -39,6 +39,21 @@ class MainPage extends Component {
         })
     }
 
+
+    toggleHomePage = () => {
+        this.setState({
+            homeActive: true,
+            blogActive: false
+        })
+    }
+
+    toggleBlogPage = () => {
+        this.setState({
+            homeActive: false,
+            blogActive: true
+        })
+    }
+
     componentDidMount() {
         document.addEventListener('scroll', () =>{
             const isTop = window.scrollY < 30
@@ -54,13 +69,13 @@ class MainPage extends Component {
         return (
             <>
                 <EntryPage ref={this.EntryPage} activeEntryPage={this.state.activeEntryPage}/>
-                <div id="MainPage" style={{display: (this.state.active) ? 'block' : 'none'}}>
+                <div id="mainPage" style={{display: (this.state.active) ? 'block' : 'none'}}>
                     <SearchBar sideNavActive={this.state.sideNavActive} openSideNav={this.openSideNav} isTop={this.state.isTop} />
-                    <SideNav openFirstPage={this.openFirstPage} sideNavActive={this.state.sideNavActive}/>
+                    <SideNav openFirstPage={this.openFirstPage} sideNavActive={this.state.sideNavActive} toggleHomePage={this.toggleHomePage} toggleBlogPage={this.toggleBlogPage}/>
                     <div onClick={this.closeSideNav}id="mainContainer">
                         <div id="buffer"></div>
-                        <Home />
-                        <Blog />
+                        <Home homeActive={this.state.homeActive}/>
+                        <Blog blogActive={this.state.blogActive}/>
                         <RightSide />
                     </div>
                 </div>

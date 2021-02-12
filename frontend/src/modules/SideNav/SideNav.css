@@ -18,11 +18,24 @@
 #home {
     background: #69a673;
     color: white;
+    transition: .3s;
+}
+
+
+#home:hover {
+    cursor: pointer;
+    color: #BABABA;
 }
 
 #blog {
     background: #56875e;
     color: white;
+    transition: .3s;
+}
+
+#blog:hover {
+    cursor: pointer;
+    color: #BABABA;
 }
 
 #navigation {

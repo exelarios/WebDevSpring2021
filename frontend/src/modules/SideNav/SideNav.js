@@ -16,8 +16,8 @@ class SideNav extends Component {
       <nav className="sidenav" style={{left: (this.props.sideNavActive) ? '0' : '-300px'}}>
           <img src={Logo} alt="logo"/>
           <nav id="navigation">
-              <button id="home" className="sideButton">Home</button>
-              <button id="blog" className="sideButton">Blog</button>
+              <button onClick={this.props.toggleHomePage} id="home" className="sideButton">Home</button>
+              <button onClick={this.props.toggleBlogPage} id="blog" className="sideButton">Blog</button>
           </nav>
           <button onClick={this.props.openFirstPage} type="button" id="logButton">Login</button> 
       </nav>

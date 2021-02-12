@@ -8,50 +8,10 @@ button {
   border: none;
 }
 
-/*Entry Page*/
-#EntryPage {
-  width: 100%;
-  height: 100vh;
-  background-image: url("./Artboard\ 1.svg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#entryModal {
-  box-shadow: 15px 0px 53.94px 8.06px rgba(0, 0, 0, 0.19);
-  padding: 30px;
-  background-color: #e9e9e9;
-}
-
-#entryModal > h2 {
-  font-size: 2.5em;
-}
-
-#entryModal > form {
-  display: flex;
-  flex-direction: column;
-  width: 95%;
-}
-
-.entryInput {
-  height: 40px;
-  margin-top: .5em;
-  font-size: 1.2em;
-  padding: 5px;
-  outline: none;
-}
-
 .labelEntry {
   color: #3f3c3c;
   margin-top: 2em;
   font-size: 1em;
-}
-
-.entryButton {
-  margin-top: 3em;
 }
 
 /* Home/Blog Page */
@@ -71,24 +31,11 @@ button {
 
 #mainPage {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: row;
-}
-
-.sidenav {
-  height: 100%;
-  width: 20%;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: rgb(243, 245, 139);
   overflow-x: hidden;
-  padding-top: 20px;
-  text-align: center;
 }
-
 
 .Main {
   margin-left: 200px;

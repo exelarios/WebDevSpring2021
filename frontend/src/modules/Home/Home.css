@@ -136,9 +136,8 @@
     min-height: 30px;
     width: 92%;
     border: none;
-    border-radius: 50px;
+    border-radius: 5px;
     padding-left: 10px;
-    box-shadow: -4px 2px 8px 0px rgba(0, 0, 0, 0.26);
     font-size: 1em;
     box-sizing: border-box;
     resize: none;
