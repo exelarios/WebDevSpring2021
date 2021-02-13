@@ -5,14 +5,17 @@ const router = express.Router();
 
 const User = require("../../models/user");
 
+const protected = async (req, res, next) => {
+    console.log("yeeeeeeeeee");
+    next();
+}
+
 /**
  * @route   POST api/auth/register
  * @desc    Registers a new user.
  * @access  Public
  */
-
-router.post("/register", async (req, res) => {
-
+router.post("/register", protected, async (req, res) => {
     // Deconstructing the request body.
     const { email, firstName, lastName, password } = req.body;
 
@@ -41,7 +44,7 @@ router.post("/register", async (req, res) => {
         const token = jwt.sign(
             { id: user._id}, 
             process.env.JWT_SECRET, 
-            {expiresIn: 3600 }
+            {expiresIn: "1d" }
         );
 
         res.status(200).json({
@@ -81,7 +84,7 @@ router.post("/login", async (req, res) => {
         const isValidPassword = await bcrypt.compare(password, user.password);
         if (!isValidPassword) throw Error("Invalid Credentitals");
 
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {expiresIn: 3600});
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {expiresIn: "1d"});
         if (!token) throw Error("Failed to sign a token.");
 
         res.status(200).json({

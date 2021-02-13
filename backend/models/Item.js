@@ -13,6 +13,14 @@ const itemSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    pricing: {
+        type: Number,
+        required: true,
+    },
+    description: {
+        type: String,
+        required: true,
+    },
 });
 
 module.exports = mongoose.model("Item", itemSchema);
