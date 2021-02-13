@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 export default class ThreadCard extends Component {
     render() {
         return (
-            <div className="threadCard">
+            <div className="threadCard" onClick={this.props.toggleModal}>
                 <div className="details">
                     <h2 className="threadTitle">{this.props.title}</h2>
                     <p class="info" id="author">Posted by: {this.props.author}</p>

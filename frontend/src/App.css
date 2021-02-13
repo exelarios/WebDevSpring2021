@@ -86,8 +86,8 @@ h2 {
 
 .exitButton {
   position: fixed;
-  height: 50px;
-  width: 50px;
+  height: 3vw;
+  width: 3vw;
   top: 10px;
   right: 10px;
   background-image: url('../src/Exit.png');
@@ -117,7 +117,7 @@ h2 {
 
 .mainModal {
   width: 85vw;
-  min-height: 750px;
+  min-height: 650px;
   height: 70vh;
   display: flex;
   flex-direction: row;

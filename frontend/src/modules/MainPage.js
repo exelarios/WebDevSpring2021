@@ -13,8 +13,8 @@ class MainPage extends Component {
         this.state = { 
             active: true,
             activeEntryPage: false,
-            homeActive: false,
-            blogActive: true,
+            homeActive: true,
+            blogActive: false,
             sideNavActive: true,
             isTop: true
         }
