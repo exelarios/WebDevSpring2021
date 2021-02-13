@@ -2,23 +2,23 @@ function FilterBox() {
     return (
       <div id="filterBox">
           <div className="filterRows">
-            <input class="customCheckbox" type="checkbox" value="apparel"/>
+            <input className="customCheckbox" type="checkbox" value="apparel"/>
             <label>Apparel</label>
           </div>
           <div className="filterRows">
-            <input class="customCheckbox" type="checkbox" value="electronic"/>
+            <input className="customCheckbox" type="checkbox" value="electronic"/>
             <label>Electronics</label>
           </div>
           <div className="filterRows">
-            <input class="customCheckbox" type="checkbox" value="books"/>
+            <input className="customCheckbox" type="checkbox" value="books"/>
             <label>Books</label>
           </div>
           <div className="filterRows">
-            <input class="customCheckbox" type="checkbox" value="lab-equipment"/>
+            <input className="customCheckbox" type="checkbox" value="lab-equipment"/>
             <label>Lab Equipment</label>
           </div>
           <div className="filterRows">
-            <input class="customCheckbox" type="checkbox" value="others"/>
+            <input className="customCheckbox" type="checkbox" value="others"/>
             <label>Others</label>
           </div>
       </div>

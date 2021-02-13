@@ -33,12 +33,16 @@ export default class EntryPage extends Component {
                         <button className="uploadItem entryButton">Submit</button>
                     </form>
                     <form id="signUpForm" className="signForm" style={{display: (this.state.signUpActive) ? 'flex' : 'none'}}>
-                        <label className="labelEntry" htmlFor="username">Username:</label>
-                        <input className="entryInput" name="username"></input>
+                        <label className="labelEntry" htmlFor="email">Email:</label>
+                        <input type="email" className="entryInput" name="email"></input>
                         <label className="labelEntry" htmlFor="password">Password:</label>
                         <input type="password" className="entryInput" name="password"></input>
-                        <label className="labelEntry" htmlFor="telephone">Telephone Number:</label>
-                        <input type="tel" className="entryInput" name="telephone"></input>
+                        <label className="labelEntry" htmlFor="firstName">First Name:</label>
+                        <input className="entryInput" name="firstName"></input>
+                        <label className="labelEntry" htmlFor="lastName">Last Name:</label>
+                        <input className="entryInput" name="lastName"></input>
+                        <label id="labelForFile" htmlFor="file" className="uploadInput">Upload Profile Picture:</label>
+                        <input id="inputFile" name="file" type="file" className="uploadInput"></input>
                         <button className="uploadItem entryButton">Submit</button>
                     </form>
                     <img src={Logo} style={{width: '40%', marginLeft: "-25px", marginTop: "7em"}}></img>

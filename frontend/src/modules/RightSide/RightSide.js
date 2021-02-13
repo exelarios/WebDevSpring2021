@@ -45,7 +45,7 @@ class RightSide extends Component {
         return (
             <>
                 <UploadModal ref={this.modalRef} heading={this.state.heading} itemModal={this.state.itemModal} questionModal={this.state.questionModal} ToggleModal={this.ToggleModal}></UploadModal>
-                <div class="rightside">
+                <div className="rightside">
                     <div>
                         <FilterBox />
                     </div>
