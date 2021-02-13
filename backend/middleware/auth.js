@@ -8,18 +8,21 @@ async function protectedRoute(req, res, next) {
         try {
             token = req.headers.authorization.split(" ")[1];
             const decodedJWT = jwt.verify(token, process.env.JWT_SECRET);
+
+            // `.select() with a prefix of "-" from password from the object`
             req.user = await User.findById(decodedJWT.id).select("-password");
             next();
         } catch(error) {
-            console.error(error);
-            res.stats(401);
-            throw new Error("Not authorized, token failed");
+            res.status(401).json({
+                message: "Failed to verify token."
+            })
         }
     }
 
     if (!token) {
-        res.stats(401);
-        throw new Error("Not Authorized, no token");
+        return res.status(401).json({
+            message: "Requires authorization token to access this route."
+        })
     }
 }
 

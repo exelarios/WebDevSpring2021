@@ -5,17 +5,12 @@ const router = express.Router();
 
 const User = require("../../models/user");
 
-const protected = async (req, res, next) => {
-    console.log("yeeeeeeeeee");
-    next();
-}
-
 /**
  * @route   POST api/auth/register
  * @desc    Registers a new user.
  * @access  Public
  */
-router.post("/register", protected, async (req, res) => {
+router.post("/register", async (req, res) => {
     // Deconstructing the request body.
     const { email, firstName, lastName, password } = req.body;
 
