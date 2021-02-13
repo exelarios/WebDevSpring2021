@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import FilterBox from './FilterBox'
+import FilterBoxBlog from './FilterBoxBlog';
 import UploadModal from './UploadModal';
 import './RightSide.css'
 
@@ -48,6 +49,7 @@ class RightSide extends Component {
                 <div class="rightside">
                     <div>
                         <FilterBox />
+                        <FilterBoxBlog />
                     </div>
                     <button id="homeUpload" onClick={this.EnterItemModal} className="uploadItem siteButton">Upload</button>
                     <div id="userInfo">
