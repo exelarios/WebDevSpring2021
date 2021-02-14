@@ -14,8 +14,8 @@ class UploadModal extends Component {
 
     render() {
         return (
-            <div ref={this.modalScreen} id="modalScreen">
-                <div className="modal">
+            <div ref={this.modalScreen} className="modalScreen">
+                <div className="modal uploadModal">
                     <div id="modalHeader">
                         <h2>{this.props.heading}</h2>
                     </div>
@@ -24,6 +24,7 @@ class UploadModal extends Component {
                         <UploadQuestion questionModal={this.props.questionModal}></UploadQuestion>
                     </div>
                 </div>
+                <span className="exitButton" onClick={this.props.ToggleModal}></span>
             </div>
         )
     }
