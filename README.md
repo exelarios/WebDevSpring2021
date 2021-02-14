@@ -1,5 +1,4 @@
-# WebDevSpring2021
-Cal Poly Pomona Marketplace React Application
+# Broncos Marketplace
 
 Project Plan: https://docs.google.com/document/d/1X5816ZY6P5yO6-uBG4GCv-Vk-Atd1p0ys7g8gYVmZ-o/edit?usp=sharing
 

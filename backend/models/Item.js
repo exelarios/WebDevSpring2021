@@ -13,7 +13,7 @@ const itemSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    pricing: {
+    price: {
         type: Number,
         required: true,
     },

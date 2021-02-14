@@ -5,8 +5,14 @@ const protected = require("../../middleware/auth");
 const User = require("../../models/user");
 
 router.get("/", protected, async (req, res) => {
+    const users = await User.find({});
+    res.json(users);
+});
+
+router.get("/", protected, async (req, res) => {
     res.send({
-        message: "lit"
+        message: "lit",
+        success: true
     })
 })
 

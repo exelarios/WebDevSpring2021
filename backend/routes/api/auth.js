@@ -18,7 +18,8 @@ router.post("/register", async (req, res) => {
     const userExists = await User.findOne({ email });
     if (userExists) {
         return res.status(400).json({
-            message: "Email already registered."
+            message: "Email already registered.",
+            success: false
         });
     }
 
@@ -48,11 +49,13 @@ router.post("/register", async (req, res) => {
                 id: user._id,
                 firstName: user.firstName,
                 lastName: user.lastName,
-            }
+            },
+            success: true
         });
     } catch(error) {
         res.status(400).json({
-            message: error.message
+            message: error.message,
+            success: false
         })
     }
 
@@ -68,7 +71,8 @@ router.post("/login", async (req, res) => {
 
     if (!email || !password) {
         return res.status(400).json({ 
-            message: "Please enter all required fields."
+            message: "Please enter all required fields.",
+            success: false
         })
     }
 
@@ -88,11 +92,13 @@ router.post("/login", async (req, res) => {
                 id: user._id,
                 firstName: user.firstName,
                 lastName: user.lastName
-            }
+            },
+            success: true
         })
     } catch(error) {
         res.status(400).json({
-            message: error.message
+            message: error.message,
+            success: false
         })
     }
 })
