@@ -14,7 +14,7 @@
 }
 
 .threadTitle {
-    margin-top: 0%;
+    margin-top: 2%;
     margin-bottom: 0%;
 }
 
@@ -39,3 +39,50 @@
     margin-left: 1vw;
 }
 
+.blogModal {
+    width: 85vw;
+    min-height: 650px;
+    padding: 0 1.5em;
+}
+
+.threadPosting {
+    border-bottom: 0.5px solid rgb(209, 209, 209);
+    margin-bottom: 1em;
+}
+
+.threadInfo {
+    margin: 0px;
+    margin-top: 0%;
+    color: grey;
+    font-size: 95%;
+    font-style: italic;
+}
+
+.comments {
+    display: grid;
+    grid-template-columns: 1fr 15fr;
+    grid-template-rows: 30px auto;
+    grid-template-areas:
+        "photo username"
+        ". text";
+    margin-bottom: 1em;
+}
+
+.comment{
+    text-align: center;
+    margin: 3px;
+}
+
+#commentBox {
+    max-height: 0.2vh;
+    width: 100%;
+    border: 1px solid rgb(202, 202, 202);
+    border-radius: 5px;
+    padding-left: 10px;
+    font-size: 1em;
+    box-sizing: border-box;
+    resize: none;
+    z-index: 10;
+    background-color: rgb(247, 252, 249);
+    display: block;
+}
