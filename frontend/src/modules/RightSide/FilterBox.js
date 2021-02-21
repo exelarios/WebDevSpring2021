@@ -1,28 +1,19 @@
-function FilterBox() {
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import FilterBoxItem from './FilterBoxItem';
+import FilterBoxQuestion from './FilterBoxQuestion';
+
+class FilterBox extends Component {
+  render() {
     return (
       <div id="filterBox">
-          <div className="filterRows">
-            <input className="customCheckbox" type="checkbox" value="apparel"/>
-            <label>Apparel</label>
-          </div>
-          <div className="filterRows">
-            <input className="customCheckbox" type="checkbox" value="electronic"/>
-            <label>Electronics</label>
-          </div>
-          <div className="filterRows">
-            <input className="customCheckbox" type="checkbox" value="books"/>
-            <label>Books</label>
-          </div>
-          <div className="filterRows">
-            <input className="customCheckbox" type="checkbox" value="lab-equipment"/>
-            <label>Lab Equipment</label>
-          </div>
-          <div className="filterRows">
-            <input className="customCheckbox" type="checkbox" value="others"/>
-            <label>Others</label>
-          </div>
+        <Switch>
+          <Route path="/" exact component={FilterBoxItem}></Route>
+          <Route path="/blog" component={FilterBoxQuestion}></Route>
+        </Switch>
       </div>
-    );
+    )
   }
+}
 
-  export default FilterBox
+export default FilterBox

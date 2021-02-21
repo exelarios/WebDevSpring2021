@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import FilterBox from './FilterBox'
-import UploadModal from './UploadModal';
+import UploadModal from './UploadModal'
 import './RightSide.css'
 
 class RightSide extends Component {
@@ -45,11 +45,11 @@ class RightSide extends Component {
         return (
             <>
                 <UploadModal ref={this.modalRef} heading={this.state.heading} itemModal={this.state.itemModal} questionModal={this.state.questionModal} ToggleModal={this.ToggleModal}></UploadModal>
-                <div className="rightside">
+                <div class="rightside">
                     <div>
-                        <FilterBox />
+                        <FilterBox homeActive={this.props.homeActive} blogActive={this.props.blogActive} />
+                        <button id="homeUpload" onClick={(this.props.homeActive) ? this.EnterItemModal : this.EnterQuestionModal} className="uploadItem siteButton">Upload</button>
                     </div>
-                    <button id="homeUpload" onClick={this.EnterItemModal} className="uploadItem siteButton">Upload</button>
                     <div id="userInfo">
                         <p>Account:</p>
                         <p>[nickname]</p>

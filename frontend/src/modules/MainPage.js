@@ -5,6 +5,7 @@ import Home from './Home/Home';
 import RightSide from './RightSide/RightSide';
 import Blog from './Blog/Blog';
 import SearchBar from './SearchBar/SearchBar';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 class MainPage extends Component {
     constructor(props) {
@@ -67,19 +68,21 @@ class MainPage extends Component {
 
     render() {
         return (
-            <>
+            <Router>
                 <EntryPage ref={this.EntryPage} activeEntryPage={this.state.activeEntryPage}/>
                 <div id="mainPage" style={{display: (this.state.active) ? 'block' : 'none'}}>
                     <SearchBar sideNavActive={this.state.sideNavActive} openSideNav={this.openSideNav} isTop={this.state.isTop} />
                     <SideNav openFirstPage={this.openFirstPage} sideNavActive={this.state.sideNavActive} toggleHomePage={this.toggleHomePage} toggleBlogPage={this.toggleBlogPage}/>
                     <div onClick={this.closeSideNav}id="mainContainer">
                         <div id="buffer"></div>
-                        <Home homeActive={this.state.homeActive}/>
-                        <Blog blogActive={this.state.blogActive}/>
-                        <RightSide />
+                        <Switch>
+                            <Route path="/" exact component={Home}/>
+                            <Route path="/blog" component={Blog}/>
+                        </Switch>
+                        <RightSide homeActive={this.state.homeActive} blogActive={this.state.blogActive}/>
                     </div>
                 </div>
-            </>
+            </Router>
         )
     }
 }
