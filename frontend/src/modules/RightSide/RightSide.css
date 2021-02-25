@@ -60,6 +60,10 @@
     transition: .5s;
 }
 
+.uploadForm {
+    display: flex;
+}
+
 #homeUpload:hover {
     box-shadow: -1px 4px 6px 0px rgba(0, 0, 0, 0.26);
 }
@@ -98,12 +102,35 @@
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
-  }
+}
 
 .filterRows input:checked ~ .customCheckbox:after {
     display: block;
 }
 
+.modalHeader {
+    display: flex;
+    min-height: 120px;
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    font-size: 1.3em;
+    font-weight: normal;
+    padding-left: 60px;
+}
+
+.modalBody > form {
+    display: flex;
+    flex-direction: column;
+}
+  
+.modalBody {
+background-color: #eeeff0;
+max-height: 800px;
+width: 100%;
+padding-left: 60px;
+box-sizing: border-box;
+}
 
 #userInfo {
     width: 100%;

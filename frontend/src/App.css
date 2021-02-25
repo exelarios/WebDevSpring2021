@@ -72,7 +72,7 @@ h2 {
 }
 
 .modalScreen {
-  display: none;
+  display: flex;
   position: fixed;
   top:0;
   left: 0;
@@ -121,19 +121,6 @@ h2 {
   height: 70vh;
   display: flex;
   flex-direction: row;
-}
-
-#modalBody > form {
-  display: flex;
-  flex-direction: column;
-}
-
-#modalBody {
-  background-color: #eeeff0;
-  max-height: 800px;
-  width: 100%;
-  padding-left: 60px;
-  box-sizing: border-box;
 }
 
 input, select, textarea{
@@ -185,18 +172,6 @@ input, select, textarea{
 
 #modal > form > button:focus {
   outline: none;
-}
-
-
-#modalHeader {
-  display: flex;
-  min-height: 120px;
-  width: 100%;
-  text-align: center;
-  align-items: center;
-  font-size: 1.3em;
-  font-weight: normal;
-  padding-left: 60px;
 }
 
 #questionText {

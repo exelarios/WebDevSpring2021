@@ -2,53 +2,29 @@ import React, { Component } from 'react'
 import FilterBox from './FilterBox'
 import UploadModal from './UploadModal'
 import './RightSide.css'
+import { Route, Link } from 'react-router-dom'
 
 class RightSide extends Component {
     constructor(props) {
         super(props)
         this.modalRef = React.createRef();
         this.state = {
-            heading: '',
-            itemModal: false,
-            questionModal: false,
         }
-    }
-
-    ToggleModal = () => {
-        const { display } = this.modalRef.current.modalScreen.current.style;
-        if(display === 'flex')  {
-            this.modalRef.current.modalScreen.current.style.display = 'none';
-        } else {
-            this.modalRef.current.modalScreen.current.style.display = 'flex';
-        }
-    }
-
-    EnterItemModal = () => {
-        this.ToggleModal();
-        this.setState({
-            heading: 'Upload Item',
-            itemModal: true,
-            questionModal: false
-        })
-    }
-
-    EnterQuestionModal = () => {
-        this.ToggleModal();
-        this.setState({
-            heading: 'Ask a Question',
-            itemModal: false,
-            questionModal: true
-        })
     }
 
     render() {
+        console.log(this.props.location.pathname)
+        const store = '/home/store/upload'
+        const blog = '/home/blog/upload'
         return (
             <>
-                <UploadModal ref={this.modalRef} heading={this.state.heading} itemModal={this.state.itemModal} questionModal={this.state.questionModal} ToggleModal={this.ToggleModal}></UploadModal>
+                <Route path={(this.props.location.pathname === '/home/store/upload') ? store : blog} component={UploadModal}/>
                 <div class="rightside">
                     <div>
-                        <FilterBox homeActive={this.props.homeActive} blogActive={this.props.blogActive} />
-                        <button id="homeUpload" onClick={(this.props.homeActive) ? this.EnterItemModal : this.EnterQuestionModal} className="uploadItem siteButton">Upload</button>
+                        <FilterBox />
+                        <Link to={(this.props.location.pathname === '/home/store') ? store : blog}>
+                            <button id="homeUpload" className="uploadItem siteButton">Upload</button>
+                        </Link>
                     </div>
                     <div id="userInfo">
                         <p>Account:</p>

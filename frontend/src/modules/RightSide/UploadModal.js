@@ -1,30 +1,30 @@
 import React, { Component } from 'react'
+import { Link, Route, Switch } from 'react-router-dom';
 import UploadItem from './UploadItem'
 import UploadQuestion from './UploadQuestion';
 
 class UploadModal extends Component {
     constructor(props) {
         super(props);
-        this.modalScreen = React.createRef();
-        this.itemModal = React.createRef();
-        this.questionModal = React.createRef();
         this.state = { 
         }
     }
 
     render() {
+        const store = '/home/store'
+        const blog = '/home/blog'
         return (
-            <div ref={this.modalScreen} className="modalScreen">
+            <div className="modalScreen">
                 <div className="modal uploadModal">
-                    <div id="modalHeader">
-                        <h2>{this.props.heading}</h2>
-                    </div>
-                    <div id="modalBody">
-                        <UploadItem itemModal={this.props.itemModal}></UploadItem>
-                        <UploadQuestion questionModal={this.props.questionModal}></UploadQuestion>
-                    </div>
+                    <Switch>
+                        <Route path="/home/store/upload" component={UploadItem}/>
+                        <Route path="/home/blog/upload" component={UploadQuestion}/>
+                    </Switch>
                 </div>
-                <span className="exitButton" onClick={this.props.ToggleModal}></span>
+                <Link to={(this.props.location.pathname === '/home/store/upload') ? store : blog}>
+                    <span className="exitButton"></span>
+                </Link>
+                
             </div>
         )
     }

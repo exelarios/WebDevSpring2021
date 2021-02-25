@@ -44,7 +44,6 @@ class Home extends Component {
           <HomeCard toggleModal={this.toggleModal}/>
           <HomeCard toggleModal={this.toggleModal}/>
           <HomeCard toggleModal={this.toggleModal}/>
-          state.filter(() )
         </div>
       </>
     )
