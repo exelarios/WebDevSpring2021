@@ -262,6 +262,36 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "get_item",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"dckwok5@cpp.edu\",\n    \"password\": \"urmom\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/users/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"users",
+								"update"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -360,6 +390,36 @@
 								"api",
 								"items",
 								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"dckwok5@cpp.edu\",\n    \"password\": \"urmom\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/users/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"users",
+								"update"
 							]
 						}
 					},

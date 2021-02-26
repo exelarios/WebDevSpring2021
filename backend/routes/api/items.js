@@ -83,4 +83,27 @@ router.post("/add", protected, async(req, res) => {
 
 });
 
+/**
+ * @route   GET api/items/{itemId}
+ * @desc    Fetch an individual item
+ * @access  Private
+ */
+router.get("/:id", protected, async (req, res) => {
+    const item = await Item.findById(req.params.id);
+    if (item) {
+        res.json({
+            name: item.name,
+            description: item.description,
+            category: item.category,
+            price: item.price,
+            seller: req.user.id
+        });
+    } else {
+        res.status(404).json({
+            message: "Item doesn't exist in the database.",
+            success: false
+        });
+    }
+});
+
 module.exports = router;
