@@ -9,7 +9,7 @@ async function protectedRoute(req, res, next) {
             token = req.headers.authorization.split(" ")[1];
             const decodedJWT = jwt.verify(token, process.env.JWT_SECRET);
 
-            // `.select() with a prefix of "-" from password from the object`
+            // `.select() with a prefix of "-" removes password from the object`
             req.user = await User.findById(decodedJWT.id).select("-password");
             next();
         } catch(error) {
