@@ -1,44 +1,76 @@
-import React, { Component } from 'react'
+import React, { useEffect, useState } from 'react'
 import Comment from './Comment'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
-class HomeCardModal extends Component {
-    render() {
-        return (
-            <div className="modalScreen">
-                <div className="modal mainModal">
-                    <div id="mainModalImage"></div>
-                    <div id="sideBar">
-                        <div id="itemInfo">
-                            <div id="itemDescription">
-                                <h2>Item Title</h2>
-                                <h3>Posted by John Doe</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at elementum urna. Vivamus quis dolor sed lacus fringilla fringilla. Phasellus ultricies sit amet tortor nec pellentesque. Integer non fermentum enim. Sed maximus libero nisi, sed mollis est interdum id. Fusce nec tortor purus. Quisque non mollis felis, ut dignissim libero. Mauris eget sapien vulputate, fringilla ipsum ut, mollis massa. Donec a erat leo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at elementum urna. Vivamus quis dolor sed lacus fringilla fringilla. Phasellus ultricies sit amet tortor nec pellentesque. Integer non fermentum enim. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at elementum urna. Vivamus quis dolor sed lacus fringilla fringilla. Phasellus ultricies sit amet tortor nec pellentesque. Integer non fermentum enim. Sed maximus libero nisi, sed mollis est interdum id. Fusce nec tortor purus. Quisque non mollis felis, ut dignissim libero. Mauris eget sapien vulputate, fringilla ipsum ut, mollis massa. Donec a erat leo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at elementum urna. Vivamus quis dolor sed lacus fringilla fringilla. Phasellus ultricies sit amet tortor nec pellentesque. Integer non fermentum enim.</p>
-                                <div id="bottomDescription">
-                                    <button id="homeModalButton" className="siteButton">Contact</button>
-                                    <h4>$300.00</h4>
-                                </div>
-                            </div>
-                            <hr id="break"/>
-                            <div id="commentBox">
-                                <Comment />
-                                <Comment />
-                                <Comment />
-                                <Comment />
-                                <Comment />
+function HomeCardModal({ match }) {
+    const [item, setItem] = useState({});
+    const [userInfo, setUserInfo] = useState({});
+
+    useEffect(() => {
+      fetchItems()
+    }, [])
+  
+    const fetchItems = async () => {
+        const settings = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMzIwMWRiZTE2MWQ5NTQ1MDJkZWM1MSIsImlhdCI6MTYxNDI5ODE5MywiZXhwIjoxNjE0Mzg0NTkzfQ.NtY1HiIBeul4vJhKC_aQzcEOqRK_VyUI891jqMQTh9o"
+            }
+        }
+  
+        const firstResponse = await axios.get(`http://localhost:5000/api/items/${match.params.id}`,
+             settings)
+             .then(response => {
+                setItem(response.data)
+                return response.data
+             }, (error) => {
+                 console.error(error)
+             });
+
+        axios.get(`http://localhost:5000/api/users/${firstResponse.seller}`,
+            settings)
+            .then(response => {
+                setUserInfo(response.data)
+            }, (error) => {
+                console.error(error)
+            })
+    }
+
+    return (
+        <div className="modalScreen">
+            <div className="modal mainModal">
+                <div id="mainModalImage"></div>
+                <div id="sideBar">
+                    <div id="itemInfo">
+                        <div id="itemDescription">
+                            <h2>{item.name}</h2>
+                            <h3>{`Posted by ${userInfo.firstName} ${userInfo.lastName}`}</h3>
+                            <p>{item.description}</p>
+                            <div id="bottomDescription">
+                                <button id="homeModalButton" className="siteButton">Contact</button>
+                                <h4>{`$${item.price}`}</h4>
                             </div>
                         </div>
-                        <div id="commentBar">
-                            <input id="comment" placeholder="Enter a comment"></input>
+                        <hr id="break"/>
+                        <div id="commentBox">
+                            <Comment />
+                            <Comment />
+                            <Comment />
+                            <Comment />
+                            <Comment />
                         </div>
                     </div>
+                    <div id="commentBar">
+                        <input id="comment" placeholder="Enter a comment"></input>
+                    </div>
                 </div>
-                <Link to="/home/store">
-                    <span className="exitButton"></span>
-                </Link>
             </div>
-        )
-    }
+            <Link to="/home/store">
+                <span className="exitButton"></span>
+            </Link>
+        </div>
+    )
 }
 
 export default HomeCardModal

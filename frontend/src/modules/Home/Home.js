@@ -20,23 +20,33 @@ function Home() {
         }
     }
 
-    try {
-        const response = await axios.get('http://localhost:5000/api/items', settings);
-        console.log(response.data.items);
-        setItems(response.data.items);
-    } catch(error) {
-        console.error(error);
-    }
-}
+    const firstResponse = await axios.get('http://localhost:5000/api/items/search',
+      settings)
+      .then(response => {
+        return response.data.items
+      }, (error) => {
+      console.error(error)
+    })
+
+/*     console.log(firstResponse)
+    firstResponse.map(items => {
+      axios.get(`http://localhost:5000/api/users/${items.seller}`,
+      settings)
+      .then(response => {
+        items.seller = `${response.data.firstName} ${response.data.lastName}`
+      })
+    }) */
+    
+    setItems(firstResponse)
+  }
 
     return (
       <>
-        <Route path="/home/store/:id" component={HomeCardModal} />
         <div className="container" id="homePage">
           {items.map(item => {
             return (
-              <Link to={`/home/store/${item._id}`} style={{ color: 'inherit', textDecoration: 'inherit'}}>
-                <HomeCard key={item._id} cardTitle={item.name} cardPrice={item.price} />
+              <Link key={item._id} to={`/home/store/${item._id}`} style={{ color: 'inherit', textDecoration: 'inherit'}}>
+                <HomeCard key={item._id} cardTitle={item.name} cardPrice={item.price} sellerName={item.seller}/>
               </Link>
             )
           })}

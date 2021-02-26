@@ -12,7 +12,7 @@ export default class HomeCard extends Component {
                 </div>
                 <div className="userInfo">
                     <div className="profilePictureCard"></div>
-                    <h3>John Doe</h3>
+                    <h3>{this.props.sellerName}</h3>
                 </div>
             </div>
         )

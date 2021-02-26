@@ -96,7 +96,7 @@ router.get("/:id", protected, async (req, res) => {
             description: item.description,
             category: item.category,
             price: item.price,
-            seller: req.user.id
+            seller: item.seller
         });
     } else {
         res.status(404).json({
