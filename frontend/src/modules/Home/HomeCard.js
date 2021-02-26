@@ -11,7 +11,7 @@ export default class HomeCard extends Component {
                     <h2>$200.00</h2>
                 </div>
                 <div className="userInfo">
-                    <img className="profilePictureCard"></img>
+                    <div className="profilePictureCard"></div>
                     <h3>John Doe</h3>
                 </div>
             </div>
