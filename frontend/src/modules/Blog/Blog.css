@@ -26,6 +26,28 @@
     font-style: italic;
 }
 
+.threadDetail {
+    display: grid;
+    grid-template-columns: 10fr 2fr;
+}
+
+.threadWritter {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 10%;
+    align-items: center;
+    justify-items: center;
+}
+
+.threadWritter span{
+    text-align: right;
+}
+
+.threadWritter img{
+    width: 60px;
+    border-radius: 50px;
+}
+
 #author {
     margin-right: 1em;
 }
