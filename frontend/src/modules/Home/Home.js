@@ -22,7 +22,7 @@ class Home extends Component {
     return (
       <>
         <HomeCardModal toggleModal={this.toggleModal} modalActive={this.state.modalActive}/>
-        <div class="container" id="homePage" style={{display: (this.props.homeActive) ? 'flex' : 'none'}}>
+        <div className="container" id="homePage">
           <HomeCard toggleModal={this.toggleModal}/>
           <HomeCard toggleModal={this.toggleModal}/>
           <HomeCard toggleModal={this.toggleModal}/>

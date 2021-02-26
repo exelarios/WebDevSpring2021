@@ -7,12 +7,12 @@
 }
 
 .itemCard {
-    width: 30%;
-    margin-bottom: 2em;
+    width: 32%;
+    margin-bottom: 1em;
     height: 280px;
 }
 
-.itemCard {
+.itemCard:hover {
     cursor: pointer;
 }
 
@@ -23,11 +23,11 @@
 }
 
 .itemNamePrice > h2 {
-    font-size: 1em;
+    font-size: .9em;
 }
 
 .cardTitle {
-    color: #474747;
+    color: black;
 }
 
 .itemImage {
@@ -40,7 +40,6 @@
 .userInfo {
     display: flex;
     flex-direction: row;
-    margin-top: 5px;
 }
 
 .userInfo > h3{
@@ -175,4 +174,13 @@
     margin: 0;
     color: #6c6c6c;
     line-height: 1.3em;
+}
+
+.profilePictureCard {
+    height: 20px;
+    width: 20px;
+    border-radius: 10px;
+    background-image: url('../../Es3UYDXXIAMYXiQ.jpeg');
+    background-size: cover;
+    margin-right: .5em;
 }

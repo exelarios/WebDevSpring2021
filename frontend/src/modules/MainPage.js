@@ -1,30 +1,20 @@
 import React, { Component } from 'react'
-import EntryPage from './EntryPage/EntryPage';
 import SideNav from './SideNav/SideNav';
 import Home from './Home/Home';
 import RightSide from './RightSide/RightSide';
 import Blog from './Blog/Blog';
 import SearchBar from './SearchBar/SearchBar';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import axios from 'axios'
 
 class MainPage extends Component {
     constructor(props) {
         super(props);
-        this.EntryPage = React.createRef();
         this.state = { 
-            active: true,
-            activeEntryPage: false,
-            homeActive: false,
-            blogActive: true,
             sideNavActive: true,
-            isTop: true
+            isTop: true,
+            items: null
         }
-    }
-
-    openFirstPage = () => {
-        this.setState({
-            activeEntryPage: true,
-            active: false
-        })
     }
 
     closeSideNav = () => {
@@ -39,23 +29,28 @@ class MainPage extends Component {
         })
     }
 
+    fetchItems = async () => {
+        const settings = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMzIwMWRiZTE2MWQ5NTQ1MDJkZWM1MSIsImlhdCI6MTYxNDEyNTI1NSwiZXhwIjoxNjE0MjExNjU1fQ.zF2NKSmFgtIX52339OmgvXDe9SHzN2wZXU73LUWAiuk"
+            }
+        }
 
-    toggleHomePage = () => {
-        this.setState({
-            homeActive: true,
-            blogActive: false
-        })
-    }
-
-    toggleBlogPage = () => {
-        this.setState({
-            homeActive: false,
-            blogActive: true
-        })
+        try {
+            const response = await axios.get('http://localhost:5000/api/items', settings);
+            console.log(response);
+            this.setState({
+                items: response.data
+            })
+        } catch(error) {
+            console.error(error);
+        }
     }
 
     componentDidMount() {
-        document.addEventListener('scroll', () =>{
+        this.fetchItems();
+        document.addEventListener('scroll', () => {
             const isTop = window.scrollY < 30
             if(isTop !== this.state.isTop) {
                 this.setState({
@@ -65,21 +60,21 @@ class MainPage extends Component {
         });
     }
 
+
     render() {
         return (
-            <>
-                <EntryPage ref={this.EntryPage} activeEntryPage={this.state.activeEntryPage}/>
-                <div id="mainPage" style={{display: (this.state.active) ? 'block' : 'none'}}>
-                    <SearchBar sideNavActive={this.state.sideNavActive} openSideNav={this.openSideNav} isTop={this.state.isTop} />
-                    <SideNav openFirstPage={this.openFirstPage} sideNavActive={this.state.sideNavActive} toggleHomePage={this.toggleHomePage} toggleBlogPage={this.toggleBlogPage}/>
-                    <div onClick={this.closeSideNav}id="mainContainer">
-                        <div id="buffer"></div>
-                        <Home homeActive={this.state.homeActive}/>
-                        <Blog blogActive={this.state.blogActive}/>
-                        <RightSide />
-                    </div>
+            <div id="mainPage">
+                <SearchBar sideNavActive={this.state.sideNavActive} openSideNav={this.openSideNav} isTop={this.state.isTop} />
+                <SideNav sideNavActive={this.state.sideNavActive} toggleHomePage={this.toggleHomePage} toggleBlogPage={this.toggleBlogPage}/>
+                <div onClick={this.closeSideNav}id="mainContainer">
+                    <div id="buffer"></div>
+                        <Switch>
+                            <Route path="/home/store" component={Home}/>
+                            <Route path="/home/blog" component={Blog}/>
+                        </Switch>
+                    <Route path="/home" component={RightSide}/>
                 </div>
-            </>
+            </div>
         )
     }
 }

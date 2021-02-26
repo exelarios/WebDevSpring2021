@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const mongoose = require("mongoose");
 const app = express();
 const bodyParser = require('body-parser');
@@ -23,6 +24,7 @@ app.get("/docs", (req, res) => {
 
 app.use(cors());
 app.use(bodyParser.json()); // Required in order to read incoming request body in a middleware.
+
 app.use("/api/auth", auth);
 app.use("/api/users", users);
 app.use("/api/items", items);
