@@ -10,7 +10,7 @@
     padding-top: 20px;
     text-align: center;
     box-shadow: -11px 0px 36px 4px rgba(0, 0, 0, 0.26);
-    transition: .5s;
+    transition: left .5s;
     overflow: hidden;
     box-sizing: border-box;
 }
@@ -56,11 +56,11 @@
     text-align: left;
     justify-items: flex-start;
     padding: 9px;
-    font-size: 2vh;
+    font-size: 1.2em;
 }
 
-#logButton.text {
-    font-size: 50px;
+#logButton:hover {
+    cursor: pointer;
 }
 
 .sideButton {

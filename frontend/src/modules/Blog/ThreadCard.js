@@ -6,9 +6,9 @@ export default class ThreadCard extends Component {
             <div className="threadCard" onClick={this.props.toggleModal}>
                 <div className="details">
                     <h2 className="threadTitle">{this.props.title}</h2>
-                    <p class="info" id="author">Posted by: {this.props.author}</p>
-                    <p class="info" id="topic">Topic: {this.props.topic}</p>
-                    <blockquote class="summary">
+                    <p className="info" id="author">Posted by: {this.props.author}</p>
+                    <p className="info" id="topic">Topic: {this.props.topic}</p>
+                    <blockquote className="summary">
                         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nihil tempora possimus harum recusandae...</p>
                     </blockquote>
                 </div>

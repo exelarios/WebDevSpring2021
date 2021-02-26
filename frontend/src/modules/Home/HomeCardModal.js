@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import Comment from './Comment'
+import { Link } from 'react-router-dom'
 
 class HomeCardModal extends Component {
     render() {
         return (
-            <div className="modalScreen" style={{display: (this.props.modalActive) ? 'flex' : 'none'}}>
+            <div className="modalScreen">
                 <div className="modal mainModal">
                     <div id="mainModalImage"></div>
                     <div id="sideBar">
@@ -32,7 +33,9 @@ class HomeCardModal extends Component {
                         </div>
                     </div>
                 </div>
-                <span className="exitButton" onClick={this.props.toggleModal}></span>
+                <Link to="/home/store">
+                    <span className="exitButton"></span>
+                </Link>
             </div>
         )
     }

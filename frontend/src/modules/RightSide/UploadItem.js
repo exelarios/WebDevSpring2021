@@ -30,7 +30,7 @@ class UploadItem extends Component {
                         <textarea id="uploadDescription" className="uploadInput" placeholder="Item Description"></textarea>
                         <button className="uploadItem uploadModalButton siteButton">Upload</button>
                     </form>
-            </div>
+                </div>
             </>
         )
     }

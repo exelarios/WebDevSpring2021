@@ -25,7 +25,7 @@ class Blog extends Component {
       <>
         <ThreadCardModal toggleModal={this.toggleModal} modalActive={this.state.modalActive} />
 
-        <div class="container" id="blogPage">
+        <div className="container" id="blogPage">
           <ThreadCard toggleModal={this.toggleModal} title="Thread title 1" author="John Doe" topic="Electronics"/>
           <ThreadCard toggleModal={this.toggleModal} title="Thread title 2" author="John Doe" topic="Others"/>
           <ThreadCard toggleModal={this.toggleModal} title="Thread title 3" author="John Doe" topic="Housing"/>
