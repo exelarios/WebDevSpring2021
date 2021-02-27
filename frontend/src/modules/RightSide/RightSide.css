@@ -125,11 +125,11 @@
 }
   
 .modalBody {
-background-color: #eeeff0;
-max-height: 800px;
-width: 100%;
-padding-left: 60px;
-box-sizing: border-box;
+    background-color: #eeeff0;
+    max-height: 800px;
+    width: 100%;
+    padding-left: 60px;
+    box-sizing: border-box;
 }
 
 #userInfo {
@@ -139,7 +139,7 @@ box-sizing: border-box;
     background-color: white;
     margin-bottom: 3em;
     font-size: .8em;
-    box-shadow: -4px 2px 13px 0px rgba(0, 0, 0, 0.26);
+    box-shadow: -1px 4px 5.88px 0.12px rgba(0, 0, 0, 0.26);
 }
 
 .uploadModalButton {

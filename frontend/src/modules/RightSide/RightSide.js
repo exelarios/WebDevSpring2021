@@ -13,13 +13,11 @@ class RightSide extends Component {
     }
 
     render() {
-        console.log(this.props.location.pathname)
         const store = '/home/store/upload'
         const blog = '/home/blog/upload'
         return (
             <>
-                <Route path={(this.props.location.pathname === '/home/store/upload') ? store : blog} component={UploadModal}/>
-                <div class="rightside">
+                <div className="rightside">
                     <div>
                         <FilterBox />
                         <Link to={(this.props.location.pathname === '/home/store') ? store : blog}>
