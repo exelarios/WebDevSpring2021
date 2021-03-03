@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import Comment from './Comment'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import { UserInfo } from '../UserInfoContext'
 
 function HomeCardModal({ match }) {
     const [item, setItem] = useState({});
     const [userInfo, setUserInfo] = useState({});
+    const { token } = UserInfo()
 
     useEffect(() => {
       fetchItems()
@@ -15,7 +17,7 @@ function HomeCardModal({ match }) {
         const settings = {
             headers: {
                 "Content-Type": "application/json",
-                Authorization: "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMzIwMWRiZTE2MWQ5NTQ1MDJkZWM1MSIsImlhdCI6MTYxNDI5ODE5MywiZXhwIjoxNjE0Mzg0NTkzfQ.NtY1HiIBeul4vJhKC_aQzcEOqRK_VyUI891jqMQTh9o"
+                Authorization: "Bearer " + token
             }
         }
   
