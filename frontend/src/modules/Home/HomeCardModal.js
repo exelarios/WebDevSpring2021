@@ -17,11 +17,7 @@ function HomeCardModal({ match }) {
         const settings = {
             headers: {
                 "Content-Type": "application/json",
-<<<<<<< HEAD
                 Authorization: "Bearer " + token
-=======
-                Authorization: "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMzg4NzBiMzEyNTkwNzVmYjQ3MDUxNCIsImlhdCI6MTYxNDM4NDQ3MSwiZXhwIjoxNjE0NDcwODcxfQ.ddB0NlNVNemn9FntIvpNT6-Y19ffLP-OLXx31gFP3jU"
->>>>>>> e0304679790c273f2ad2a1d748b82bfb47bf2b7f
             }
         }
   
@@ -59,7 +55,7 @@ function HomeCardModal({ match }) {
                             </div>
                         </div>
                         <hr id="break"/>
-                        <div id="commentBox">
+                        <div id="commentBoxHome">
                             <Comment />
                             <Comment />
                             <Comment />

@@ -5,13 +5,11 @@ import RightSide from './RightSide/RightSide';
 import Blog from './Blog/Blog';
 import SearchBar from './SearchBar/SearchBar';
 import { Route, Switch } from 'react-router-dom';
-import axios from 'axios'
 import UploadModal from './RightSide/UploadModal';
 import HomeCardModal from './Home/HomeCardModal';
 import ThreadCardModal from './Blog/ThreadCardModal';
 
 export const API_URL = 'http://localhost:5000'
-export const auth_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMzg4NzBiMzEyNTkwNzVmYjQ3MDUxNCIsImlhdCI6MTYxNDM4NDQ3MSwiZXhwIjoxNjE0NDcwODcxfQ.ddB0NlNVNemn9FntIvpNT6-Y19ffLP-OLXx31gFP3jU"
 
 class MainPage extends Component {
     constructor(props) {
