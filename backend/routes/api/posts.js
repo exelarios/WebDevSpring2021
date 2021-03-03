@@ -102,4 +102,5 @@ router.get("/:id", protected, async (req, res) => {
         });
     }
 });
+
 module.exports = router;

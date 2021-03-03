@@ -316,7 +316,25 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:5000/api/items/search?keyword=Brave",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"items",
+								"search"
+							],
+							"query": [
+								{
+									"key": "keyword",
+									"value": "Brave"
+								}
+							]
+						}
 					},
 					"response": []
 				},
@@ -348,7 +366,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/items?keyword=Brave",
+							"raw": "http://localhost:5000/api/items/search?keyword=Brave",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -356,7 +374,8 @@
 							"port": "5000",
 							"path": [
 								"api",
-								"items"
+								"items",
+								"search"
 							],
 							"query": [
 								{
