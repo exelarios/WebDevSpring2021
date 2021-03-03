@@ -9,7 +9,7 @@ export default class ThreadCard extends Component {
                     <p className="info" id="author">Posted by: {this.props.author}</p>
                     <p className="info" id="topic">Topic: {this.props.topic}</p>
                     <blockquote className="summary">
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nihil tempora possimus harum recusandae...</p>
+                        <p>{ this.props.summary }</p>
                     </blockquote>
                 </div>
             </div>

@@ -8,6 +8,10 @@ import { Route, Switch } from 'react-router-dom';
 import axios from 'axios'
 import UploadModal from './RightSide/UploadModal';
 import HomeCardModal from './Home/HomeCardModal';
+import ThreadCardModal from './Blog/ThreadCardModal';
+
+export const API_URL = 'http://localhost:5000'
+export const auth_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMzg4NzBiMzEyNTkwNzVmYjQ3MDUxNCIsImlhdCI6MTYxNDM4NDQ3MSwiZXhwIjoxNjE0NDcwODcxfQ.ddB0NlNVNemn9FntIvpNT6-Y19ffLP-OLXx31gFP3jU"
 
 class MainPage extends Component {
     constructor(props) {
@@ -59,6 +63,7 @@ class MainPage extends Component {
                 <Switch>
                     <Route exact path={(window.location.pathname === '/home/store/upload') ? store : blog} component={UploadModal}/>
                     <Route path="/home/store/:id" component={HomeCardModal} />
+                    <Route path="/home/blog/:id" component={ThreadCardModal} />
                 </Switch>
             </div>
         )

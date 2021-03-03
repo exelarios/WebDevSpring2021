@@ -1,39 +1,48 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 import './Blog.css';
 import ThreadCard from './ThreadCard';
-import ThreadCardModal from './ThreadCardModal';
 
+import { auth_token, API_URL } from '../MainPage';
 
+function Blog() {
+  const [threads, setThreads] = useState([]);
+  useEffect(() => {
+    fetchThreads()
+  }, [])
 
-class Blog extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      modalActive: false
+  const fetchThreads = async () => {
+    const settings = {
+      headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + auth_token
+      }
     }
-  }
 
-  toggleModal = () => {
-    let changeState = (this.state.modalActive) ? false : true;
-    this.setState({
-      modalActive: changeState
-    })
-  }
-
-  render() {
-    return (
-      <>
-        <ThreadCardModal toggleModal={this.toggleModal} modalActive={this.state.modalActive} />
-
-        <div className="container" id="blogPage">
-          <ThreadCard toggleModal={this.toggleModal} title="Thread title 1" author="John Doe" topic="Electronics"/>
-          <ThreadCard toggleModal={this.toggleModal} title="Thread title 2" author="John Doe" topic="Others"/>
-          <ThreadCard toggleModal={this.toggleModal} title="Thread title 3" author="John Doe" topic="Housing"/>
-          <ThreadCard toggleModal={this.toggleModal} title="Thread title 4" author="John Doe" topic="Classes"/>
-        </div>
-      </>
-    )
-  }
+    axios.get(API_URL + '/api/items/search', 
+      settings)
+      .then(response => {
+        setThreads(response.data.items)
+      }, (error) => {
+        console.error(error)
+      })
+  };
+  
+  return (
+    <>
+      <div className="container" id="blogPage">
+        {threads.map(thread => {
+            return (
+              <Link key={thread._id} to={`/home/blog/${thread._id}`} style={{ color: 'inherit', textDecoration: 'inherit'}}>
+                <ThreadCard title={ thread.name } author={ thread.seller } topic={ thread.category } summary={ thread.description }/>
+              </Link>
+            )
+        })}
+      </div>
+    </>
+  );
+  
 }
 
 export default Blog

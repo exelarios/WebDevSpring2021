@@ -7,6 +7,7 @@
 }
 
 .threadCard {
+    width: 60vw;
     background: white;
     margin-bottom: .5em;
     border-radius: 5px;
@@ -14,7 +15,7 @@
 }
 
 .threadTitle {
-    margin-top: 0%;
+    margin-top: 2%;
     margin-bottom: 0%;
 }
 
@@ -24,6 +25,28 @@
     display: inline;
     font-size: 90%;
     font-style: italic;
+}
+
+.threadDetail {
+    display: grid;
+    grid-template-columns: 10fr 2fr;
+}
+
+.threadWritter {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 10%;
+    align-items: center;
+    justify-items: center;
+}
+
+.threadWritter span{
+    text-align: right;
+}
+
+.threadWritter img{
+    width: 60px;
+    border-radius: 50px;
 }
 
 #author {
@@ -39,3 +62,50 @@
     margin-left: 1vw;
 }
 
+.blogModal {
+    width: 85vw;
+    min-height: 650px;
+    padding: 0 1.5em;
+}
+
+.threadPosting {
+    border-bottom: 0.5px solid rgb(209, 209, 209);
+    margin-bottom: 1em;
+}
+
+.threadInfo {
+    margin: 0px;
+    margin-top: 0%;
+    color: grey;
+    font-size: 95%;
+    font-style: italic;
+}
+
+.comments {
+    display: grid;
+    grid-template-columns: 1fr 15fr;
+    grid-template-rows: 30px auto;
+    grid-template-areas:
+        "photo username"
+        ". text";
+    margin-bottom: 1em;
+}
+
+.comment{
+    text-align: center;
+    margin: 3px;
+}
+
+#commentBox {
+    max-height: 5px;
+    width: 100%;
+    border: 1px solid rgb(202, 202, 202);
+    border-radius: 5px;
+    padding-left: 10px;
+    font-size: 1em;
+    box-sizing: border-box;
+    resize: none;
+    z-index: 10;
+    background-color: rgb(247, 252, 249);
+    display: block;
+}
