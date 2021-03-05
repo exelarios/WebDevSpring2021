@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const protected = require("../../middleware/auth");
-
+const uploadImage = require("../../utils/uploadImage");
 const User = require("../../models/user");
+
+const singleUpload = uploadImage.single("image");
 
 /**
  * @route   GET api/users
@@ -31,7 +33,7 @@ router.get("/search", protected, async (req, res) => {
             success: true,
             page: page,
             pages: Math.ceil(count / itemsPerPage)
-        })
+        });
     } catch(error) {
         console.log(error);
         res.status(400).json({
@@ -63,11 +65,11 @@ router.get("/:id", protected, async (req, res) => {
 });
 
 /**
- * @route   GET api/users/{userId}/update
+ * @route   PUT api/users/{userId}
  * @desc    updates an indivdual's profile.
  * @access  Private
  */
-router.get(":id/profile/update", protected, async (req, res) => {
+router.put("/:id", protected, async (req, res) => {
     res.send({
         message: "lit",
         success: true
@@ -93,6 +95,31 @@ router.delete("/:id", protected, async (req, res) => {
             success: false
         });
     }
+});
+
+/**
+ * @route   POST api/users/upload
+ * @desc    upload image test
+ * @access  Private
+ */
+router.post("/upload", protected, async (req, res) => {
+    singleUpload(req, res, function(error) {
+        if (error) {
+            return res.json({
+                success: false,
+                errors: {
+                    title: "Image Upload Error",
+                    detail: error.message,
+                    error: error
+                }
+            });
+        } else {
+            return res.json({
+                success: true,
+                location: req.file.location
+            });
+        }
+    });
 });
 
 module.exports = router;

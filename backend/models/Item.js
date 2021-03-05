@@ -21,6 +21,18 @@ const itemSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    thumbnail: {
+        main: {
+            type: Number,
+            required: false,
+            default: 0
+        },
+        images: {
+            type: Array,
+            required: false,
+            default: [`${process.env.S3_URL}/defaults/profile.png`]
+        }
+    }
 });
 
 module.exports = mongoose.model("Item", itemSchema);

@@ -1,9 +1,12 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const uploadImage = require("../../utils/uploadImage");
 const router = express.Router();
 
 const User = require("../../models/user");
+const singleUpload = uploadImage.single("image");
+
 
 /**
  * @route   POST api/auth/register
@@ -27,29 +30,36 @@ router.post("/register", async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         if (!salt) throw Error("Failed to generate salt.");
 
-        const hash = await bcrypt.hash(password, salt);
-        if (!hash) throw Error("Failed to hash password.");
+        const hashedPassword = await bcrypt.hash(password, salt);
+        if (!hashedPassword) throw Error("Failed to hash password.");
 
         const user = await User.create({ // Also saves the data; no need to do ".save()"
             email: email,
             firstName: firstName,
             lastName: lastName,
-            password: hash
+            password: hashedPassword,
+            profilePic: req.file?.location
         });
 
+        // todo: Implement refresh token to prevent users from randomly getting logged out from token expiration.
+
+        const payload = {
+            id: user._id,
+            email: user.email,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            profilePic: req.file?.location || user.profilePic
+        }
+
         const token = jwt.sign(
-            { id: user._id}, 
+            payload, 
             process.env.JWT_SECRET, 
             {expiresIn: "1d" }
         );
 
         res.status(200).json({
             token: token,
-            user: {
-                id: user._id,
-                firstName: user.firstName,
-                lastName: user.lastName,
-            },
+            refresh_token: 0,
             success: true
         });
     } catch(error) {
@@ -83,16 +93,20 @@ router.post("/login", async (req, res) => {
         const isValidPassword = await bcrypt.compare(password, user.password);
         if (!isValidPassword) throw Error("Invalid Credentitals");
 
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {expiresIn: "1d"});
+        const payload = {
+            id: user._id,
+            email: user.email,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            profilePic: req.file?.location
+        }
+
+        const token = jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: "1d"});
         if (!token) throw Error("Failed to sign a token.");
 
         res.status(200).json({
             token: token,
-            user: {
-                id: user._id,
-                firstName: user.firstName,
-                lastName: user.lastName
-            },
+            refresh_token: 0,
             success: true
         })
     } catch(error) {

@@ -93,7 +93,7 @@ router.get("/:id", protected, async (req, res) => {
             title: post.title,
             topic: post.topic,
             body: post.body,
-            postBy: req.user.id
+            postBy: post.postBy
         });
     } else {
         res.status(404).json({
