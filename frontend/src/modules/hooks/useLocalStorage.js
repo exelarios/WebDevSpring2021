@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react'
 
-const PREFIX = 'cpp-marketplace- '
+const PREFIX = 'cpp-marketplace-'
 
 export default function useLocalStorage(key, initialValue) {
     const prefixKey = PREFIX + key
@@ -10,7 +10,7 @@ export default function useLocalStorage(key, initialValue) {
         if(typeof initialValue === 'function') {
             return initialValue()
         }  else {
-            return initialValue
+            return 'none'
         }
     })
 

@@ -118,9 +118,11 @@ h2 {
 .mainModal {
   width: 85vw;
   min-height: 650px;
-  height: 70vh;
+  height: 80vh;
   display: flex;
   flex-direction: row;
+  max-width: 1500px;
+  max-height: 1000px;
 }
 
 input, select, textarea{

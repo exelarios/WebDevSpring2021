@@ -2,10 +2,12 @@ import React, { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import history from '../history'
+import { UserInfoUpdate } from '../UserInfoContext'
 
-export default function SignIn({ setToken }) {
+export default function SignIn() {
     const usernameRef = useRef()
     const passwordRef = useRef()
+    const updateUser = UserInfoUpdate()
 
     const postLogIn = async () => {
         axios.post('http://localhost:5000/api/auth/login', {
@@ -14,7 +16,7 @@ export default function SignIn({ setToken }) {
         })
         .then((response) => {
             console.log(response)
-            setToken(response.data.token)
+            updateUser(response.data)
         }, (error) => {
             console.log(error)
         })
@@ -39,8 +41,10 @@ export default function SignIn({ setToken }) {
                 <button 
                     type="submit" 
                     className="uploadItem entryButton"
-                    onClick={() => history.push('/home/store')}
-                >Submit</button>
+                    onClick={() => {
+                        history.push('/')
+                    }}>
+                    Submit</button>
             </form>
         </>
     )

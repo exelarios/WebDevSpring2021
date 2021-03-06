@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import Comment from './Comment';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-
-import { auth_token, API_URL } from '../MainPage';
+import { UserInfo } from '../UserInfoContext'
+import { API_URL } from '../MainPage';
 
 
 function ThreadCardModal({ match }) {
     const [thread, setThread] = useState({});
     const [author, setAuthor] = useState({});
+    const { token } = UserInfo()
 
     useEffect(() => {
       fetchThreads()
@@ -18,7 +19,7 @@ function ThreadCardModal({ match }) {
         const settings = {
             headers: {
                 "Content-Type": "application/json",
-                Authorization: "Bearer " + auth_token
+                Authorization: "Bearer " + token
             }
         }
   

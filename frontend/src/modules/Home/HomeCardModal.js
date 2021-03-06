@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import Comment from './Comment'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import { UserInfo } from '../UserInfoContext'
 
 function HomeCardModal({ match }) {
     const [item, setItem] = useState({});
     const [userInfo, setUserInfo] = useState({});
+    const { token } = UserInfo()
 
     useEffect(() => {
       fetchItems()
@@ -15,7 +17,7 @@ function HomeCardModal({ match }) {
         const settings = {
             headers: {
                 "Content-Type": "application/json",
-                Authorization: "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMzg4NzBiMzEyNTkwNzVmYjQ3MDUxNCIsImlhdCI6MTYxNDM4NDQ3MSwiZXhwIjoxNjE0NDcwODcxfQ.ddB0NlNVNemn9FntIvpNT6-Y19ffLP-OLXx31gFP3jU"
+                Authorization: "Bearer " + token
             }
         }
   
@@ -53,7 +55,7 @@ function HomeCardModal({ match }) {
                             </div>
                         </div>
                         <hr id="break"/>
-                        <div id="commentBox">
+                        <div id="commentBoxHome">
                             <Comment />
                             <Comment />
                             <Comment />

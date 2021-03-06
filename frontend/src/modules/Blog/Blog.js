@@ -3,11 +3,14 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './Blog.css';
 import ThreadCard from './ThreadCard';
+import { UserInfo } from '../UserInfoContext'
 
-import { auth_token, API_URL } from '../MainPage';
+import { API_URL } from '../MainPage';
 
 function Blog() {
   const [threads, setThreads] = useState([]);
+  const { token } = UserInfo()
+
   useEffect(() => {
     fetchThreads()
   }, [])
@@ -16,7 +19,7 @@ function Blog() {
     const settings = {
       headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + auth_token
+          Authorization: "Bearer " + token
       }
     }
 

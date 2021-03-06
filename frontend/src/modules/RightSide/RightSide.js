@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import FilterBox from './FilterBox'
-import UploadModal from './UploadModal'
 import './RightSide.css'
-import { Route, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 class RightSide extends Component {
     constructor(props) {
