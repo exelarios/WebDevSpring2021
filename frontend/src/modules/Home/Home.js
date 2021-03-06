@@ -7,7 +7,7 @@ import { UserInfo } from '../UserInfoContext'
 
 function Home() {
   const [items, setItems] = useState([]);
-  const { token } = UserInfo()
+  const { token, homeFilter } = UserInfo()
 
   useEffect(() => {
     fetchItems()
@@ -23,22 +23,22 @@ function Home() {
         }
     }
 
-    const firstResponse = await axios.get('http://localhost:5000/api/items/search',
-      settings)
-      .then(response => {
-        return response.data.items
-      }, (error) => {
-        console.error(error)
-        return []
+  const firstResponse = await axios.get('http://localhost:5000/api/items/search',
+    settings)
+    .then(response => {
+      console.log(response.data.items)
+      return response.data.items
+    }, (error) => {
+      console.error(error)
+      return []
     })
 
     if(firstResponse !== undefined) {
       firstResponse.forEach(item => {
-      secondResponse[index] = axios.get(`http://localhost:5000/api/users/${item.seller}`, settings)
-      index++
-    })
+        secondResponse[index] = axios.get(`http://localhost:5000/api/users/${item.seller}`, settings)
+        index++
+      })
     }
-
 
     axios.all(secondResponse).then(axios.spread((...responses) => {
       for(let counter = 0; counter < responses.length; counter++) {
@@ -50,19 +50,38 @@ function Home() {
     })
   }
 
-    return (
-      <>
-        <div className="container" id="homePage">
-          {items.map(item => {
-            return (
-              <Link key={item._id} to={`/home/store/${item._id}`} style={{ color: 'inherit', textDecoration: 'inherit'}}>
-                <HomeCard key={item._id} cardTitle={item.name} cardPrice={item.price} sellerName={item.seller}/>
-              </Link>
-            )
-          })}
-        </div>
-      </>
-    )
+  const checkFilter = card => {
+    let boolean = true;
+    for(let i = 0; i < homeFilter.length; i++) {
+      if(homeFilter[i].checked) {
+        boolean = false
+        break
+      }
+    }
+    
+    if(!boolean) {
+      homeFilter.map(item => {
+        if(item.checked && card.category === item.category) {
+          boolean = true
+        }
+      })
+    }
+    return boolean
+  }
+
+  return (
+    <>
+      <div className="container" id="homePage">
+        {items.filter(card => checkFilter(card)).map(item => {
+          return (
+            <Link key={item._id} to={`/home/store/${item._id}`} style={{ color: 'inherit', textDecoration: 'inherit'}}>
+              <HomeCard key={item._id} cardTitle={item.name} cardPrice={item.price} sellerName={item.seller}/>
+            </Link>
+          )
+        })}
+      </div>
+    </>
+  )
 
 }
 

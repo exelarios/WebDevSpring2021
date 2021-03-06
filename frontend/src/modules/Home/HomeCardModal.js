@@ -5,9 +5,10 @@ import axios from 'axios'
 import { UserInfo } from '../UserInfoContext'
 
 function HomeCardModal({ match }) {
-    const [item, setItem] = useState({});
-    const [userInfo, setUserInfo] = useState({});
-    const { token } = UserInfo()
+    const [item, setItem] = useState({})
+    const [userInfo, setUserInfo] = useState({})
+    const [canDelete, setCanDelete] = useState(false)
+    const { token, id } = UserInfo()
 
     useEffect(() => {
       fetchItems()
@@ -25,6 +26,7 @@ function HomeCardModal({ match }) {
              settings)
              .then(response => {
                 setItem(response.data)
+                setCanDelete(response.data.seller === id);
                 return response.data
              }, (error) => {
                  console.error(error)
@@ -50,7 +52,10 @@ function HomeCardModal({ match }) {
                             <h3>{`Posted by ${userInfo.firstName} ${userInfo.lastName}`}</h3>
                             <p>{item.description}</p>
                             <div id="bottomDescription">
-                                <button id="homeModalButton" className="siteButton">Contact</button>
+                                <nav>
+                                    <button id="homeModalButton" className="siteButton">Contact</button>
+                                    <button id="deleteButton" className="siteButton" style={{display: canDelete ? 'block' : 'none'}}>Delete</button>
+                                </nav>
                                 <h4>{`$${item.price}`}</h4>
                             </div>
                         </div>
