@@ -15,8 +15,10 @@ export default function SignIn() {
             password: passwordRef.current.value
         })
         .then((response) => {
-            console.log(response)
-            updateUser(response.data)
+            if (response.status === 200) {
+                console.log(response)
+                updateUser(response.data)
+            }
         }, (error) => {
             console.log(error)
         })

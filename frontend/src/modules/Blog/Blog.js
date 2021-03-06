@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './Blog.css';
 import ThreadCard from './ThreadCard';
-import { UserInfo } from '../UserInfoContext'
 
+import { UserInfo } from '../UserInfoContext'
 import { API_URL } from '../MainPage';
 
 function Blog() {
@@ -23,10 +23,10 @@ function Blog() {
       }
     }
 
-    axios.get(API_URL + '/api/items/search', 
+    axios.get(API_URL + '/api/posts/search', 
       settings)
       .then(response => {
-        setThreads(response.data.items)
+        setThreads(response.data.posts)
       }, (error) => {
         console.error(error)
       })
@@ -38,7 +38,7 @@ function Blog() {
         {threads.map(thread => {
             return (
               <Link key={thread._id} to={`/home/blog/${thread._id}`} style={{ color: 'inherit', textDecoration: 'inherit'}}>
-                <ThreadCard title={ thread.name } author={ thread.seller } topic={ thread.category } summary={ thread.description }/>
+                <ThreadCard title={ thread.title } author={ thread.postBy } topic={ thread.topic } summary={ thread.body }/>
               </Link>
             )
         })}
