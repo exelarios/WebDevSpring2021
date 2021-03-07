@@ -29,6 +29,7 @@ function Blog() {
         setThreads(response.data.posts)
       }, (error) => {
         console.error(error)
+        return []
       })
   };
   

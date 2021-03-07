@@ -1,31 +1,38 @@
-import React, { useRef } from 'react'
-import { Link } from 'react-router-dom';
-import axios from 'axios'
-import { UserInfo } from '../UserInfoContext'
+import React, { useRef } from 'react';
+import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+import { UserInfo } from '../UserInfoContext';
 import { API_URL } from '../MainPage';
 
 function UploadQuestion () {
-    const { token } = UserInfo()
-    const titleRef = useRef()
-    const bodyRef = useRef()
-    const topicRef = useRef()
-
+    const { token } = UserInfo();
+    const history = useHistory();
+    
+    const titleRef = useRef();
+    const bodyRef = useRef();
+    const topicRef = useRef();
 
     const addThread = async () => {
-        axios.post(API_URL + '/api/posts/add', {
-            title: titleRef.current.value,
-            body: bodyRef.current.value,
-            topic: topicRef.current.value
-        }, {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + token
-            }
-        })
+        try {
+            await axios.post(API_URL + '/api/posts/add', {
+                title: titleRef.current.value,
+                body: bodyRef.current.value,
+                topic: topicRef.current.value
+            }, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token
+                }
+            });
+        }
+        catch (error) {
+            console.error(error);
+        }
     }
     const submitThread = (e) => {
         e.preventDefault()
         addThread();
+        history.push("/home/blog")
     };
 
     return (
@@ -46,10 +53,7 @@ function UploadQuestion () {
                         <option value="Others">Others</option>
                     </select>
                     <button type="submit" 
-                            className="uploadItem uploadModalButton siteButton"
-                            onClick={() => {
-                                return <Link to="/home/blog/" />
-                            }}>Send
+                            className="uploadItem uploadModalButton siteButton">Send
                     </button>
                 </form>
             </div>
