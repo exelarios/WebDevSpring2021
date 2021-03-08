@@ -5,9 +5,9 @@ import history from '../history'
 import { UserInfoUpdate } from '../UserInfoContext'
 
 export default function SignIn() {
-    const usernameRef = useRef()
-    const passwordRef = useRef()
-    const updateUser = UserInfoUpdate()
+    const usernameRef = useRef();
+    const passwordRef = useRef();
+    const updateUser = UserInfoUpdate();
 
     const postLogIn = async () => {
         axios.post('http://localhost:5000/api/auth/login', {
@@ -16,14 +16,13 @@ export default function SignIn() {
         })
         .then((response) => {
             console.log(response)
-            updateUser(response.data)
+            updateUser(response.data);
         }, (error) => {
-            console.log(error)
+            console.log(error);
         })
     }
 
     const onLoginSubmit = (e) => {
-        e.preventDefault()
         postLogIn()
     }
 

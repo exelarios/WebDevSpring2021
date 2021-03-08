@@ -1,7 +1,7 @@
 #homePage {
     width: 65%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(205px, 1fr));
+    grid-template-columns: 1fr 1fr 1fr;
     grid-auto-rows: minmax(100px, 1fr);
     grid-gap: 15px;
 }

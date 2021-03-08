@@ -60,7 +60,7 @@ function Home() {
     }
     
     if(!boolean) {
-      homeFilter.map(item => {
+      homeFilter.forEach(item => {
         if(item.checked && card.category === item.category) {
           boolean = true
         }

@@ -56,27 +56,27 @@ export function UserInfoProvider({ children }) {
 
     const blogObjectArray = [
         {
-            category: "housing",
+            category: "Housing",
             checked: false,
             id: 0
         },
         {
-            category: "classes",
+            category: "Classes",
             checked: false,
             id: 1
         },
         {
-            category: "items",
+            category: "Items",
             checked: false,
             id: 2
         },
         {
-            category: "events",
+            category: "Events",
             checked: false,
             id: 3
         },
         {
-            category: "others",
+            category: "Others",
             checked: false,
             id: 4
         }

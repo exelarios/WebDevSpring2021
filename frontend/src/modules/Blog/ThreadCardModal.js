@@ -32,7 +32,7 @@ function ThreadCardModal({ match }) {
                  console.error(error)
              });
 
-        axios.get(API_URL + `/api/users/${threadInfo.seller}`,
+        axios.get(API_URL + `/api/users/${threadInfo.postBy}`,
             settings)
             .then(response => {
                 setAuthor(response.data)

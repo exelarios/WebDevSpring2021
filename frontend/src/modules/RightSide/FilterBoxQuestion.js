@@ -1,37 +1,29 @@
-import React, { Component } from 'react'
+import React, { } from 'react'
+import { UserInfo, BlogFilterUpdate } from '../UserInfoContext'
 
-class FilterBoxQuestion extends Component {
-    render() {
-        return (
-            <section>
-                <label className="filterRows">
-                    <input type="checkbox" value="housing"/>
-                    <span className="customCheckbox"></span>
-                    <p>Housing</p>
-                </label>
-                <label className="filterRows">
-                    <input type="checkbox" value="classes"/>
-                    <span className="customCheckbox"></span>
-                    <p>Classes</p>
-                </label>
-                <label className="filterRows">
-                    <input type="checkbox" value="items"/>
-                    <span className="customCheckbox"></span>
-                    <p>Items</p>
-                </label>
-                <label className="filterRows">
-                    <input type="checkbox" value="events"/>
-                    <span className="customCheckbox"></span>
-                    <p>Events</p>
-                </label>
-                <label className="filterRows">
-                    <input type="checkbox" value="others"/>
-                    <span className="customCheckbox"></span>
-                    <p>Others</p>
-                </label>
-            </section>
-        )
+function FilterBoxQuestion() {
+    const { blogFilter } = UserInfo()
+    const updateBlogFilter = BlogFilterUpdate()
+
+    const changeFilter = id => {
+        let newArr = [...blogFilter]
+        newArr[id].checked = !newArr[id].checked
+        updateBlogFilter(newArr)
     }
+
+    return (
+        <section>
+            {blogFilter.map(item => {
+                return (
+                    <label className="filterRows" key={item.id}>
+                        <input type="checkbox" value={item.category} onClick={() => changeFilter(item.id)}/>
+                        <span className="customCheckbox"></span>
+                        <p>{item.category}</p>
+                    </label>
+                )
+            })}
+        </section>
+    )
 }
 
-export default  FilterBoxQuestion;
+export default FilterBoxQuestion;
