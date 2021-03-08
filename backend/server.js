@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
@@ -7,7 +8,6 @@ const auth = require("./routes/api/auth");
 const users = require("./routes/api/users");
 const items = require("./routes/api/items");
 const posts = require("./routes/api/posts");
-require("dotenv").config();
 
 mongoose.connect(process.env.URI, {
     useNewUrlParser: true,
@@ -22,7 +22,9 @@ app.get("/docs", (req, res) => {
 });
 
 app.use(cors());
-app.use(bodyParser.json()); // Required in order to read incoming request body in a middleware.
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
+// app.use(upload.any());
 
 app.use("/api/auth", auth);
 app.use("/api/users", users);
