@@ -23,6 +23,7 @@ export default function SignIn() {
     }
 
     const onLoginSubmit = (e) => {
+        e.preventDefault()
         postLogIn()
     }
 

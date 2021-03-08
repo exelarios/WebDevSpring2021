@@ -26,7 +26,6 @@ function Home() {
   const firstResponse = await axios.get('http://localhost:5000/api/items/search',
     settings)
     .then(response => {
-      console.log(response.data.items)
       return response.data.items
     }, (error) => {
       console.error(error)
@@ -35,14 +34,23 @@ function Home() {
 
     if(firstResponse !== undefined) {
       firstResponse.forEach(item => {
-        secondResponse[index] = axios.get(`http://localhost:5000/api/users/${item.seller}`, settings)
+        secondResponse[index] = axios.get(`http://localhost:5000/api/users/${item.seller}`, settings).then(response => {{
+          return response
+        }}, (error) => {
+          console.error(error)
+          return "Deleted User"
+        })
         index++
       })
     }
 
     axios.all(secondResponse).then(axios.spread((...responses) => {
       for(let counter = 0; counter < responses.length; counter++) {
-        firstResponse[counter].seller = `${responses[counter].data.firstName} ${responses[counter].data.lastName}`
+        if(responses[counter] !== "Deleted User") {
+          firstResponse[counter].seller = `${responses[counter].data.firstName} ${responses[counter].data.lastName}`
+        } else {
+          firstResponse[counter].seller = responses[counter]
+        }
       }
       setItems(firstResponse)
     })).catch(errors => {
