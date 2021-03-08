@@ -25,7 +25,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"dckwoktest@cpp.edu\",\n    \"firstName\": \"Deric\",\n    \"lastName\": \"Kwok\",\n    \"password\": \"password\"\n}",
+							"raw": "{\n    \"email\": \"ayylmao5487@cpp.edu\",\n    \"firstName\": \"Bob\",\n    \"lastName\": \"Smith\",\n    \"password\": \"password\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -51,11 +51,26 @@
 				{
 					"name": "login",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMjdiODYzYjI5YWQxN2MyOTdiNjBmYiIsImlhdCI6MTYxNDk0MTU2MiwiZXhwIjoxNjE1MDI3OTYyfQ.uFq8ogp3Dtnn4IKBR_2hed5XFfPi-j6MuhjR3c3HORw}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"dckwok5@cpp.edu\",\n    \"password\": \"urmom\"\n}",
+							"raw": "{\n    \"email\": \"ayylmao4@cpp.edu\",\n    \"password\": \"password\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -80,8 +95,26 @@
 				},
 				{
 					"name": "get_user",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
-						"method": "POST",
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMjdiODYzYjI5YWQxN2MyOTdiNjBmYiIsImlhdCI6MTYxNDk0MTU2MiwiZXhwIjoxNjE1MDI3OTYyfQ.uFq8ogp3Dtnn4IKBR_2hed5XFfPi-j6MuhjR3c3HORw}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -93,7 +126,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/users/update",
+							"raw": "http://localhost:5000/api/users/6038870b31259075fb470514",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -102,7 +135,100 @@
 							"path": [
 								"api",
 								"users",
-								"update"
+								"6038870b31259075fb470514"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upload_picture",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMjdiODYzYjI5YWQxN2MyOTdiNjBmYiIsImlhdCI6MTYxNDk0MTU2MiwiZXhwIjoxNjE1MDI3OTYyfQ.uFq8ogp3Dtnn4IKBR_2hed5XFfPi-j6MuhjR3c3HORw}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "picture",
+									"type": "file",
+									"src": "/Users/deric/Google Drive/Pictures/Self/pfp.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/users/picture",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"users",
+								"picture"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove_user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMjdiODYzYjI5YWQxN2MyOTdiNjBmYiIsImlhdCI6MTYxNDk0MTU2MiwiZXhwIjoxNjE1MDI3OTYyfQ.uFq8ogp3Dtnn4IKBR_2hed5XFfPi-j6MuhjR3c3HORw}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/users/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"users",
+								"delete"
 							]
 						}
 					},
@@ -161,7 +287,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/items",
+							"raw": "http://localhost:5000/api/items/search",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -169,7 +295,8 @@
 							"port": "5000",
 							"path": [
 								"api",
-								"items"
+								"items",
+								"search"
 							]
 						}
 					},
@@ -186,7 +313,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMjdiODYzYjI5YWQxN2MyOTdiNjBmYiIsImlhdCI6MTYxMzI5NDc2MywiZXhwIjoxNjEzMzgxMTYzfQ.FVKexuxPRsETUx7nwVaX2ckkLlX9N254braq2XkNylQ",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -203,7 +330,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/items?keyword=Brave",
+							"raw": "http://localhost:5000/api/items/search",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -211,13 +338,8 @@
 							"port": "5000",
 							"path": [
 								"api",
-								"items"
-							],
-							"query": [
-								{
-									"key": "keyword",
-									"value": "Brave"
-								}
+								"items",
+								"search"
 							]
 						}
 					},
@@ -231,7 +353,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMjdiODYzYjI5YWQxN2MyOTdiNjBmYiIsImlhdCI6MTYxMzI5NjAwMiwiZXhwIjoxNjEzMzgyNDAyfQ.cNaqdXyPJss_fb7lxoSyI6F6GK7ap8XUXDlgURDGo-U",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -240,7 +362,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Fire HD 10 Tablet (10.1\\\" 1080p full HD display, 32 GB) – Black\",\n    \"description\": \"10.1\\\" 1080p full HD display; 32 or 64 GB of internal storage (add up to 512 GB with microSD)\",\n    \"category\": \"Electronics\",\n    \"price\": 94.99\n}",
+							"raw": "{\n    \"name\": \"testing\",\n    \"description\": \"dank memses\",\n    \"category\": \"Electronics\",\n    \"price\": 50.99\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -305,6 +427,98 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "remove_item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMjdiODYzYjI5YWQxN2MyOTdiNjBmYiIsImlhdCI6MTYxNDk0MTU2MiwiZXhwIjoxNjE1MDI3OTYyfQ.uFq8ogp3Dtnn4IKBR_2hed5XFfPi-j6MuhjR3c3HORw}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/items/6045712df5c5465d94e1f4ba",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"items",
+								"6045712df5c5465d94e1f4ba"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upload_thumbnails",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "images",
+									"type": "file",
+									"src": [
+										"/Users/deric/Google Drive/Pictures/Self/IMG_5185.JPG",
+										"/Users/deric/Google Drive/Pictures/Self/pfp.jpg"
+									]
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/items/6045617479760b57d128a23d/upload",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"items",
+								"6045617479760b57d128a23d",
+								"upload"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -314,10 +528,20 @@
 				{
 					"name": "get_all_posts",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/items/search?keyword=Brave",
+							"raw": "http://localhost:5000/api/posts/search?title=Brave",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -325,12 +549,12 @@
 							"port": "5000",
 							"path": [
 								"api",
-								"items",
+								"posts",
 								"search"
 							],
 							"query": [
 								{
-									"key": "keyword",
+									"key": "title",
 									"value": "Brave"
 								}
 							]
@@ -469,8 +693,61 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "remove_post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMjdiODYzYjI5YWQxN2MyOTdiNjBmYiIsImlhdCI6MTYxNDk0MTU2MiwiZXhwIjoxNjE1MDI3OTYyfQ.uFq8ogp3Dtnn4IKBR_2hed5XFfPi-j6MuhjR3c3HORw}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/posts/604459983b4059326a46fbb7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"posts",
+								"604459983b4059326a46fbb7"
+							]
+						}
+					},
+					"response": []
 				}
 			]
+		}
+	],
+	"variable": [
+		{
+			"key": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMjdiODYzYjI5YWQxN2MyOTdiNjBmYiIsImlhdCI6MTYxNDk0MTU2MiwiZXhwIjoxNjE1MDI3OTYyfQ.uFq8ogp3Dtnn4IKBR_2hed5XFfPi-j6MuhjR3c3HORw",
+			"value": "token"
 		}
 	]
 }

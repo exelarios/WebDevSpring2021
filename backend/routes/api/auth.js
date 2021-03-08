@@ -2,34 +2,21 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const uploadImage = require("../../utils/uploadImage");
+const validation = require("../../middleware/validate");
 const router = express.Router();
-
 const User = require("../../models/user");
-const singleUpload = uploadImage.single("image");
-
 
 /**
  * @route   POST api/auth/register
  * @desc    Registers a new user.
  * @access  Public
  */
-router.post("/register", async (req, res) => {
-    // Deconstructing the request body.
+
+router.post("/register", validation.register, async (req, res) => {
     const { email, firstName, lastName, password } = req.body;
-
-    // Checks the database if the email already exist to prevent people from registering more than once.
-    const userExists = await User.findOne({ email });
-    if (userExists) {
-        return res.status(400).json({
-            message: "Email already registered.",
-            success: false
-        });
-    }
-
     try {
         const salt = await bcrypt.genSalt(10);
         if (!salt) throw Error("Failed to generate salt.");
-
         const hashedPassword = await bcrypt.hash(password, salt);
         if (!hashedPassword) throw Error("Failed to hash password.");
 
@@ -38,7 +25,7 @@ router.post("/register", async (req, res) => {
             firstName: firstName,
             lastName: lastName,
             password: hashedPassword,
-            profilePic: req.file?.location
+            picture: req.file?.location
         });
 
         // todo: Implement refresh token to prevent users from randomly getting logged out from token expiration.
@@ -48,7 +35,7 @@ router.post("/register", async (req, res) => {
             email: user.email,
             firstName: user.firstName,
             lastName: user.lastName,
-            profilePic: req.file?.location || user.profilePic
+            picture: req.file?.location || user.picture
         }
 
         const token = jwt.sign(
@@ -68,8 +55,7 @@ router.post("/register", async (req, res) => {
             success: false
         })
     }
-
-})
+});
 
 /**
  * @route   POST api/auth/login
@@ -78,12 +64,11 @@ router.post("/register", async (req, res) => {
  */
 router.post("/login", async (req, res) => {
     const { email, password } = req.body;
-
     if (!email || !password) {
         return res.status(400).json({ 
             message: "Please enter all required fields.",
             success: false
-        })
+        });
     }
 
     try {
@@ -98,7 +83,7 @@ router.post("/login", async (req, res) => {
             email: user.email,
             firstName: user.firstName,
             lastName: user.lastName,
-            profilePic: req.file?.location
+            picture: req.file?.location
         }
 
         const token = jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: "1d"});

@@ -1,15 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const protected = require("../../middleware/auth");
-const uploadImage = require("../../utils/uploadImage");
 const User = require("../../models/user");
-
-const singleUpload = uploadImage.single("image");
+const uploadImage = require("../../utils/uploadImage");
 
 /**
  * @route   GET api/users
  * @desc    Fetches all existing users.
- * @access  Private
+ * @access  private
  */
 router.get("/search", protected, async (req, res) => {
     const usersPerPage = 10;
@@ -46,7 +44,7 @@ router.get("/search", protected, async (req, res) => {
 /**
  * @route   GET api/users/{userId}
  * @desc    Fetch an individual user.
- * @access  Private
+ * @access  private
  */
 router.get("/:id", protected, async (req, res) => {
     const user = await User.findById(req.params.id);
@@ -54,7 +52,8 @@ router.get("/:id", protected, async (req, res) => {
         res.json({
             email: user.email,
             firstName: user.firstName,
-            lastName: user.lastName
+            lastName: user.lastName,
+            picture: user.picture
         });
     } else {
         res.status(404).json({
@@ -67,9 +66,9 @@ router.get("/:id", protected, async (req, res) => {
 /**
  * @route   PUT api/users/{userId}
  * @desc    updates an indivdual's profile.
- * @access  Private
+ * @access  private
  */
-router.put("/:id", protected, async (req, res) => {
+router.put("/update", protected, async (req, res) => {
     res.send({
         message: "lit",
         success: true
@@ -77,19 +76,21 @@ router.put("/:id", protected, async (req, res) => {
 });
 
 /**
- * @route   DELETE api/users/{userId}
+ * @route   delete api/users/delete
  * @desc    removes the user's account.
- * @access  Private
+ * @access  private
  */
-router.delete("/:id", protected, async (req, res) => {
-    const user = await User.findById(req.params.id);
-    if (user) {
-        await user.remove();
-        res.json({
-            message: "User has been sucessfully deleted.",
-            success: true
-        });
-    } else {
+router.delete("/delete", protected, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id);
+        if (user) {
+            await user.remove();
+            res.json({
+                message: "User has been sucessfully deleted.",
+                success: true
+            });
+        }
+    } catch(error) {
         res.status(404).json({
             message: "User doesn't exist in the database.",
             success: false
@@ -100,10 +101,12 @@ router.delete("/:id", protected, async (req, res) => {
 /**
  * @route   POST api/users/upload
  * @desc    upload image test
- * @access  Private
+ * @access  private
  */
-router.post("/upload", protected, async (req, res) => {
-    singleUpload(req, res, function(error) {
+
+const singleUpload = uploadImage.single("picture");
+router.put("/picture", protected, async (req, res) => {
+    singleUpload(req, res, async function(error) {
         if (error) {
             return res.json({
                 success: false,
@@ -113,11 +116,28 @@ router.post("/upload", protected, async (req, res) => {
                     error: error
                 }
             });
-        } else {
-            return res.json({
-                success: true,
-                location: req.file.location
-            });
+        }
+        try {
+            let user = await User.findById(req.user.id);
+            if (user) {
+                user.picture = req.file.location;
+                user.save();
+                res.json({
+                    success: true,
+                    user: {
+                        id: user._id,
+                        email: user.email,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        picture: req.file.location
+                    }
+                });
+            }
+        } catch(error) {
+            res.status(404).json({
+                message: "User doesn't exist in the database.",
+                success: false
+            })
         }
     });
 });

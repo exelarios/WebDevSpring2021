@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    profilePic: {
+    picture: {
         type: String,
         require: false,
         default: `${process.env.S3_URL}/defaults/profile.png`
