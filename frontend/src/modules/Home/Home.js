@@ -1,62 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import './Home.css';
 import HomeCard from './HomeCard';
-import axios from 'axios'
 import { Link } from 'react-router-dom';
 import { UserInfo } from '../UserInfoContext'
 
-function Home() {
-  const [items, setItems] = useState([]);
-  const { token, homeFilter } = UserInfo()
+function Home({ fetchItems, setItems, items}) {
+  const { homeFilter } = UserInfo()
 
   useEffect(() => {
-    fetchItems()
+    fetchItems(setItems)
   }, [])
-
-  const fetchItems = async () => {
-    let secondResponse = []
-    let index = 0
-    const settings = {
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + token
-        }
-    }
-
-  const firstResponse = await axios.get('http://localhost:5000/api/items/search',
-    settings)
-    .then(response => {
-      return response.data.items
-    }, (error) => {
-      console.error(error)
-      return []
-    })
-
-    if(firstResponse !== undefined) {
-      firstResponse.forEach(item => {
-        secondResponse[index] = axios.get(`http://localhost:5000/api/users/${item.seller}`, settings).then(response => {{
-          return response
-        }}, (error) => {
-          console.error(error)
-          return "Deleted User"
-        })
-        index++
-      })
-    }
-
-    axios.all(secondResponse).then(axios.spread((...responses) => {
-      for(let counter = 0; counter < responses.length; counter++) {
-        if(responses[counter] !== "Deleted User") {
-          firstResponse[counter].seller = `${responses[counter].data.firstName} ${responses[counter].data.lastName}`
-        } else {
-          firstResponse[counter].seller = responses[counter]
-        }
-      }
-      setItems(firstResponse)
-    })).catch(errors => {
-      console.error(errors)
-    })
-  }
 
   const checkFilter = card => {
     let boolean = true;
@@ -83,7 +36,7 @@ function Home() {
         {items.filter(card => checkFilter(card)).map(item => {
           return (
             <Link key={item._id} to={`/home/store/${item._id}`} style={{ color: 'inherit', textDecoration: 'inherit'}}>
-              <HomeCard key={item._id} cardTitle={item.name} cardPrice={item.price} sellerName={item.seller}/>
+              <HomeCard key={item._id} cardTitle={item.name} cardPrice={item.price} sellerName={item.seller} image={item.thumbnail.images}/>
             </Link>
           )
         })}

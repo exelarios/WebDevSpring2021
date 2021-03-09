@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react'
 import useLocalStorage from './hooks/useLocalStorage'
+import jwt_decode from "jwt-decode";
 
 const UserInfoContext = React.createContext()
 const UserInfoUpdateContext = React.createContext()
@@ -86,9 +87,11 @@ export function UserInfoProvider({ children }) {
     const[blogFilter, setBlogFilter] = useState(blogObjectArray);
 
     function updateUser(data) {
+        let decodedToken = jwt_decode(data.token)
+        console.log(jwt_decode(data.token))
         setToken(data.token)
-        setName(`${data.user.firstName} ${data.user.lastName}`)
-        setId(data.user.id)
+        setName(`${decodedToken.firstName} ${decodedToken.lastName}`)
+        setId(decodedToken.id)
     }
 
     function updateHomeFilter(filter) {

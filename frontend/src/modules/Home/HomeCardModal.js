@@ -4,17 +4,17 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { UserInfo } from '../UserInfoContext'
 
-function HomeCardModal({ match }) {
+function HomeCardModal({ match, fetchItems, setItems }) {
     const [item, setItem] = useState({})
     const [userInfo, setUserInfo] = useState({})
     const [canDelete, setCanDelete] = useState(false)
     const { token, id } = UserInfo()
 
     useEffect(() => {
-      fetchItems()
+      fetchItem()
     }, [])
   
-    const fetchItems = async () => {
+    const fetchItem = async () => {
         const settings = {
             headers: {
                 "Content-Type": "application/json",
@@ -41,6 +41,25 @@ function HomeCardModal({ match }) {
             })
     }
 
+    
+    const deleteThread = async () => {
+        const settings = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token
+            }
+        }
+
+        axios.delete(`http://localhost:5000/api/items/${match.params.id}`,
+        settings)
+        .then(response => {
+            console.log(response)
+            fetchItems(setItems)
+        }, (error) => {
+            console.error(error)
+        })
+    }
+
     return (
         <div className="modalScreen">
             <div className="modal mainModal">
@@ -54,7 +73,9 @@ function HomeCardModal({ match }) {
                             <div id="bottomDescription">
                                 <nav>
                                     <button id="homeModalButton" className="siteButton">Contact</button>
-                                    <button id="deleteButton" className="siteButton" style={{display: canDelete ? 'block' : 'none'}}>Delete</button>
+                                    <Link to="/home/store" onClick={deleteThread}style={{textDecoration: "none", width: "45%"}}>
+                                        <button id="deleteButton" className="siteButton" style={{display: canDelete ? 'block' : 'none'}}>Delete</button>
+                                    </Link>
                                 </nav>
                                 <h4>{`$${item.price}`}</h4>
                             </div>
