@@ -23,7 +23,7 @@ function ThreadCardModal({ match }) {
             }
         }
   
-        const threadInfo = await axios.get(API_URL + `/api/items/${match.params.id}`,
+        const threadInfo = await axios.get(API_URL + `/api/posts/${match.params.id}`,
              settings)
              .then(response => {
                 setThread(response.data)
@@ -47,9 +47,9 @@ function ThreadCardModal({ match }) {
                 <div className="threadPosting">
                     <div className="threadDetail">
                         <div>
-                            <h2 className="threadTitle">{ thread.name }</h2>
+                            <h2 className="threadTitle">{ thread.title }</h2>
                             <p className="threadInfo" id="datetime">Posted: MM/DD/YYYY</p>
-                            <p className="threadInfo" id="threadTopic">Topic: { thread.category }</p>
+                            <p className="threadInfo" id="threadTopic">Topic: { thread.topic }</p>
                         </div>
                         <div className="threadWritter">
                             <span>{ author.firstName } { author.lastName }</span>
@@ -57,7 +57,7 @@ function ThreadCardModal({ match }) {
                         </div>
                     </div>
                     
-                    <p id="threadContain">{ thread.description }</p>
+                    <p id="threadContain">{ thread.body }</p>
                 </div>
                 
                 <div className="threadComments">
