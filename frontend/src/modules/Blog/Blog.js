@@ -9,7 +9,7 @@ import { API_URL } from '../MainPage';
 
 function Blog() {
   const [threads, setThreads] = useState([]);
-  const { token } = UserInfo()
+  const { token, blogFilter } = UserInfo();
 
   useEffect(() => {
     fetchThreads()
@@ -26,17 +26,35 @@ function Blog() {
     axios.get(API_URL + '/api/posts/search', 
       settings)
       .then(response => {
-        setThreads(response.data.posts)
+        setThreads(response.data.posts);
       }, (error) => {
-        console.error(error)
-        return []
+        console.error(error);
       })
   };
+
+  const checkFilter = card => {
+    let boolean = true;
+    for(let i = 0; i < blogFilter.length; i++) {
+      if(blogFilter[i].checked) {
+        boolean = false;
+        break;
+      }
+    }
+    
+    if(!boolean) {
+      blogFilter.forEach(item => {
+        if(item.checked && card.topic === item.category) {
+          boolean = true;
+        }
+      })
+    }
+    return boolean
+  }
   
   return (
     <>
       <div className="container" id="blogPage">
-        {threads.map(thread => {
+        {threads.filter(thread => checkFilter(thread)).map(thread => {
             return (
               <Link key={thread._id} to={`/home/blog/${thread._id}`} style={{ color: 'inherit', textDecoration: 'inherit'}}>
                 <ThreadCard title={ thread.title } author={ thread.postBy } topic={ thread.topic } summary={ thread.body }/>

@@ -11,7 +11,7 @@ export default class HomeCard extends Component {
                     <h2>{`$${this.props.cardPrice}`}</h2>
                 </div>
                 <div className="userInfo">
-                    <div className="profilePictureCard"></div>
+                    <div className="profilePictureCard" style={{backgroundImage: `url(${this.props.image[0]})`}}></div>
                     <h3>{this.props.sellerName}</h3>
                 </div>
             </div>
