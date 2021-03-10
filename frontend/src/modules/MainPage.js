@@ -4,7 +4,7 @@ import Home from './Home/Home';
 import RightSide from './RightSide/RightSide';
 import Blog from './Blog/Blog';
 import SearchBar from './SearchBar/SearchBar';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import UploadModal from './RightSide/UploadModal';
 import HomeCardModal from './Home/HomeCardModal';
 import ThreadCardModal from './Blog/ThreadCardModal';
@@ -39,7 +39,7 @@ function MainPage() {
             }
         }
     
-      const firstResponse = await axios.get('http://localhost:5000/api/items/search?page=2',
+      const firstResponse = await axios.get('http://localhost:5000/api/items/search?page=1',
         settings)
         .then(response => {
         console.log(response.data)
@@ -115,4 +115,4 @@ function MainPage() {
     )
 }
 
-export default MainPage
+export default withRouter(MainPage)

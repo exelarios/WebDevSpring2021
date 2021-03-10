@@ -30,7 +30,7 @@ export default function SignIn() {
     return (
         <>
             <h2>Sign In</h2>
-            <form onSubmit={onLoginSubmit} id="signInForm" className="signForm">
+            <form onSubmit={e => onLoginSubmit(e)} id="signInForm" className="signForm">
                 <label className="labelEntry" htmlFor="username">Username:</label>
                 <input className="entryInput" name="username" ref={usernameRef}></input>
                 <label className="labelEntry" htmlFor="password">Password:</label>
@@ -38,13 +38,9 @@ export default function SignIn() {
                 <Link to="/entry/signup">
                     <p id="signUpLink">Sign Up</p>
                 </Link>   
-                <button 
-                    type="submit" 
-                    className="uploadItem entryButton"
-                    onClick={() => {
-                        history.push('/')
-                    }}>
-                    Submit</button>
+                <Link to="/home/store">
+                    <button type="submit" className="uploadItem entryButton">Submit</button>
+                </Link>
             </form>
         </>
     )

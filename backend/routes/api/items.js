@@ -4,7 +4,6 @@ const uploadImage = require("../../utils/uploadImage");
 const protected = require("../../middleware/auth");
 const Item = require("../../models/item");
 const User = require("../../models/user");
-const uploadImage = require("../../utils/uploadImage");
 const validation = require("../../middleware/validate");
 /**
  * @route   GET api/auth/items/search
