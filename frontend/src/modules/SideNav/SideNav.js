@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { UserInfo, HomeFilterUpdate, BlogFilterUpdate } from '../UserInfoContext'
 
 const SideNav = (props) => {
-  const { homeFilter, blogFilter } = UserInfo()
+  const { homeFilter, blogFilter, token } = UserInfo()
   const updateHomeFilter = HomeFilterUpdate()
   const updateBlogFilter = BlogFilterUpdate()
 
@@ -32,8 +32,8 @@ const SideNav = (props) => {
             <button onClick={props.toggleBlogPage} id="blog" className="sideButton">Blog</button>
           </Link>
         </nav>
-        <Link to='/entry'>
-          <button type="button" id="logButton">Login</button> 
+        <Link to='/entry' onClick={() => (token !== 'none') ? localStorage.clear() : null}>
+          <button type="button" id="logButton">{(token !== 'none') ? 'Logout' : 'Login'}</button> 
         </Link>
         
     </nav>

@@ -2,10 +2,13 @@ import React, { useEffect } from 'react'
 import './Home.css';
 import HomeCard from './HomeCard';
 import { Link } from 'react-router-dom';
-import { UserInfo } from '../UserInfoContext'
+import { UserInfo, ItemsUpdate, FetchItems } from '../UserInfoContext'
 
-function Home({ fetchItems, setItems, items}) {
-  const { homeFilter } = UserInfo()
+
+function Home() {
+  const { homeFilter, items } = UserInfo()
+  const setItems = ItemsUpdate()
+  const fetchItems = FetchItems()
 
   useEffect(() => {
     fetchItems(setItems)
@@ -36,7 +39,7 @@ function Home({ fetchItems, setItems, items}) {
         {items.filter(card => checkFilter(card)).map(item => {
           return (
             <Link key={item._id} to={`/home/store/${item._id}`} style={{ color: 'inherit', textDecoration: 'inherit'}}>
-              <HomeCard key={item._id} cardTitle={item.name} cardPrice={item.price} sellerName={item.seller} image={item.thumbnail.images}/>
+              <HomeCard key={item._id} cardTitle={item.name} cardPrice={item.price} sellerName={item.seller} sellerPhoto={item.thumbnail.main} image={item.thumbnail.images}/>
             </Link>
           )
         })}

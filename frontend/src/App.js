@@ -11,8 +11,8 @@ function App() {
       <UserInfoProvider>
         <div className="App">
           <Switch>
-            <Route path="/entry" component={EntryPage}/>
             <Route path="/home" component={MainPage}/>
+            <Route path="/entry" component={EntryPage}/>
             <Route
               exact
               path="/"

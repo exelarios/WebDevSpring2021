@@ -36,9 +36,12 @@
     box-shadow: -1px 4px 5px 0px rgb(0 0 0 / 26%);
   }
 
-  
+.linkMargin {
+  margin-top: 3em;
+}
+
 .entryButton {
-    margin-top: 3em;
+  margin: 0;
     background: #1464b6;
     color: white;
   }

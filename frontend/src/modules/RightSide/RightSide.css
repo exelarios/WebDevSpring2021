@@ -134,12 +134,31 @@
 
 #userInfo {
     width: 100%;
-    height: 100px;
+    height: 80px;
+    display: flex;
+    flex-direction: row;
     border-radius: 10px;
     background-color: white;
+    box-sizing: border-box;
+    padding: 10px;
     margin-bottom: 3em;
     font-size: .8em;
     box-shadow: -1px 4px 5.88px 0.12px rgba(0, 0, 0, 0.26);
+}
+
+#userInfo > p {
+    font-size: 1.2em;
+    margin-top: 10px;
+    font-weight: bold;
+    margin-left: 10px;
+    color: #343434;
+}
+
+#userProfilePic {
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+    background-size: cover;
 }
 
 .uploadModalButton {

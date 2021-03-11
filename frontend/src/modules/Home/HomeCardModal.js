@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react'
 import Comment from './Comment'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import { UserInfo } from '../UserInfoContext'
+import { UserInfo, FetchItems, ItemsUpdate } from '../UserInfoContext'
 
-function HomeCardModal({ match, fetchItems, setItems }) {
+function HomeCardModal({ match }) {
     const [item, setItem] = useState({})
     const [userInfo, setUserInfo] = useState({})
     const [canDelete, setCanDelete] = useState(false)
     const { token, id } = UserInfo()
+    const setItems = ItemsUpdate()
+    const fetchItems = FetchItems()
 
     useEffect(() => {
       fetchItem()
@@ -22,6 +24,7 @@ function HomeCardModal({ match, fetchItems, setItems }) {
             }
         }
   
+        console.log("hello")
         const firstResponse = await axios.get(`http://localhost:5000/api/items/${match.params.id}`,
              settings)
              .then(response => {
@@ -52,8 +55,7 @@ function HomeCardModal({ match, fetchItems, setItems }) {
 
         axios.delete(`http://localhost:5000/api/items/${match.params.id}`,
         settings)
-        .then(response => {
-            console.log(response)
+        .then(() => {
             fetchItems(setItems)
         }, (error) => {
             console.error(error)
@@ -72,8 +74,10 @@ function HomeCardModal({ match, fetchItems, setItems }) {
                             <p>{item.description}</p>
                             <div id="bottomDescription">
                                 <nav>
-                                    <button id="homeModalButton" className="siteButton">Contact</button>
-                                    <Link to="/home/store" onClick={deleteThread}style={{textDecoration: "none", width: "45%"}}>
+                                    <button id="homeModalButton" className="siteButton">
+                                        <a style={{color: "inherit", textDecoration: "none"}} href={`mailto:${userInfo.email}`}>Contact</a>
+                                    </button>
+                                    <Link to="/home/store" onClick={deleteThread} style={{textDecoration: "none", width: "45%"}}>
                                         <button id="deleteButton" className="siteButton" style={{display: canDelete ? 'block' : 'none'}}>Delete</button>
                                     </Link>
                                 </nav>

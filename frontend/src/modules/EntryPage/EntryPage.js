@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Switch, Route, withRouter } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import Logo from '../../cpp-octo-web.svg'
 import './EntryPage.css'
 import SignIn from './SignIn';
@@ -20,7 +20,7 @@ class EntryPage extends Component {
                 <div className="modal" id="entryModal">
                     <Switch>
                         <Route path="/entry" exact component={SignIn}/>
-                        <Route path="/entry/signup" component={SignUp}/>
+                        <Route path="/entry/signup" exact component={SignUp}/>
                     </Switch>
                     <img src={Logo} alt="school_logo" style={{width: '40%', marginLeft: "-25px", marginTop: "7em"}}></img>
                 </div>

@@ -1,14 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import FilterBox from './FilterBox';
 import './RightSide.css';
 import { Link } from 'react-router-dom';
 import { UserInfo } from '../UserInfoContext';
+import axios from 'axios';
 
 function RightSide() {
 
-    const { name } = UserInfo();
+    const { name, id, token } = UserInfo();
+    const [ profilePicture, setProfilePicture ] = useState("");
     const store = '/home/store/upload'
     const blog = '/home/blog/upload'
+
+    useEffect(() => {
+        getProfilePicture()
+    }, [])
+
+    const getProfilePicture = async () => {
+        const settings = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token
+            }
+        }
+
+        await axios.get(`http://localhost:5000/api/users/${id}`,
+        settings)
+        .then(response => {
+            setProfilePicture(response.data.picture)
+        }).catch(error => {
+            console.error(error)
+        })
+    }
+
 
     return (
         <>
@@ -20,7 +44,7 @@ function RightSide() {
                     </Link>
                 </div>
                 <div id="userInfo">
-                    <p>Hello, </p>
+                    <div id="userProfilePic" style={{backgroundImage: `url(${profilePicture})`}}></div>
                     <p>{name}</p>
                 </div>
             </div>

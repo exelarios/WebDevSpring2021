@@ -1,20 +1,57 @@
-import React, { useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import { UserInfo } from '../UserInfoContext';
+import { UserInfo, FetchItems, ItemsUpdate } from '../UserInfoContext';
 import { API_URL } from '../MainPage';
 
 function UploadItem () {
     const { token } = UserInfo()
+    const [itemId, setItemId] = useState()
     const history = useHistory()
-
+    const setItems = ItemsUpdate()
+    const fetchItems = FetchItems()
     const nameRef = useRef()
     const descriptionRef = useRef()
     const categoryRef = useRef()
     const priceRef = useRef()
 
+    const [form, setForm] = useState({
+        name: "",
+        description: "",
+        category: "",
+        price: "",
+        picture: null
+    });
+
+    const config = {
+        headers: {
+            "Content-Type": 'multipart/form-data',
+            Authorization: "Bearer " + token
+        }
+    }
+
+    useEffect(() => {
+        if(itemId !== "" && form.picture !== null) {
+            submitPicture()
+        }
+    }, [itemId])
+
+    async function submitPicture() {
+        let payload = new FormData();
+        payload.append("images", form.picture);
+
+        await axios.put(`http://localhost:5000/api/items/${itemId}/upload`, payload,
+        config)
+        .then(() => {
+            fetchItems(setItems)
+            history.push("/home/store")
+        }, (error) => {
+            console.error(error)
+        })
+    }
+
     const addItem = async () => {
-        try {
+        try { 
             await axios.post(API_URL + '/api/items/add', {
                 name: nameRef.current.value,
                 description: descriptionRef.current.value,
@@ -26,16 +63,23 @@ function UploadItem () {
                     Authorization: "Bearer " + token
                 }
             })
+            .then(response => {
+                console.log(response)
+                setItemId(response.data.item.id)
+            })
         }
         catch (error) {
             console.error(error)
+        }
+        if(form.picture === null) {
+            fetchItems(setItems)
+            history.push("/home/store")
         }
     }
 
     const submitItem = (e) => {
         e.preventDefault()
         addItem()
-        history.push("/home/store")
     };
 
     return (
@@ -45,8 +89,8 @@ function UploadItem () {
             </div>
             <div className="modalBody">
                 <form onSubmit={submitItem} className="uploadForm">
-                    <input type="text" className="uploadInput" placeholder="Item Title" ref={nameRef}></input>
-                    <select className="uploadInput typeInput" defaultValue={'DEFAULT'} ref={categoryRef}>
+                    <input type="text" name="name" className="uploadInput" placeholder="Item Title"  ref={nameRef}></input>
+                    <select className="uploadInput typeInput" name="category" defaultValue={'DEFAULT'} ref={categoryRef} >
                         <option id="optionPlaceholder" value="DEFAULT" disabled={true}>Item Type</option>
                         <option value="Apparel">Apparel</option>
                         <option value="Electronics">Electronics</option>
@@ -54,10 +98,10 @@ function UploadItem () {
                         <option value="Lab Equipment">Lab Equipment</option>
                         <option value="Others">Others</option>
                     </select>
-                    <input type="text" className="uploadInput" placeholder="Item Price" ref={priceRef}></input>
-                    <label id="labelForFile" htmlFor="file" className="uploadInput">Insert Photo:</label>
-                    <input id="inputFile" name="file" type="file" className="uploadInput"></input>
-                    <textarea id="uploadDescription" className="uploadInput" placeholder="Item Description" ref={descriptionRef}></textarea>
+                    <input type="text" className="uploadInput" name="price" placeholder="Item Price" ref={priceRef} ></input>
+                    <label id="labelForFile" htmlFor="picture" className="uploadInput">Insert Photo:</label>
+                    <input id="inputFile" name="picture" type="file" className="uploadInput" onChange={(event) => setForm({...form, [event.target.name]: event.target.files[0]})}></input>
+                    <textarea id="uploadDescription" name="description"className="uploadInput" placeholder="Item Description" ref={descriptionRef}></textarea>
                     <button type="submit"
                             className="uploadItem uploadModalButton siteButton">Upload
                     </button>
