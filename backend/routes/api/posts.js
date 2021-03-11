@@ -10,7 +10,7 @@ const User = require("../../models/user");
  * @access  Private
  */
 router.get("/search", protected, async (req, res) => {
-    const postsPerPage = 10;
+    const postsPerPage = 15;
     const page = Number(req.query.page) || 1;
 
     // const keyword = req.query.keyword ? {
