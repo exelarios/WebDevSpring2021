@@ -132,10 +132,15 @@ router.put("/picture", protected, async (req, res) => {
                         picture: req.file.location
                     }
                 });
+            } else {
+                res.status(404).json({
+                    message: "User doesn't exist in the database.",
+                    success: false
+                })
             }
         } catch(error) {
             res.status(404).json({
-                message: "User doesn't exist in the database.",
+                message: "File doesn't exist.",
                 success: false
             })
         }
