@@ -6,16 +6,17 @@ import { UserInfo } from '../UserInfoContext'
 import { API_URL } from '../MainPage';
 
 
-function ThreadCardModal({ match }) {
+function ThreadCardModal({ match, fetchThreads, setThreads }) {
     const [thread, setThread] = useState({});
     const [author, setAuthor] = useState({});
-    const { token } = UserInfo()
+    const [canDelete, setCanDelete] = useState(false);
+    const { token, id } = UserInfo();
 
     useEffect(() => {
-      fetchThreads()
+      fetchThread()
     }, [])
   
-    const fetchThreads = async () => {
+    const fetchThread = async () => {
         const settings = {
             headers: {
                 "Content-Type": "application/json",
@@ -26,8 +27,9 @@ function ThreadCardModal({ match }) {
         const threadInfo = await axios.get(API_URL + `/api/posts/${match.params.id}`,
              settings)
              .then(response => {
-                setThread(response.data)
-                return response.data
+                setThread(response.data);
+                setCanDelete(response.data.postBy === id);
+                return response.data;
              }, (error) => {
                  console.error(error)
              });
@@ -37,9 +39,29 @@ function ThreadCardModal({ match }) {
             .then(response => {
                 setAuthor(response.data)
             }, (error) => {
+                setAuthor({firstName: "Deleted User",
+                             lastName: ""})
                 console.error(error)
             })
     };
+
+    const deleteThread = async () => {
+        const settings = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token
+            }
+        }
+
+        axios.delete(`http://localhost:5000/api/posts/${match.params.id}`,
+        settings)
+        .then(response => {
+            console.log(response)
+            fetchThreads(setThreads)
+        }, (error) => {
+            console.error(error)
+        })
+    }
 
     return (
         <div className="modalScreen">
@@ -56,7 +78,9 @@ function ThreadCardModal({ match }) {
                             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXZlaUXIWozu3xqknYB3S9nknCPGFPAEVZLA&usqp=CAU" alt="logo"></img>
                         </div>
                     </div>
-                    
+                    <Link to="/home/blog" onClick={deleteThread} style={{textDecoration: "none", width: "45%"}}>
+                        <button id="deleteButton" className="siteButton" style={{display: canDelete ? 'block' : 'none'}}>Delete</button>
+                    </Link>
                     <p id="threadContain">{ thread.body }</p>
                 </div>
                 

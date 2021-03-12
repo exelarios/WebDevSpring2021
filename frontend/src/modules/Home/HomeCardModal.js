@@ -37,6 +37,8 @@ function HomeCardModal({ match, fetchItems, setItems }) {
             .then(response => {
                 setUserInfo(response.data)
             }, (error) => {
+                setUserInfo({firstName: "Deleted User",
+                             lastName: ""})
                 console.error(error)
             })
     }

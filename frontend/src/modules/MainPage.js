@@ -17,6 +17,7 @@ function MainPage() {
     const [sideNavActive, setSideNavActive] = useState(true)
     const [isTop, setisTop] = useState(true)
     const [items, setItems] = useState([]);
+    const [threads, setThreads] = useState([]);
     const { token } = UserInfo()
 
     
@@ -42,7 +43,6 @@ function MainPage() {
       const firstResponse = await axios.get('http://localhost:5000/api/items/search?page=2',
         settings)
         .then(response => {
-        console.log(response.data)
           return response.data.items
         }, (error) => {
           console.error(error)
@@ -66,6 +66,51 @@ function MainPage() {
               firstResponse[counter].seller = `${responses[counter].data.firstName} ${responses[counter].data.lastName}`
             } else {
               firstResponse[counter].seller = responses[counter]
+            }
+          }
+          pageFunction(firstResponse)
+        })).catch(errors => {
+          console.error(errors)
+        })
+    }
+
+    const fetchThreads = async pageFunction => {
+      let secondResponse = []
+      let index = 0
+      const settings = {
+          headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + token
+          }
+      }
+  
+      const firstResponse = await axios.get('http://localhost:5000/api/posts/search',
+        settings)
+        .then(response => {
+          console.log(response.data.posts)
+          return response.data.posts
+        }, (error) => {
+          console.error(error)
+          return []
+        })
+    
+        if(firstResponse !== undefined) {
+          firstResponse.forEach(thread => {
+            secondResponse[index] = axios.get(`http://localhost:5000/api/users/${thread.postBy}`, settings).then(response => {{
+              return response
+            }}, (error) => {
+              console.error(error)
+              return "Deleted User"
+            })
+            index++
+          })
+        }
+        axios.all(secondResponse).then(axios.spread((...responses) => {
+          for(let counter = 0; counter < responses.length; counter++) {
+            if(responses[counter] !== "Deleted User") {
+              firstResponse[counter].postBy = `${responses[counter].data.firstName} ${responses[counter].data.lastName}`
+            } else {
+              firstResponse[counter].postBy = responses[counter]
             }
           }
           pageFunction(firstResponse)
@@ -101,7 +146,9 @@ function MainPage() {
                 <Route path="/home/store" render={() => (
                     <Home fetchItems={fetchItems} items={items} setItems={setItems}/>
                 )}/>
-                <Route path="/home/blog" component={Blog}/>
+                <Route path="/home/blog" render={() => (
+                    <Blog fetchThreads={fetchThreads} threads={threads} setThreads={setThreads}/>
+                )}/>
                 <Route path="/home" component={RightSide}/>
             </div>
             <Switch>
@@ -109,7 +156,9 @@ function MainPage() {
                 <Route path="/home/store/:id" render={({ match }) => (
                     <HomeCardModal match={match} fetchItems={fetchItems} setItems={setItems}/>
                 )}/>
-                <Route path="/home/blog/:id" component={ThreadCardModal} />
+                <Route path="/home/blog/:id" render={({ match }) => (
+                    <ThreadCardModal match={match} fetchThreads={fetchThreads} setThreads={setThreads}/>
+                )}/>
             </Switch>
         </div>
     )
