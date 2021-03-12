@@ -14,9 +14,9 @@ const SideNav = (props) => {
     newArr.forEach(item => {
       item.checked = false;
     })
-    if(type === "home") {
+    if(type === "home") { //If you are clicking on the blog page button
       updateHomeFilter(newArr)
-    } else {
+    } else { //If you are clicking on the home page button
       updateBlogFilter(newArr)
     }
 }

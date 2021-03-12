@@ -1,15 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import { UserInfo, FetchItems, ItemsUpdate } from '../UserInfoContext';
+import { UserInfo } from '../UserInfoContext';
 import { API_URL } from '../MainPage';
 
 function UploadItem () {
     const { token } = UserInfo()
     const [itemId, setItemId] = useState()
     const history = useHistory()
-    const setItems = ItemsUpdate()
-    const fetchItems = FetchItems()
     const nameRef = useRef()
     const descriptionRef = useRef()
     const categoryRef = useRef()
@@ -43,7 +41,6 @@ function UploadItem () {
         await axios.put(`http://localhost:5000/api/items/${itemId}/upload`, payload,
         config)
         .then(() => {
-            fetchItems(setItems)
             history.push("/home/store")
         }, (error) => {
             console.error(error)
@@ -72,7 +69,6 @@ function UploadItem () {
             console.error(error)
         }
         if(form.picture === null) {
-            fetchItems(setItems)
             history.push("/home/store")
         }
     }

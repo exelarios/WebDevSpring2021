@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import { UserInfo, HomeFilterUpdate } from '../UserInfoContext'
 
 function FilterBoxItem() {
@@ -15,7 +14,7 @@ function FilterBoxItem() {
         <section>
             {homeFilter.map(item => {
                 return (
-                    <label className="filterRows" key={item.id}>
+                    <label className="filterRows" style={{backgroundColor: (item.checked) ? "#588b60" : "#69a673"}} key={item.id}>
                         <input type="checkbox" value={item.category} onClick={() => changeFilter(item.id)}/>
                         <span className="customCheckbox"></span>
                         <p>{item.category}</p>

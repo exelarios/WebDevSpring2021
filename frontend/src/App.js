@@ -1,8 +1,7 @@
 import './App.css';
-import MainPage from './modules/MainPage';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-import EntryPage from './modules/EntryPage/EntryPage';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { UserInfoProvider } from './modules/UserInfoContext'
+import RedirectPage from './modules/RedirectPage';
 
 function App() {
 
@@ -10,17 +9,7 @@ function App() {
     <Router>
       <UserInfoProvider>
         <div className="App">
-          <Switch>
-            <Route path="/home" component={MainPage}/>
-            <Route path="/entry" component={EntryPage}/>
-            <Route
-              exact
-              path="/"
-              render={() => {
-                  return <Redirect to="/entry" />
-              }}
-            />
-          </Switch>
+          <RedirectPage />
         </div>
       </UserInfoProvider>
     </Router>
