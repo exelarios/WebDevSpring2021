@@ -84,7 +84,7 @@ function MainPage() {
           }
       }
   
-      const firstResponse = await axios.get('http://localhost:5000/api/posts/search',
+      const firstResponse = await axios.get(API_URL + '/api/posts/search',
         settings)
         .then(response => {
           console.log(response.data.posts)
@@ -96,7 +96,7 @@ function MainPage() {
     
         if(firstResponse !== undefined) {
           firstResponse.forEach(thread => {
-            secondResponse[index] = axios.get(`http://localhost:5000/api/users/${thread.postBy}`, settings).then(response => {{
+            secondResponse[index] = axios.get(API_URL + `/api/users/${thread.postBy}`, settings).then(response => {{
               return response
             }}, (error) => {
               console.error(error)

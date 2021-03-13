@@ -53,7 +53,7 @@ function ThreadCardModal({ match, fetchThreads, setThreads }) {
             }
         }
 
-        axios.delete(`http://localhost:5000/api/posts/${match.params.id}`,
+        axios.delete(API_URL + `/api/posts/${match.params.id}`,
         settings)
         .then(response => {
             console.log(response)
@@ -74,14 +74,14 @@ function ThreadCardModal({ match, fetchThreads, setThreads }) {
                             <p className="threadInfo" id="threadTopic">Topic: { thread.topic }</p>
                         </div>
                         <div className="threadWritter">
-                            <span>{ author.firstName } { author.lastName }</span>
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXZlaUXIWozu3xqknYB3S9nknCPGFPAEVZLA&usqp=CAU" alt="logo"></img>
+                            <p>{ author.firstName } { author.lastName }</p>
+                            <img src={author.picture} alt="logo"></img>
                         </div>
                     </div>
+                    <p id="threadContain">{ thread.body }</p>
                     <Link to="/home/blog" onClick={deleteThread} style={{textDecoration: "none", width: "45%"}}>
                         <button id="deleteButton" className="siteButton" style={{display: canDelete ? 'block' : 'none'}}>Delete</button>
                     </Link>
-                    <p id="threadContain">{ thread.body }</p>
                 </div>
                 
                 <div className="threadComments">

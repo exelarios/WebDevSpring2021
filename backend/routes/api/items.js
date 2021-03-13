@@ -11,7 +11,7 @@ const validation = require("../../middleware/validate");
  * @access  Private
  */
 router.get("/search", protected, async (req, res) => {
-    const itemsPerPage = 10;
+    const itemsPerPage = 15;
     const page = Number(req.query.page) || 1;
 
     // const keyword = req.query.keyword ? {
@@ -84,7 +84,8 @@ router.post("/add", [protected, validation.postItem], async(req, res) => {
                 description: description,
                 category: category,
                 price: price,
-                seller: req.user.id
+                seller: req.user.id,
+                thumbnail: item.thumbnail
             },
             success: true
         });
@@ -109,7 +110,8 @@ router.get("/:id", protected, async (req, res) => {
             description: item.description,
             category: item.category,
             price: item.price,
-            seller: item.seller
+            seller: item.seller,
+            thumbnail: item.thumbnail
         });
     } else {
         res.status(404).json({
