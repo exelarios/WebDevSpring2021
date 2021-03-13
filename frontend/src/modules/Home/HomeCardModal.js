@@ -1,18 +1,20 @@
-import React, { useEffect, useState } from 'react'
-import Comment from './Comment'
-import { Link } from 'react-router-dom'
-import axios from 'axios'
-import { UserInfo } from '../UserInfoContext'
+import React, { useEffect, useState } from 'react';
+import Comment from './Comment';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { UserInfo } from '../UserInfoContext';
+import LoadingAnimation from '../../5.svg';
 
-function HomeCardModal({ match, fetchItems, setItems }) {
-    const [item, setItem] = useState({})
-    const [userInfo, setUserInfo] = useState({})
-    const [canDelete, setCanDelete] = useState(false)
-    const { token, id } = UserInfo()
+function HomeCardModal({ match }) {
+    const [item, setItem] = useState({});
+    const [userInfo, setUserInfo] = useState({});
+    const [canDelete, setCanDelete] = useState(true);
+    const [loading, setLoading] = useState(true);
+    const { token, id } = UserInfo();
 
     useEffect(() => {
-      fetchItem()
-    }, [])
+      fetchItem();
+    }, []);
   
     const fetchItem = async () => {
         const settings = {
@@ -25,21 +27,23 @@ function HomeCardModal({ match, fetchItems, setItems }) {
         const firstResponse = await axios.get(`http://localhost:5000/api/items/${match.params.id}`,
              settings)
              .then(response => {
-                setItem(response.data)
+                setItem(response.data);
                 setCanDelete(response.data.seller === id);
-                return response.data
+                return response.data;
              }, (error) => {
-                 console.error(error)
+                 console.error(error);
              });
 
         axios.get(`http://localhost:5000/api/users/${firstResponse.seller}`,
             settings)
             .then(response => {
-                setUserInfo(response.data)
+                setUserInfo(response.data);
+                setLoading(false);
             }, (error) => {
                 setUserInfo({firstName: "Deleted User",
                              lastName: ""})
-                console.error(error)
+                console.error(error);
+                setLoading(false);
             })
     }
 
@@ -54,47 +58,57 @@ function HomeCardModal({ match, fetchItems, setItems }) {
 
         axios.delete(`http://localhost:5000/api/items/${match.params.id}`,
         settings)
-        .then(response => {
-            console.log(response)
-            fetchItems(setItems)
+        .then(() => {
         }, (error) => {
-            console.error(error)
+            console.error(error);
         })
     }
 
     return (
         <div className="modalScreen">
             <div className="modal mainModal">
-                <div id="mainModalImage"></div>
-                <div id="sideBar">
-                    <div id="itemInfo">
-                        <div id="itemDescription">
-                            <h2>{item.name}</h2>
-                            <h3>{`Posted by ${userInfo.firstName} ${userInfo.lastName}`}</h3>
-                            <p>{item.description}</p>
-                            <div id="bottomDescription">
-                                <nav>
-                                    <button id="homeModalButton" className="siteButton">Contact</button>
-                                    <Link to="/home/store" onClick={deleteThread}style={{textDecoration: "none", width: "45%"}}>
-                                        <button id="deleteButton" className="siteButton" style={{display: canDelete ? 'block' : 'none'}}>Delete</button>
-                                    </Link>
-                                </nav>
-                                <h4>{`$${item.price}`}</h4>
+                {loading ? (
+                    <div className="loadingScreen">
+                        <img src={LoadingAnimation}></img>
+                        Loading...
+                    </div>
+                ) : (
+                <>
+                    <div id="mainModalImage" style={{backgroundImage: `url(${item.thumbnail.images[0]})`}}></div>
+                    <div id="sideBar">
+                        <div id="itemInfo">
+                            <div id="itemDescription">
+                                <h2>{item.name}</h2>
+                                <h3>{`Posted by ${userInfo.firstName} ${userInfo.lastName}`}</h3>
+                                <p>{item.description}</p>
+                                <div id="bottomDescription">
+                                    <nav>
+                                        <button id="homeModalButton" className="siteButton">
+                                            <a style={{color: "inherit", textDecoration: "none"}} href={`mailto:${userInfo.email}`}>Contact</a>
+                                        </button>
+                                        <Link to="/home/store" onClick={deleteThread} style={{textDecoration: "none", width: "45%"}}>
+                                            <button id="deleteButton" className="siteButton" style={{display: canDelete ? 'block' : 'none'}}>Delete</button>
+                                        </Link>
+                                    </nav>
+                                    <h4>{`$${item.price}`}</h4>
+                                </div>
+                            </div>
+                            <hr id="break"/>
+                            <div id="commentBoxHome">
+                                <Comment />
+                                <Comment />
+                                <Comment />
+                                <Comment />
+                                <Comment />
                             </div>
                         </div>
-                        <hr id="break"/>
-                        <div id="commentBoxHome">
-                            <Comment />
-                            <Comment />
-                            <Comment />
-                            <Comment />
-                            <Comment />
+                        <div id="commentBar">
+                            <input id="comment" placeholder="Enter a comment"></input>
                         </div>
                     </div>
-                    <div id="commentBar">
-                        <input id="comment" placeholder="Enter a comment"></input>
-                    </div>
-                </div>
+                </>
+                )}
+                
             </div>
             <Link to="/home/store">
                 <span className="exitButton"></span>

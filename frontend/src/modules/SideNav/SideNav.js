@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { UserInfo, HomeFilterUpdate, BlogFilterUpdate } from '../UserInfoContext'
 
 const SideNav = (props) => {
-  const { homeFilter, blogFilter } = UserInfo()
+  const { homeFilter, blogFilter, token } = UserInfo()
   const updateHomeFilter = HomeFilterUpdate()
   const updateBlogFilter = BlogFilterUpdate()
 
@@ -14,9 +14,9 @@ const SideNav = (props) => {
     newArr.forEach(item => {
       item.checked = false;
     })
-    if(type === "home") {
+    if(type === "home") { //If you are clicking on the blog page button
       updateHomeFilter(newArr)
-    } else {
+    } else { //If you are clicking on the home page button
       updateBlogFilter(newArr)
     }
 }
@@ -32,8 +32,8 @@ const SideNav = (props) => {
             <button onClick={props.toggleBlogPage} id="blog" className="sideButton">Blog</button>
           </Link>
         </nav>
-        <Link to='/entry'>
-          <button type="button" id="logButton">Login</button> 
+        <Link to='/entry' onClick={() => (token !== 'none') ? localStorage.clear() : null}>
+          <button type="button" id="logButton">{(token !== 'none') ? 'Logout' : 'Login'}</button> 
         </Link>
         
     </nav>

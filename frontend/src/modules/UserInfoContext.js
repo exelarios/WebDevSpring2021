@@ -24,9 +24,8 @@ export function BlogFilterUpdate() {
 }
 
 export function UserInfoProvider({ children }) {
-    const [token, setToken] = useLocalStorage('token')
-    const [name, setName] = useLocalStorage('name')
-    const [id, setId] = useLocalStorage('id')
+
+    //Object array representing the filters and their given states
     const homeObjectArray = [
         {
             category: "Apparel",
@@ -83,15 +82,18 @@ export function UserInfoProvider({ children }) {
         }
     ]
 
-    const[homeFilter, setHomeFilter] = useState(homeObjectArray);
-    const[blogFilter, setBlogFilter] = useState(blogObjectArray);
+    const [token, setToken] = useLocalStorage('token');
+    const [name, setName] = useLocalStorage('name');
+    const [id, setId] = useLocalStorage('id');
+    const [homeFilter, setHomeFilter] = useState(homeObjectArray);
+    const [blogFilter, setBlogFilter] = useState(blogObjectArray);
 
-    function updateUser(data) {
+    function updateUser(data) { 
         let decodedToken = jwt_decode(data.token)
-        console.log(jwt_decode(data.token))
         setToken(data.token)
         setName(`${decodedToken.firstName} ${decodedToken.lastName}`)
         setId(decodedToken.id)
+        
     }
 
     function updateHomeFilter(filter) {

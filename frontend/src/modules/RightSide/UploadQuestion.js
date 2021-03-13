@@ -2,7 +2,6 @@ import React, { useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { UserInfo } from '../UserInfoContext';
-import { API_URL } from '../MainPage';
 
 function UploadQuestion () {
     const { token } = UserInfo();
@@ -14,7 +13,7 @@ function UploadQuestion () {
 
     const addThread = async () => {
         try {
-            await axios.post(API_URL + '/api/posts/add', {
+            await axios.post('http://localhost:5000/api/posts/add', {
                 title: titleRef.current.value,
                 body: bodyRef.current.value,
                 topic: topicRef.current.value
@@ -44,7 +43,7 @@ function UploadQuestion () {
                 <form onSubmit={submitThread} className="uploadForm">
                     <input id="questionTitle" className="uploadInput" name="title" placeholder="Type a title" ref={titleRef}></input>
                     <textarea id="questionText" className="uploadInput" placeholder="Type a Question" ref={bodyRef}></textarea>
-                    <select className="uploadInput typeInput" defaultValue={'DEFAULT'} ref={topicRef}>
+                    <select className="uploadInput typeInput" defaultValue={'Others'} ref={topicRef}>
                         <option id="optionPlaceholder" value="DEFAULT" disabled={true}>Choose a topic</option>
                         <option value="Housing">Housing</option>
                         <option value="Classes">Classes</option>
