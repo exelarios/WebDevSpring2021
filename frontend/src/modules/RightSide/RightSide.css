@@ -60,6 +60,18 @@
     transition: .5s;
 }
 
+.uploadLoadingScreen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    min-height: 500px;
+    height: 100%;
+    font-size: 2em;
+    color: #6c6c6c;
+}
+
 .uploadForm {
     display: flex;
 }

@@ -3,6 +3,7 @@ import Comment from './Comment'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { UserInfo } from '../UserInfoContext'
+import { useHistory } from 'react-router-dom';
 import LoadingAnimation from '../../5.svg'
 
 function HomeCardModal({ match }) {
@@ -11,12 +12,14 @@ function HomeCardModal({ match }) {
     const [canDelete, setCanDelete] = useState(true)
     const [loading, setLoading] = useState(true)
     const { token, id } = UserInfo()
+    const history = useHistory()
 
     useEffect(() => {
       fetchItem()
     }, [])
   
     const fetchItem = async () => {
+        setLoading(true)
         const settings = {
             headers: {
                 "Content-Type": "application/json",
@@ -57,6 +60,7 @@ function HomeCardModal({ match }) {
         axios.delete(`http://localhost:5000/api/items/${match.params.id}`,
         settings)
         .then(() => {
+            history.push("/home/store")
         }, (error) => {
             console.error(error)
         })
@@ -84,9 +88,7 @@ function HomeCardModal({ match }) {
                                         <button id="homeModalButton" className="siteButton">
                                             <a style={{color: "inherit", textDecoration: "none"}} href={`mailto:${userInfo.email}`}>Contact</a>
                                         </button>
-                                        <Link to="/home/store" onClick={deleteThread} style={{textDecoration: "none", width: "45%"}}>
-                                            <button id="deleteButton" className="siteButton" style={{display: canDelete ? 'block' : 'none'}}>Delete</button>
-                                        </Link>
+                                        <button id="deleteButton" onClick={deleteThread} className="siteButton" style={{display: canDelete ? 'block' : 'none', marginLeft: '1em'}}>Delete</button>
                                     </nav>
                                     <h4>{`$${item.price}`}</h4>
                                 </div>
