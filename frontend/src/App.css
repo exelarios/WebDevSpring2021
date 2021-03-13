@@ -195,7 +195,7 @@ input, select, textarea{
 }
 
 .siteButton {
-  background: #1464b6;
+  background: #3189e0;
   color: white;
   padding-left: 8px;
 }
@@ -281,4 +281,49 @@ left:35%;
   overflow-x: hidden;
   padding-top: 20px;
   text-align: center; 
+}
+
+
+/* Profile modal */
+.profileModal {
+  width: 50vw;
+  max-width: 500px;
+  min-height: 50vh;
+  max-height: 1000px;
+  padding: 40px;
+  display: table;
+}
+
+.profileModal h1 {
+  text-indent: 5vw;
+  font-family: 'Snell Roundhand, cursive', 'Jazz LET, fantasy', 'Brush Script MT', Arial, sans-serif;
+}
+
+.profile {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+.profile img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 50%;
+  height: 80px;
+  width: 80px;
+  padding: 10px;
+}
+
+.profileInfo h5{
+  margin-bottom: -10px;
+  font-family: 'Lucida Bright', 'Helvetica';
+}
+
+.profile p {
+  border-bottom: 0.5px solid rgb(206, 206, 206);
+  font-family: 'Candara', 'Optima', 'Garamond', 'Didot';
+}
+
+.deleteAccount {
+  margin-top: 50px;
 }

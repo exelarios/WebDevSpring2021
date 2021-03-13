@@ -158,7 +158,7 @@
     box-shadow: -1px 4px 5.88px 0.12px rgba(0, 0, 0, 0.26);
 }
 
-#userInfo > p {
+#userInfo p {
     font-size: 1.2em;
     margin-top: 10px;
     font-weight: bold;

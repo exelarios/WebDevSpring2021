@@ -8,14 +8,13 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import UploadModal from './RightSide/UploadModal';
 import HomeCardModal from './Home/HomeCardModal';
 import ThreadCardModal from './Blog/ThreadCardModal';
+import ProfileModal from './RightSide/ProfileModal';
 
 export const API_URL = 'http://localhost:5000'
 
 function MainPage() {
     const [sideNavActive, setSideNavActive] = useState(true)
     const [isTop, setisTop] = useState(true)
-
-    
 
     const closeSideNav = () => {
         setSideNavActive(false)
@@ -38,8 +37,6 @@ function MainPage() {
         }
     }, []) 
         
-    
-
     const store = '/home/store/upload'
     const blog = '/home/blog/upload'
 
@@ -56,9 +53,15 @@ function MainPage() {
             <Switch>
                 <Route exact path={(window.location.pathname === '/home/store/upload') ? store : blog} component={UploadModal}/>
                 <Route path="/home/store/:id" render={({ match }) => (
-                    <HomeCardModal match={match} />
+                  <HomeCardModal match={match} />
                 )}/>
-                <Route path="/home/blog/:id" component={ThreadCardModal} />
+                <Route path="/home/blog/:id" render={({ match }) => (
+                  <ThreadCardModal match={match} />
+                )}/>
+                <Route path="/home/profile/:id" render={() => (
+                  <ProfileModal />
+                )}/>
+
             </Switch>
         </div>
     )

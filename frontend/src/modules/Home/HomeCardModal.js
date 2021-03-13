@@ -15,8 +15,8 @@ function HomeCardModal({ match }) {
     const history = useHistory()
 
     useEffect(() => {
-      fetchItem()
-    }, [])
+      fetchItem();
+    }, []);
   
     const fetchItem = async () => {
         setLoading(true)
@@ -30,21 +30,23 @@ function HomeCardModal({ match }) {
         const firstResponse = await axios.get(`http://localhost:5000/api/items/${match.params.id}`,
              settings)
              .then(response => {
-                setItem(response.data)
+                setItem(response.data);
                 setCanDelete(response.data.seller === id);
-                return response.data
+                return response.data;
              }, (error) => {
-                 console.error(error)
+                 console.error(error);
              });
 
         axios.get(`http://localhost:5000/api/users/${firstResponse.seller}`,
             settings)
             .then(response => {
-                setUserInfo(response.data)
-                setLoading(false)
+                setUserInfo(response.data);
+                setLoading(false);
             }, (error) => {
-                console.error(error)
-                setLoading(false)
+                setUserInfo({firstName: "Deleted User",
+                             lastName: ""})
+                console.error(error);
+                setLoading(false);
             })
     }
 
@@ -62,7 +64,7 @@ function HomeCardModal({ match }) {
         .then(() => {
             history.push("/home/store")
         }, (error) => {
-            console.error(error)
+            console.error(error);
         })
     }
 

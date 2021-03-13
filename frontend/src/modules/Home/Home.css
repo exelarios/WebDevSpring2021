@@ -173,13 +173,15 @@
     padding: 5px;
     width: 45%;
     height: 25px;
+    border-radius: 3px;
 }
 
 #deleteButton {
-    background-color: #e14040;
+    background-color: #fb7373;
     padding: 5px;
     height: 25px;
     width: 100%;
+    border-radius: 3px;
 }
 
 #itemInfo::-webkit-scrollbar {

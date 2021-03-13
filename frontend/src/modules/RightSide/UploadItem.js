@@ -53,7 +53,7 @@ function UploadItem () {
     const addItem = async () => {
         setLoading(true)
         try { 
-            await axios.post(API_URL + '/api/items/add', {
+            await axios.post('http://localhost:5000/api/items/add', {
                 name: nameRef.current.value,
                 description: descriptionRef.current.value,
                 category: categoryRef.current.value,

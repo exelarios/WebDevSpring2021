@@ -34,18 +34,20 @@
 
 .threadWritter {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 2fr 1fr;
     padding-top: 10%;
     align-items: center;
     justify-items: center;
 }
 
-.threadWritter span{
-    text-align: right;
+.threadWritter p{
+    margin-left: auto; 
+    margin-right: 0;  
+    font-size: small;  
 }
 
 .threadWritter img{
-    width: 60px;
+    width: 35px;
     border-radius: 50px;
 }
 
@@ -62,10 +64,19 @@
     margin-left: 1vw;
 }
 
+#deleteButton {
+    background-color: #fb7373;
+    padding: 5px;
+    height: 25px;
+    width: 100%;
+    border-radius: 3px;
+}
+
 .blogModal {
     width: 85vw;
     min-height: 650px;
     padding: 0 1.5em;
+    position: relative;
 }
 
 .threadPosting {
@@ -94,10 +105,14 @@
 .comment{
     text-align: center;
     margin: 3px;
+    position: absolute;
+    bottom: 0;
+    width: 95%;
+    margin-bottom: 15px;
 }
 
 #commentBox {
-    max-height: 10vh;
+    max-height: 30px;
     width: 100%;
     border: 1px solid rgb(202, 202, 202);
     border-radius: 5px;
@@ -106,6 +121,6 @@
     box-sizing: border-box;
     resize: none;
     z-index: 10;
-    background-color: rgb(247, 252, 249);
+    background-color: rgb(245, 245, 245);
     display: block;
 }

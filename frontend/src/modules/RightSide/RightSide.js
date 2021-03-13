@@ -45,7 +45,9 @@ function RightSide() {
                 </div>
                 <div id="userInfo">
                     <div id="userProfilePic" style={{backgroundImage: `url(${profilePicture})`}}></div>
-                    <p>{name}</p>
+                    <Link to={`/home/profile/${id}`} style={{ color: 'inherit', textDecoration: 'inherit'}}>
+                        <p>{name}</p>
+                    </Link>
                 </div>
             </div>
         </>
