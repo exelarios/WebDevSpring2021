@@ -1,23 +1,27 @@
 #topNav {
-    width: 100%;
+    grid-area: topNav;
     height: 5vh;
-    min-height: 63px;
+    width: 100%;
     background-color: rgba(234, 234, 234, 0);
     position: fixed;
     box-shadow: none;
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-rows: 5vh;
+    grid-template-areas: 
+        "button search logo";
+    z-index: 10;
     transition: .2s;
 }
 
 #searchBar {
-    height: 32px;
+    grid-area: search;
+    height: 50%;
     align-self: center;
     border: none;
-    width: 40%;
+    width: 50%;
     box-shadow: -1px 4px 5px 0px rgba(0, 0, 0, 0.26);
     border-radius: 18px;
-    margin-left: 20px;
     padding-left: 20px;
     padding-right: 20px;
     font-size: 1.2em;
@@ -26,11 +30,17 @@
 }
 
 #navLogo {
-    margin-left: auto;
+    grid-area: logo;
     transition: .6s;
+    align-self: center;
+    max-width: 100%;
+    height: auto;
+    width: auto\9; /* ie8 */
+    margin-left: auto;
 }
 
 #navButton {
+    grid-area: button;
     align-self: center;
 }
 
@@ -38,6 +48,13 @@
     cursor: pointer;
 }
 
-#logoContainer {
-    width: 15%;
+@media only screen and (min-width: 1500px) {
+    #topNav {
+        grid-template-columns: 3fr 9fr 1fr;
+        min-height: 50px;
+    }
+
+    #searchBar {
+        min-height: 30px;
+    }
 }

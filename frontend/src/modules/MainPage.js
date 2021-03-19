@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import SideNav from './SideNav/SideNav';
 import Home from './Home/Home';
 import RightSide from './RightSide/RightSide';
@@ -24,28 +24,19 @@ function MainPage() {
         setSideNavActive(true)
     }
 
-    const checkTop = () => {
-        const valueisTop = window.scrollY < 30
+    const checkTop = e => {
+        const valueisTop = e.target.scrollTop < 60
         setisTop(valueisTop)
     }
-
-    useEffect(() => {
-        window.addEventListener('scroll', checkTop);
-
-        return function cleanup() {
-            window.removeEventListener('scroll', checkTop)
-        }
-    }, []) 
         
     const store = '/home/store/upload'
     const blog = '/home/blog/upload'
 
     return (
-        <div id="mainPage">
+        <div id="mainPage" onScroll={checkTop}>
             <SearchBar sideNavActive={sideNavActive} openSideNav={openSideNav} isTop={isTop} />
             <SideNav sideNavActive={sideNavActive} />
-            <div onClick={closeSideNav}id="mainContainer">
-                <div id="buffer"></div>
+            <div onClick={closeSideNav} id="mainContainer">
                 <Route exact path="/home/store" component={Home}/>
                 <Route exact path="/home/blog" component={Blog}/>
                 <Route path="/home" component={RightSide}/>

@@ -1,15 +1,21 @@
 #filterBox {
+    align-self: center;
     background-color: #69a673;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 60vw;
+    max-width: 500px;
     border-radius: 20px;
-    min-height: 300px;
     color: white;
     box-shadow: -4px 2px 13px 0px rgba(0, 0, 0, 0.26);
-    margin-top: 4.5em;
     align-content: center;
     padding: 10px;
     box-sizing: border-box;
+}
+
+#filterBox > section {
+    width: 100%;
 }
 
 .filterRows {
@@ -18,7 +24,7 @@
     height: 50px;
     background-color: #69a673;
     border-radius: 10px;
-    width: 90%;
+    width: 80%;
     margin-top: .2em;
     font-size: 1.2em;
     align-items: center;
@@ -36,20 +42,17 @@
 }
 
 .rightside {
+    grid-area: rightside;
     display: flex;
-    flex-direction: column;
-    height: 100vh;
-    width: 250px;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    right: 0;
+    flex-direction: column-reverse;
+    min-width: 250px;
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: center;
+    padding-right: 25px;
     overflow-x: hidden;
-    padding-top: 20px;
     text-align: center; 
-    padding-right: 30px;
-    justify-content: space-between;
-    align-content: center;
+    align-items: center;
 }
 
 #homeUpload {
@@ -58,6 +61,7 @@
     border-radius: 5px;
     max-width: 146px;
     transition: .5s;
+    min-width: 100px;
 }
 
 .uploadLoadingScreen {
@@ -92,6 +96,7 @@
     display: block;
     width: 15px;
     height: 15px;
+    z-index: 0;
     border: 3px solid white;
     background-color: rgba(105, 166, 115, 0);
     content: "";
@@ -106,9 +111,9 @@
 .filterRows .customCheckbox:after {
     left: 4px;
     top: 1px;
-    z-index: 50;
     width: 3px;
     height: 8px;
+    z-index: 0;
     border: solid white;
     border-width: 0 3px 3px 0;
     -webkit-transform: rotate(45deg);
@@ -145,9 +150,12 @@
 }
 
 #userInfo {
-    width: 100%;
     height: 80px;
     display: flex;
+    position: fixed;
+    width: 50%;
+    right: 20px;
+    bottom: 0;
     flex-direction: row;
     border-radius: 10px;
     background-color: white;
@@ -181,4 +189,92 @@
     resize: none;
     height: 10px;
     padding: 5px;
+}
+
+/**Media Queries**/
+@media only screen and (min-width: 600px) {
+    #userInfo {
+        width: 20%;
+    }
+}
+
+@media only screen and (min-width: 850px) {
+    .rightside {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        min-width: 250px;
+        width: 12%;
+        position: fixed;
+        top: 0;
+        padding-top: 90px;
+        box-sizing: border-box;
+        padding-right: 25px;
+        right: 0;
+        z-index: 0;
+        overflow-x: hidden;
+        text-align: center; 
+        justify-content: space-between;
+        align-items: unset;
+        align-content: center;
+    }
+
+    #filterBox {
+        background-color: #69a673;
+        flex-direction: column;
+        border-radius: 20px;
+        min-height: 300px;
+        width: 100%;
+        color: white;
+        box-shadow: -4px 2px 13px 0px rgba(0, 0, 0, 0.26);
+        align-content: center;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .filterRows {
+        display: flex;
+        height: 50px;
+        background-color: #69a673;
+        border-radius: 10px;
+        width: 70%;
+        margin-top: .2em;
+        font-size: 1.2em;
+        align-items: center;
+        padding: 10px;
+        margin-right: 0;
+    }
+}
+
+@media only screen and (min-width: 1300px) {
+    .rightside {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        min-width: 250px;
+        width: 12%;
+        position: fixed;
+        top: 0;
+        padding-top: 90px;
+        box-sizing: border-box;
+        padding-right: 25px;
+        right: 0;
+        z-index: 0;
+        overflow-x: hidden;
+        text-align: center; 
+        justify-content: space-between;
+        align-items: unset;
+        align-content: center;
+    }
+
+    .filterRows {
+        width: 90%;
+    }
+
+    #userInfo {
+        position: relative;
+        width: 100%;
+        right: 0;
+    }
+    
 }
