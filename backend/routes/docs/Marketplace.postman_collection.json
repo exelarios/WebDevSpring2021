@@ -70,7 +70,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"ayylmao4@cpp.edu\",\n    \"password\": \"password\"\n}",
+							"raw": "{\n    \"email\": \"ayylmao@cpp.edu\",\n    \"password\": \"password\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -270,7 +270,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMjdiODYzYjI5YWQxN2MyOTdiNjBmYiIsImlhdCI6MTYxMzI5NDc2MywiZXhwIjoxNjEzMzgxMTYzfQ.FVKexuxPRsETUx7nwVaX2ckkLlX9N254braq2XkNylQ",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -330,7 +330,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/items/search",
+							"raw": "http://localhost:5000/api/items/search?category=Books&page=1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -340,6 +340,16 @@
 								"api",
 								"items",
 								"search"
+							],
+							"query": [
+								{
+									"key": "category",
+									"value": "Books"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
 							]
 						}
 					},
@@ -396,7 +406,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMjdiODYzYjI5YWQxN2MyOTdiNjBmYiIsImlhdCI6MTYxNDMwMDQyMiwiZXhwIjoxNjE0Mzg2ODIyfQ.2OJDH15cTEnPycr_P8UV5e9orzVHvegae6jqtUAOMmA",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -736,6 +746,192 @@
 								"api",
 								"posts",
 								"604459983b4059326a46fbb7"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "comments",
+			"item": [
+				{
+					"name": "add_comment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"body\": \"LITTTTTTTTTT\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/comments/6044591dc79d61324558d6ad/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"comments",
+								"6044591dc79d61324558d6ad",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_comment_by_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/comments/60598ecc2f8974ec24480c64",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"comments",
+								"60598ecc2f8974ec24480c64"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_comment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/comments/60598ecc2f8974ec24480c64",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"comments",
+								"60598ecc2f8974ec24480c64"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_all_comments_by_itemId",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/items/6044591dc79d61324558d6ad/comments?page=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"items",
+								"6044591dc79d61324558d6ad",
+								"comments"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_comment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"body\": \"updatedddddd\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/comments/60598ecc2f8974ec24480c64",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"comments",
+								"60598ecc2f8974ec24480c64"
 							]
 						}
 					},
