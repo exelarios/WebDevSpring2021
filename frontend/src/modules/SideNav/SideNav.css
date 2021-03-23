@@ -1,7 +1,7 @@
 .sidenav {
     z-index: 11;
     height: 100vh;
-    width: 15%;
+    width: 40%;
     max-width: 300px;
     display: flex;
     position: fixed;
@@ -72,4 +72,10 @@
     font-size: 1.5em;
     text-align: left;
     padding: 10px;
+}
+
+@media only screen and (min-width: 1000px) {
+    .sidenav {
+        width: 15%;
+    }
 }

@@ -1,6 +1,7 @@
 #topNav {
     grid-area: topNav;
     height: 5vh;
+    min-height: 40px;
     width: 100%;
     background-color: rgba(234, 234, 234, 0);
     position: fixed;
@@ -16,15 +17,15 @@
 
 #searchBar {
     grid-area: search;
-    height: 50%;
+    height: 65%;
     align-self: center;
     border: none;
-    width: 50%;
+    width: 60%;
     box-shadow: -1px 4px 5px 0px rgba(0, 0, 0, 0.26);
     border-radius: 18px;
-    padding-left: 20px;
+    padding-left: 10px;
     padding-right: 20px;
-    font-size: 1.2em;
+    font-size: .8em;
     display: flex;
     opacity: 1;
 }
@@ -42,10 +43,20 @@
 #navButton {
     grid-area: button;
     align-self: center;
+    max-width: 30px;
+    width: 40%; 
+    margin-left: .5em;
 }
 
 #navButton:hover {
     cursor: pointer;
+}
+
+@media only screen and (min-width: 600px) {
+    #searchBar {
+        width: 50%;
+        height: 50%;
+    }
 }
 
 @media only screen and (min-width: 1500px) {
@@ -56,5 +67,12 @@
 
     #searchBar {
         min-height: 30px;
+        font-size: 1.2em;
+        padding-left: 20px;
+    }
+
+    #navButton {
+        max-width: 60px;
+        margin-left: 1em;
     }
 }

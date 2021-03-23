@@ -1,29 +1,27 @@
-import React, { useState, useCallback, useRef } from 'react'
+import React, { useCallback, useRef } from 'react'
 import './Home.css';
 import HomeCard from './HomeCard';
 import { Link } from 'react-router-dom';
-import { UserInfo } from '../UserInfoContext'
-import useRenderStorePage from '../hooks/useRenderStorePage'
+import { UserInfo, StorePageNumberUpdate } from '../UserInfoContext'
 import LoadingAnimation from '../../5.svg'
 
 
 function Home() {
-  const { homeFilter } = UserInfo()
-  const [items, setItems] = useState([])
-  const [pageNumber, setPageNumber] = useState(1)
-  const { loading, hasMore } = useRenderStorePage(setItems, pageNumber)
+  const { homeFilter, storeLoading, storeHasMore, items } = UserInfo()
+  const setPageNumber = StorePageNumberUpdate()
+  
   const observer = useRef()
 
   const lastBookElementRef = useCallback(node => {
-      if(loading) return 
+      if(storeLoading) return 
       if(observer.current) observer.current.disconnect()
       observer.current = new IntersectionObserver(entries => {
-        if(entries[0].isIntersecting && hasMore) {
+        if(entries[0].isIntersecting && storeHasMore) {
           setPageNumber(prevPageNumber => prevPageNumber + 1)
         }
       })
       if(node) observer.current.observe(node)
-  }, [loading, hasMore])
+  }, [storeLoading, storeHasMore])
 
   const checkFilter = card => {
     let boolean = true;
@@ -63,7 +61,7 @@ function Home() {
           }
         })}
       </div>
-      {loading ? (
+      {storeLoading ? (
           <div className="container loadPage">
               <img src={LoadingAnimation}></img>
               Loading...

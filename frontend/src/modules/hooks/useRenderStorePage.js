@@ -1,15 +1,13 @@
 import { useState, useEffect } from 'react'
-import { UserInfo } from '../UserInfoContext'
 import axios from 'axios'
 
-export default function useRenderStorePage(setFunction, currentPage = 1) {
-    const { token } = UserInfo()
-    const [loading, setLoading] = useState(true)
-    const [hasMore, setHasMore] = useState(false)
+export default function useRenderStorePage(token, setFunction, currentPage, nameQuery, categoryQuery) {
+    const [storeLoading, setStoreLoading] = useState(true)
+    const [storeHasMore, setStoreHasMore] = useState(false)
 
     useEffect(() => { //Grabs all items, grabs a user depending on each item's id and returns the name to the item
-        async function fetchItems(pageFunction, page) {
-            setLoading(true)
+        async function fetchItems(pageFunction, page, storeName, storeCategory) {
+            setStoreLoading(true)
             let secondResponse = []
             let index = 0
             const settings = {
@@ -18,11 +16,10 @@ export default function useRenderStorePage(setFunction, currentPage = 1) {
                     Authorization: "Bearer " + token
                 }
             }
-    
-            const firstResponse = await axios.get(`http://localhost:5000/api/items/search?page=${page}`,
+            const firstResponse = await axios.get(`http://localhost:5000/api/items/search?category=${storeName}&name=${storeName}&page=${page}`,
             settings)
             .then(response => {
-                setHasMore(response.data.pages !== page)
+                setStoreHasMore(response.data.pages !== page)
                 return response.data.items
             }, (error) => {
                 console.error(error)
@@ -63,12 +60,12 @@ export default function useRenderStorePage(setFunction, currentPage = 1) {
                     })
                 })
         
-                setLoading(false)
+                setStoreLoading(false)
             })).catch(errors => {
                 console.error(errors)
             })
         }
-        fetchItems(setFunction, currentPage);
-    }, [currentPage])
-    return { loading, hasMore }
+        fetchItems(setFunction, currentPage, nameQuery, categoryQuery);
+    }, [currentPage, nameQuery, categoryQuery])
+    return { storeLoading, storeHasMore }
 }

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import { UserInfo } from '../UserInfoContext';
+import { UserInfo, RefreshStore } from '../UserInfoContext';
 import { API_URL } from '../MainPage';
 import LoadingAnimation from '../../5.svg'
 
@@ -10,6 +10,7 @@ function UploadItem () {
     const [itemId, setItemId] = useState()
     const [loading, setLoading] = useState(false)
     const history = useHistory()
+    const refreshStore = RefreshStore()
     const nameRef = useRef()
     const descriptionRef = useRef()
     const categoryRef = useRef()
@@ -44,6 +45,7 @@ function UploadItem () {
         config)
         .then(() => {
             setLoading(false)
+            refreshStore()
             history.push("/home/store")
         }, (error) => {
             console.error(error)
@@ -73,6 +75,7 @@ function UploadItem () {
             console.error(error)
         }
         if(form.picture === null) {
+            refreshStore()
             history.push("/home/store")
         }
     }

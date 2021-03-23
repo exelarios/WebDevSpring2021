@@ -8,12 +8,19 @@ function SignUp() {
     const updateUser = UserInfoUpdate();
     const history = useHistory();
     const [form, setForm] = useState({
-        email: "ayylmao@cpp.edu",
-        firstName: "Bob",
-        lastName: "Smith",
-        password: "password",
+        email: "",
+        firstName: "",
+        lastName: "",
+        password: "",
         profilePic: null
     });
+    const [formError, setFormError] = useState({
+        email: true,
+        firstName: true,
+        lastName: true,
+        password: true
+    });
+    const [errors, setErrors] = useState({});
 
     const config = { 
         headers: { 
@@ -30,6 +37,7 @@ function SignUp() {
 
     const handleOnChange = (event) => {
         setForm({...form, [event.target.name]: event.target.value});
+        setFormError({...formError, [event.target.name]: event.target.value.length <= 0})
     }
 
     async function submitPicture() {
@@ -49,30 +57,38 @@ function SignUp() {
         })
     }
 
+    const checkPayload = (payload, key, error) => {
+        payload.append(key, form[key]);
+        if(formError[key]) {
+            error[key] = "Field is Empty"
+        }
+    }
+
     const submitRegistration = async e => {
         e.preventDefault()
-        let registerResponse
+        let keys = ["email", "firstName", "lastName", "password"];
+        let Errors = {};
         try {
             let payload = new FormData();
-            payload.append("email", form.email);
-            payload.append("firstName", form.firstName);
-            payload.append("lastName", form.lastName);
-            payload.append("password", form.password);
- 
-            registerResponse = await axios.post("http://localhost:5000/api/auth/register", payload,
+            keys.forEach(element => checkPayload(payload, element, Errors))
+            await axios.post("http://localhost:5000/api/auth/register", payload,
             config)
             .then(response => {
-                return response.data
+                updateUser(response.data)
+                setRegisterToken(response.data.token)
+                if(form.profilePic === null) {
+                    history.push("/home/store")
+                }
+            }, (error) => {
+                console.log(Errors.email)
+                setErrors(Errors);
+                console.error(error)
             })
-
         } catch(error) {
             console.error(error.response);
         }
-        updateUser(registerResponse)
-        setRegisterToken(registerResponse.token)
-        if(form.profilePic === null) {
-            history.push("/home/store")
-        }
+/*      updateUser(registerResponse)
+        setRegisterToken(registerResponse.token) */
     }
 
     return (
@@ -81,12 +97,16 @@ function SignUp() {
             <form id="signUpForm" className="signForm">
                 <label className="labelEntry" htmlFor="email">Email:</label>
                 <input type="email" className="entryInput" name="email" onChange={(event) => handleOnChange(event)}></input>
+                <h3 className="errorMessage">{errors.email}</h3>
                 <label className="labelEntry" htmlFor="password">Password:</label>
                 <input type="password" className="entryInput" name="password" onChange={(event) => handleOnChange(event)}></input>
+                <h3 className="errorMessage">{errors.password}</h3>
                 <label className="labelEntry" htmlFor="firstName">First Name:</label>
                 <input className="entryInput" name="firstName" onChange={(event) => handleOnChange(event)}></input>
+                <h3 className="errorMessage">{errors.firstName}</h3>
                 <label className="labelEntry" htmlFor="lastName">Last Name:</label>
                 <input className="entryInput" name="lastName" onChange={(event) => handleOnChange(event)}></input>
+                <h3 className="errorMessage">{errors.lastName}</h3>
                 <label id="labelForFile" htmlFor="file" className="uploadInput">Upload Profile Picture:</label>
                 <input id="inputFile" name="profilePic" type="file" className="uploadInput" onChange={(event) => setForm({...form, [event.target.name]: event.target.files[0]})}></input>
                 <button className="uploadItem entryButton linkMargin" onClick={submitRegistration}>Submit</button>

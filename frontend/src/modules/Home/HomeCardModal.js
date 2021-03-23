@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Comment from './Comment'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import { UserInfo } from '../UserInfoContext'
+import { UserInfo, RefreshStore } from '../UserInfoContext'
 import { useHistory } from 'react-router-dom';
 import LoadingAnimation from '../../5.svg'
 
@@ -13,6 +13,7 @@ function HomeCardModal({ match }) {
     const [loading, setLoading] = useState(true)
     const { token, id } = UserInfo()
     const history = useHistory()
+    const refreshStore = RefreshStore()
 
     useEffect(() => {
       fetchItem();
@@ -62,6 +63,7 @@ function HomeCardModal({ match }) {
         axios.delete(`http://localhost:5000/api/items/${match.params.id}`,
         settings)
         .then(() => {
+            refreshStore()
             history.push("/home/store")
         }, (error) => {
             console.error(error);

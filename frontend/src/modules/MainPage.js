@@ -37,7 +37,7 @@ function MainPage() {
             <SearchBar sideNavActive={sideNavActive} openSideNav={openSideNav} isTop={isTop} />
             <SideNav sideNavActive={sideNavActive} />
             <div onClick={closeSideNav} id="mainContainer">
-                <Route exact path="/home/store" component={Home}/>
+                <Route path="/home/store" component={Home}/>
                 <Route exact path="/home/blog" component={Blog}/>
                 <Route path="/home" component={RightSide}/>
             </div>

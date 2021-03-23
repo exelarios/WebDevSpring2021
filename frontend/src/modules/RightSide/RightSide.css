@@ -20,6 +20,7 @@
 
 .filterRows {
     display: flex;
+    text-align: left;
     flex-direction: row;
     height: 50px;
     background-color: #69a673;
