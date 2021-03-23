@@ -4,7 +4,10 @@ const uploadImage = require("../../utils/uploadImage");
 const protected = require("../../middleware/auth");
 const Item = require("../../models/item");
 const User = require("../../models/user");
+const Comment = require("../../models/comment");
+const uploadImage = require("../../utils/uploadImage");
 const validation = require("../../middleware/validate");
+
 /**
  * @route   GET api/auth/items/search
  * @desc    Fetch all items.
@@ -44,7 +47,7 @@ router.get("/search", protected, async (req, res) => {
         const count = await Item.countDocuments({ ...keyword });
         const items = await Item.find({ ...keyword })
             .limit(itemsPerPage)
-            .skip(itemsPerPage * (page -1));
+            .skip(itemsPerPage * (page - 1));
 
         res.json({
             items: items,
@@ -53,9 +56,8 @@ router.get("/search", protected, async (req, res) => {
             pages: Math.ceil(count / itemsPerPage)
         })
     } catch(error) {
-        console.log(error);
         res.status(400).json({
-            message: "Failed to fetch items.",
+            message: error.message,
             success: false
         });
     }
@@ -103,8 +105,9 @@ router.post("/add", [protected, validation.postItem], async(req, res) => {
  * @access  Private
  */
 router.get("/:id", protected, async (req, res) => {
-    const item = await Item.findById(req.params.id);
-    if (item) {
+    try {
+        const item = await Item.findById(req.params.id);
+        if (!item) throw Error("Failed to find Item.");
         res.json({
             name: item.name,
             description: item.description,
@@ -113,9 +116,38 @@ router.get("/:id", protected, async (req, res) => {
             seller: item.seller,
             thumbnail: item.thumbnail
         });
-    } else {
+    } catch(error) {
         res.status(404).json({
-            message: "Item doesn't exist in the database.",
+            message: error.message,
+            success: false
+        });
+    }
+});
+
+/**
+ * @route   GET api/items/{itemId}/comments
+ * @desc    Fetch the comments coresponding to the item.
+ * @access  Private
+ */
+router.get("/:itemId/comments", protected, async (req, res) => {
+    const itemsPerPage = 15;
+    const page = Number(req.query.page) || 1;
+    const itemId = req.params.itemId;
+    try {
+        const count = await Item.countDocuments({ itemId: itemId });
+        const comments = await Comment.find({ itemId: itemId })
+            .limit(itemsPerPage)
+            .skip(itemsPerPage * (page - 1));
+        if (!comments) throw Error("Failed to find comments.");
+        res.send({
+            comments: comments,
+            success: true,
+            page: page,
+            pages: Math.ceil(count / itemsPerPage)
+        });
+    } catch(error) {
+        res.status(404).json({
+            message: error.message,
             success: false
         });
     }
@@ -155,35 +187,25 @@ router.delete("/:id", protected, async (req, res) => {
 const multiUpload = uploadImage.array("images", 5);
 router.put("/:id/upload", [protected, validation.uploadThumbnail], async (req, res) => {
     multiUpload(req, res, async function(error) {
-        if (error) {
-            return res.json({
-                success: false,
-                errors: {
-                    title: "Image Upload Error",
-                    detail: error.message,
-                    error: error,
-                },
-            });
-        }
+        if (error) throw Error(error.message);
 
         try {
             let thumbnails = [];
             const files = req.files;
             let item = await Item.findById(req.params.id);
-            if (item) {
-                files.forEach(file => {
-                    thumbnails.push(file.location);
-                });
-                item.thumbnail.images = thumbnails;
-                item.save();
-                res.json({
-                    success: true,
-                    item: item
-                })
-            }
+            if (!item) throw Error("Item doesn't exist in the database.");
+            files.forEach(file => {
+                thumbnails.push(file.location);
+            });
+            item.thumbnail.images = thumbnails;
+            item.save();
+            res.json({
+                success: true,
+                item: item
+            })
         } catch(error) {
             res.status(404).json({
-                message: "Item doesn't exist in the database.",
+                message: error.message,
                 success: false
             })
         }
