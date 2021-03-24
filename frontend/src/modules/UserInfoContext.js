@@ -111,6 +111,11 @@ export function UserInfoProvider({ children }) {
     const [blogPageNumber, setBlogPageNumber] = useState(1) */
     const { storeLoading, storeHasMore } = useRenderStorePage(token, setItems, storePageNumber, storeName, storeCategory);
 
+    function refreshStorePage() {
+        setItems([]);
+        setStorePageNumber(1);
+    }
+
     function updateUser(data) { 
         let decodedToken = jwt_decode(data.token);
         setToken(data.token);
@@ -128,11 +133,6 @@ export function UserInfoProvider({ children }) {
 
     function updateStorePageNumber(page) {
         setStorePageNumber(page);
-    }
-
-    function refreshStorePage() {
-        setItems([]);
-        setStorePageNumber(1);
     }
 
     function updateNameQuery(pageType, nameQuery) {

@@ -1,13 +1,13 @@
-import { useState, useEffect } from 'react'
-import axios from 'axios'
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
-export default function useRenderStorePage(token, setFunction, currentPage, nameQuery, categoryQuery) {
-    const [storeLoading, setStoreLoading] = useState(true)
-    const [storeHasMore, setStoreHasMore] = useState(false)
+export default function useRenderComments(token, setFunction, currentPage, userId) {
+    const [loading, setLoading] = useState(true);
+    const [hasMore, setHasMore] = useState(false);
 
-    useEffect(() => { //Grabs all items, grabs a user depending on each item's id and returns the name to the item
-        async function fetchItems(pageFunction, page, storeName, storeCategory) {
-            setStoreLoading(true)
+    useEffect(() => {
+        async function fetchItems(pageFunction, page, id) {
+            setLoading(true)
             let secondResponse = []
             let index = 0
             const settings = {
@@ -16,11 +16,13 @@ export default function useRenderStorePage(token, setFunction, currentPage, name
                     Authorization: "Bearer " + token
                 }
             }
-            const firstResponse = await axios.get(`http://localhost:5000/api/items/search?category=${storeName}&name=${storeName}&page=${page}`,
+            console.log(id)
+            const firstResponse = await axios.get(`http://localhost:5000/api/items/${id}/comments?page=${page}`,
             settings)
             .then(response => {
-                setStoreHasMore(response.data.pages !== page)
-                return response.data.items
+                setHasMore(response.data.pages !== page)
+                console.log(response.data.comments)
+                return response.data.comments
             }, (error) => {
                 console.error(error)
                 return []
@@ -28,7 +30,7 @@ export default function useRenderStorePage(token, setFunction, currentPage, name
     
             if(firstResponse !== undefined) {
                 firstResponse.forEach(item => {
-                secondResponse[index] = axios.get(`http://localhost:5000/api/users/${item.seller}`,
+                secondResponse[index] = axios.get(`http://localhost:5000/api/users/${item.postBy}`,
                 settings)
                 .then(response => {
                     return response
@@ -42,10 +44,10 @@ export default function useRenderStorePage(token, setFunction, currentPage, name
             axios.all(secondResponse).then(axios.spread((...responses) => {
                 for(let counter = 0; counter < responses.length; counter++) {
                     if(responses[counter] !== "Deleted User") {
-                        firstResponse[counter].seller = `${responses[counter].data.firstName} ${responses[counter].data.lastName}`
-                        firstResponse[counter].thumbnail.main = `${responses[counter].data.picture}`
+                        firstResponse[counter].postBy = `${responses[counter].data.firstName} ${responses[counter].data.lastName}`
+                        firstResponse[counter].itemId = `${responses[counter].data.picture}`
                     } else {
-                        firstResponse[counter].seller = responses[counter]
+                        firstResponse[counter].postBy = responses[counter]
                     }
                 }
     
@@ -60,12 +62,12 @@ export default function useRenderStorePage(token, setFunction, currentPage, name
                     })
                 })
         
-                setStoreLoading(false)
+                setLoading(false)
             })).catch(errors => {
                 console.error(errors)
             })
         }
-        fetchItems(setFunction, currentPage, nameQuery, categoryQuery);
-    }, [currentPage, nameQuery, categoryQuery, token])
-    return { storeLoading, storeHasMore }
+        fetchItems(setFunction, currentPage, userId);
+    }, [currentPage, userId])
+    return { loading, hasMore }
 }

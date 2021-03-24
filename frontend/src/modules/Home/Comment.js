@@ -4,9 +4,9 @@ class Comment extends Component {
     render() {
         return (
             <div className="comments">
-                <div className="userPhoto"></div>
-                <h3 className="usernameComment">User Name</h3>
-                <p className="commentText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at elementum urna. Vivamus quis dolor sed lacus fringilla fringilla. Phasellus ultricies sit amet tortor nec pellentesque. Integer non fermentum enim. Sed maximus libero nisiLorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at elementum urna. Vivamus quis dolor sed lacus fringilla fringilla. Phasellus ultricies sit amet tortor nec pellentesque. Integer non fermentum enim. Sed maximus libero nisi</p>
+                <div className="userPhoto" style={{backgroundImage: `url(${this.props.photo})`}}></div>
+                <h3 className="usernameComment">{this.props.postBy}</h3>
+                <p className="commentText">{this.props.body}</p>
             </div>
         )
     }

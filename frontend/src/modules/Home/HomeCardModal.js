@@ -4,14 +4,18 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { UserInfo, RefreshStore } from '../UserInfoContext'
 import { useHistory } from 'react-router-dom';
-import LoadingAnimation from '../../5.svg'
+import LoadingAnimation from '../../5.svg';
+import useRenderComments from '../hooks/useRenderComments'
 
 function HomeCardModal({ match }) {
-    const [item, setItem] = useState({})
-    const [userInfo, setUserInfo] = useState({})
+    const [item, setItem] = useState({});
+    const [userInfo, setUserInfo] = useState({});
+    const [comments, setComments] = useState([]);
+    const [commentPageNumber, setCommentPageNumber] = useState(1);
     const [canDelete, setCanDelete] = useState(true)
     const [loading, setLoading] = useState(true)
     const { token, id } = UserInfo()
+    const { storeLoading, storeHasMore } = useRenderComments(token, setComments, commentPageNumber, match.params.id);
     const history = useHistory()
     const refreshStore = RefreshStore()
 
@@ -99,11 +103,10 @@ function HomeCardModal({ match }) {
                             </div>
                             <hr id="break"/>
                             <div id="commentBoxHome">
-                                <Comment />
-                                <Comment />
-                                <Comment />
-                                <Comment />
-                                <Comment />
+                                {comments.map(comment => {
+                                    return <Comment body={comment.body} postBy={comment.postBy} photo={comment.itemId}/>
+                                })
+                                }
                             </div>
                         </div>
                         <div id="commentBar">

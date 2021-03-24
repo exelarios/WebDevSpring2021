@@ -227,6 +227,7 @@
 
 .commentText {
     grid-area: text;
+    min-height: 50px;
     margin: 0;
     color: #6c6c6c;
     line-height: 1.3em;
