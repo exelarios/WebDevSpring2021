@@ -124,8 +124,9 @@ h2 {
 
 .mainModal {
   width: 85vw;
-  min-height: 650px;
-  height: 80vh;
+  min-height: 300px;
+  max-height: 420px;
+  height: 45vh;
   display: flex;
   flex-direction: row;
   max-width: 1500px;
@@ -348,6 +349,14 @@ left:35%;
     "topNav topNav"
     ". main"
   ;
+  }
+
+  .mainModal {
+    width: 85vw;
+    min-height: 650px;
+    height: 80vh;
+    max-width: 1500px;
+    max-height: 1000px;
   }
 
   #mainContainer {

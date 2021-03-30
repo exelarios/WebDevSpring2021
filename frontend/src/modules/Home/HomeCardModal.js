@@ -104,7 +104,7 @@ function HomeCardModal({ match }) {
                             <hr id="break"/>
                             <div id="commentBoxHome">
                                 {comments.map(comment => {
-                                    return <Comment body={comment.body} postBy={comment.postBy} photo={comment.itemId}/>
+                                    return <Comment key={comment._id} body={comment.body} postBy={comment.postBy} photo={comment.itemId}/>
                                 })
                                 }
                             </div>
