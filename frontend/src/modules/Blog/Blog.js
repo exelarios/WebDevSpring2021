@@ -61,7 +61,7 @@ function Blog() {
               </Link>
             )
           }
-        })}
+        }).reverse()}
       </div>
       {loading ? (
         <div className="container loadPage">

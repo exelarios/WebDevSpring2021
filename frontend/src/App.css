@@ -386,3 +386,17 @@ left:35%;
     grid-gap: 50px;
   }
 }
+
+.confirm{
+  padding: 5px;
+  width: 97%;
+  margin-bottom: 5px;
+}
+
+#NoButton {
+  padding: 5px;
+  height: 25px;
+  width: 100%;
+  border-radius: 3px;
+}
+

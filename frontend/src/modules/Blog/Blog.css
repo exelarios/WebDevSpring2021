@@ -9,9 +9,9 @@
 .threadCard {
     width: 60vw;
     background: white;
-    margin-bottom: .5em;
+    margin-bottom: 5px;
     border-radius: 5px;
-    padding: 1em;
+    padding: 10px;
 }
 
 .threadTitle {
@@ -70,6 +70,7 @@
     height: 25px;
     width: 100%;
     border-radius: 3px;
+    margin-bottom: 5px;
 }
 
 .blogModal {
@@ -92,35 +93,66 @@
     font-style: italic;
 }
 
+.threadComments {
+    overflow: auto;
+    height: 350px;
+}
+
+.edit-box {
+    width: 100%;
+    border: 0.5px solid #dfdfdf;
+}
+
 .comments {
     display: grid;
-    grid-template-columns: 1fr 15fr;
+    grid-template-columns: 1fr 14fr 1.5fr;
     grid-template-rows: 30px auto;
     grid-template-areas:
         "photo username"
         ". text";
-    margin-bottom: 1em;
+    margin-bottom: 2em;
 }
+
+.userPhoto {
+    grid-area: photo;
+    height: 30px;
+    width: 30px;
+    background-image: url('../../Es3UYDXXIAMYXiQ.jpeg');
+    background-size: cover;
+    border-radius: 50px;
+    margin-right: 1em;
+}
+
+.usernameComment {
+    border-bottom: 0.5px dashed #f1f1f1;
+}
+
+.editComment {
+    max-height: 18px;
+    float: right;
+}
+
 
 .comment{
     text-align: center;
-    margin: 3px;
     position: absolute;
     bottom: 0;
     width: 95%;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
+    background-color: #d6d6d6;
+    height: 50px;
+    padding-top: 20px;
 }
 
 #commentBox {
-    max-height: 30px;
-    width: 100%;
+    height: 30px;
+    width: 90%;
     border: 1px solid rgb(202, 202, 202);
     border-radius: 5px;
-    padding-left: 10px;
     font-size: 1em;
     box-sizing: border-box;
     resize: none;
     z-index: 10;
-    background-color: rgb(245, 245, 245);
     display: block;
+    margin : 0 auto;
 }

@@ -16,12 +16,10 @@ export default function useRenderComments(token, setFunction, currentPage, userI
                     Authorization: "Bearer " + token
                 }
             }
-            console.log(id)
             const firstResponse = await axios.get(`http://localhost:5000/api/items/${id}/comments?page=${page}`,
             settings)
             .then(response => {
                 setHasMore(response.data.pages !== page)
-                console.log(response.data.comments)
                 return response.data.comments
             }, (error) => {
                 console.error(error)
