@@ -29,9 +29,9 @@ function UploadQuestion () {
         }
     }
     const submitThread = (e) => {
-        e.preventDefault()
+        e.preventDefault();
         addThread();
-        history.push("/home/blog")
+        history.push("/home/blog");
     };
 
     return (
