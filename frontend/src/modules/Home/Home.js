@@ -44,23 +44,24 @@ function Home() {
 
   return (
     <>
-      <div className="container" id="homePage">
-        {items.filter(card => checkFilter(card)).map((item, index) => {
-          if(items.length === index + 1) {
-            return (
-              <Link ref={lastBookElementRef} key={item._id} to={`/home/store/${item._id}`} style={{ color: 'inherit', textDecoration: 'inherit'}}>
-                <HomeCard key={item._id} cardTitle={item.name} cardPrice={item.price} sellerName={item.seller} sellerPhoto={item.thumbnail.main} image={item.thumbnail.images}/>
-              </Link>
-            )
-          } else {
-            return (
-              <Link key={item._id} to={`/home/store/${item._id}`} style={{ color: 'inherit', textDecoration: 'inherit'}}>
-                <HomeCard key={item._id} cardTitle={item.name} cardPrice={item.price} sellerName={item.seller} sellerPhoto={item.thumbnail.main} image={item.thumbnail.images}/>
-              </Link>
-            )
-          }
-        })}
-      </div>
+      <div className="container" >
+        <div id="homePage">
+          {items.filter(card => checkFilter(card)).map((item, index) => {
+            if(items.length === index + 1) {
+              return (
+                <Link ref={lastBookElementRef} key={item._id} to={`/home/store/${item._id}`} style={{ color: 'inherit', textDecoration: 'inherit'}}>
+                  <HomeCard key={item._id} cardTitle={item.name} cardPrice={item.price} sellerName={item.seller} sellerPhoto={item.thumbnail.main} image={item.thumbnail.images}/>
+                </Link>
+              )
+            } else {
+              return (
+                <Link key={item._id} to={`/home/store/${item._id}`} style={{ color: 'inherit', textDecoration: 'inherit'}}>
+                  <HomeCard key={item._id} cardTitle={item.name} cardPrice={item.price} sellerName={item.seller} sellerPhoto={item.thumbnail.main} image={item.thumbnail.images}/>
+                </Link>
+              )
+            }
+          })}
+        </div>
       {storeLoading ? (
           <div className="container loadPage">
               <img src={LoadingAnimation}></img>
@@ -68,6 +69,7 @@ function Home() {
           </div>
           ) : (null)
       }
+      </div>
     </>
   )
 

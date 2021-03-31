@@ -2,14 +2,16 @@ import React, { useContext, useState } from 'react'
 import useLocalStorage from './hooks/useLocalStorage'
 import jwt_decode from "jwt-decode";
 import useRenderStorePage from './hooks/useRenderStorePage'
+import useRenderBlogPage from './hooks/useRenderBlogPage'
 
-const UserInfoContext = React.createContext()
-const UserInfoUpdateContext = React.createContext()
-const HomeFilterUpdateContext = React.createContext()
-const BlogFilterUpdateContext = React.createContext()
-const StorePageNumberUpdateContext = React.createContext()
-const RefreshStoreContext = React.createContext()
-const NameQueryUpdateContext = React.createContext()
+const UserInfoContext = React.createContext();
+const UserInfoUpdateContext = React.createContext();
+const HomeFilterUpdateContext = React.createContext();
+const BlogFilterUpdateContext = React.createContext();
+const StorePageNumberUpdateContext = React.createContext();
+const BlogPageNumberUpdateContext = React.createContext();
+const RefreshStoreContext = React.createContext();
+const NameQueryUpdateContext = React.createContext();
 
 export function UserInfo() {
     return useContext(UserInfoContext)
@@ -31,10 +33,13 @@ export function StorePageNumberUpdate() {
     return useContext(StorePageNumberUpdateContext)
 }
 
+export function BlogPageNumberUpdate() {
+    return useContext(BlogPageNumberUpdateContext)
+}
+
 export function RefreshStore() {
     return useContext(RefreshStoreContext)
 }
-
 
 export function NameQueryUpdate() {
     return useContext(NameQueryUpdateContext)
@@ -104,17 +109,27 @@ export function UserInfoProvider({ children }) {
     const [id, setId] = useLocalStorage('id');
     const [homeFilter, setHomeFilter] = useState(homeObjectArray);
     const [blogFilter, setBlogFilter] = useState(blogObjectArray);
+    const [pageRefresh, setPageRefresh] = useState(false)
+    //Home Page states
     const [items, setItems] = useState([]);
     const [storePageNumber, setStorePageNumber] = useState(1);
     const [storeName, setStoreName] = useState("");
     const [storeCategory, setStoreCategory] = useState("");
-    /* const [threads, setThreads] = useState([])
-    const [blogPageNumber, setBlogPageNumber] = useState(1) */
-    const { storeLoading, storeHasMore } = useRenderStorePage(token, setItems, storePageNumber, storeName, storeCategory);
+    //Blog Page states
+    const [threads, setThreads] = useState([]);
+    const [blogPageNumber, setBlogPageNumber] = useState(1);
+    const [blogName, setBlogName] = useState("");
+    const [blogCategory, setBlogCategory] = useState("");
+
+    const { storeLoading, storeHasMore } = useRenderStorePage(token, setItems, storePageNumber, storeName, storeCategory, setPageRefresh, pageRefresh);
+    const { blogLoading, blogHasMore } = useRenderBlogPage(token, setThreads, blogPageNumber, blogName, blogCategory);
 
     function refreshStorePage() {
         setItems([]);
+        setStoreName("");
+        setStoreCategory("");
         setStorePageNumber(1);
+        setPageRefresh(true);
     }
 
     function updateUser(data) { 
@@ -136,22 +151,31 @@ export function UserInfoProvider({ children }) {
         setStorePageNumber(page);
     }
 
+    function updateBlogPageNumber(page) {
+        setBlogPageNumber(page);
+    }
+
     function updateNameQuery(pageType, nameQuery) {
-        setItems([]);
         if(pageType === "store") {
-            setStoreName(nameQuery)
+            setItems([]);
+            setStoreName(nameQuery);
+        } else {
+            setThreads([]);
+            setBlogName(nameQuery);
         }
     }
 
     return (
-        <UserInfoContext.Provider value={{ token, name, id, homeFilter, blogFilter, storePageNumber, items, storeLoading, storeHasMore }}>
+        <UserInfoContext.Provider value={{ token, name, id, homeFilter, blogFilter, storePageNumber, items, storeLoading, storeHasMore, threads, blogLoading, blogHasMore}}>
             <UserInfoUpdateContext.Provider value={updateUser}>
                 <HomeFilterUpdateContext.Provider value={updateHomeFilter}>
                     <BlogFilterUpdateContext.Provider value={updateBlogFilter}>
                         <StorePageNumberUpdateContext.Provider value={updateStorePageNumber}>
                             <RefreshStoreContext.Provider value={refreshStorePage}>
                                 <NameQueryUpdateContext.Provider value={updateNameQuery}>
-                                    {children}
+                                    <BlogPageNumberUpdateContext.Provider value={updateBlogPageNumber}>
+                                        {children}
+                                    </BlogPageNumberUpdateContext.Provider>
                                 </NameQueryUpdateContext.Provider>
                             </RefreshStoreContext.Provider>
                         </StorePageNumberUpdateContext.Provider>

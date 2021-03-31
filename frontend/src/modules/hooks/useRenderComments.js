@@ -2,14 +2,14 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export default function useRenderComments(token, setFunction, currentPage, userId) {
-    const [loading, setLoading] = useState(true);
+    const [commentsLoading, setCommentsLoading] = useState(true);
     const [hasMore, setHasMore] = useState(false);
 
     useEffect(() => {
         async function fetchItems(pageFunction, page, id) {
-            setLoading(true)
-            let secondResponse = []
-            let index = 0
+            setCommentsLoading(true);
+            let secondResponse = [];
+            let index = 0;
             const settings = {
                 headers: {
                     "Content-Type": "application/json",
@@ -60,12 +60,12 @@ export default function useRenderComments(token, setFunction, currentPage, userI
                     })
                 })
         
-                setLoading(false)
+                setCommentsLoading(false)
             })).catch(errors => {
                 console.error(errors)
             })
         }
         fetchItems(setFunction, currentPage, userId);
     }, [currentPage, userId])
-    return { loading, hasMore }
+    return { commentsLoading, hasMore }
 }

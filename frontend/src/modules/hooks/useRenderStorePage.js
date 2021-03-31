@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
-export default function useRenderStorePage(token, setFunction, currentPage, nameQuery, categoryQuery) {
+export default function useRenderStorePage(token, setFunction, currentPage, nameQuery, categoryQuery, changeRefresh, isRefresh) {
     const [storeLoading, setStoreLoading] = useState(true)
     const [storeHasMore, setStoreHasMore] = useState(false)
 
@@ -16,7 +16,7 @@ export default function useRenderStorePage(token, setFunction, currentPage, name
                     Authorization: "Bearer " + token
                 }
             }
-            const firstResponse = await axios.get(`http://localhost:5000/api/items/search?category=${storeName}&name=${storeName}&page=${page}`,
+            const firstResponse = await axios.get(`http://localhost:5000/api/items/search?category=${storeCategory}&name=${storeName}&page=${page}`,
             settings)
             .then(response => {
                 setStoreHasMore(response.data.pages !== page)
@@ -49,6 +49,7 @@ export default function useRenderStorePage(token, setFunction, currentPage, name
                     }
                 }
     
+                changeRefresh(false);
                 //Uses set function passed through parameter to update the items in the state
                 pageFunction(prevState => {
                     let seen = new Set();
@@ -66,6 +67,6 @@ export default function useRenderStorePage(token, setFunction, currentPage, name
             })
         }
         fetchItems(setFunction, currentPage, nameQuery, categoryQuery);
-    }, [currentPage, nameQuery, categoryQuery, token])
+    }, [currentPage, nameQuery, categoryQuery, token, isRefresh])
     return { storeLoading, storeHasMore }
 }

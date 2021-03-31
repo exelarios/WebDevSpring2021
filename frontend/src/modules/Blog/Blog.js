@@ -2,28 +2,25 @@ import React, { useCallback, useRef, useState } from 'react';
 import './Blog.css';
 import ThreadCard from './ThreadCard';
 import { Link } from 'react-router-dom';
-import { UserInfo } from '../UserInfoContext';
-import useRenderBlogPage from '../hooks/useRenderBlogPage';
+import { UserInfo, BlogPageNumberUpdate } from '../UserInfoContext';
 import LoadingAnimation from "../../5.svg";
 
 
 function Blog() {
-  const { blogFilter } = UserInfo();
-  const [threads, setThreads] = useState([]);
-  const [pageNumber, setPageNumber] = useState(1);
-  const { loading, hasMore } = useRenderBlogPage(setThreads, pageNumber);
+  const { blogFilter, blogLoading, blogHasMore, threads } = UserInfo();
+  const setPageNumber = BlogPageNumberUpdate()
   const observe = useRef();
 
   const lastBookElementRef = useCallback(node => {
-    if(loading) return;
+    if(blogLoading) return;
     if(observe.current) observe.current.disconnect()
     observe.current = new IntersectionObserver(entries => {
-      if(entries[0].isIntersecting && hasMore) {
+      if(entries[0].isIntersecting && blogHasMore) {
         setPageNumber(prevPageNumber => prevPageNumber + 1)
       }
     })
     if(node) observe.current.observe(node);
-  }, [loading, hasMore]);
+  }, [blogLoading, blogHasMore]);
 
   const checkFilter = card => {
     let boolean = true;
@@ -63,7 +60,7 @@ function Blog() {
           }
         }).reverse()}
       </div>
-      {loading ? (
+      {blogLoading ? (
         <div className="container loadPage">
           <img src={LoadingAnimation}></img>
           Loading...

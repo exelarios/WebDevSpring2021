@@ -102,6 +102,7 @@ function ThreadCardModal({ match }) {
             window.location.reload();
         }
     };
+    
     return (
         <div className="modalScreen">
             <div className="modal blogModal">

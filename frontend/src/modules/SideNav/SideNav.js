@@ -2,12 +2,13 @@ import Logo from '../../cpp-octo-web.svg'
 import React, {  } from 'react'
 import './SideNav.css';
 import { Link } from 'react-router-dom';
-import { UserInfo, HomeFilterUpdate, BlogFilterUpdate } from '../UserInfoContext'
+import { UserInfo, HomeFilterUpdate, BlogFilterUpdate, RefreshStore } from '../UserInfoContext'
 
 const SideNav = (props) => {
   const { homeFilter, blogFilter, token } = UserInfo()
   const updateHomeFilter = HomeFilterUpdate()
   const updateBlogFilter = BlogFilterUpdate()
+  const refreshStore = RefreshStore();
 
   const setDefaultFilter = (type) => {
     let newArr = (type === "home") ? [...homeFilter] : [...blogFilter]
@@ -17,6 +18,7 @@ const SideNav = (props) => {
     if(type === "home") { //If you are clicking on the blog page button
       updateHomeFilter(newArr)
     } else { //If you are clicking on the home page button
+      refreshStore();
       updateBlogFilter(newArr)
     }
 }

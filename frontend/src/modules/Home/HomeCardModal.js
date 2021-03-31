@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import Comment from './Comment'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
@@ -10,14 +10,16 @@ import useRenderComments from '../hooks/useRenderComments'
 function HomeCardModal({ match }) {
     const [item, setItem] = useState({});
     const [userInfo, setUserInfo] = useState({});
+    const [currentComment, setCurrentComment] = useState("");
     const [comments, setComments] = useState([]);
     const [commentPageNumber, setCommentPageNumber] = useState(1);
-    const [canDelete, setCanDelete] = useState(true)
-    const [loading, setLoading] = useState(true)
-    const { token, id } = UserInfo()
-    const { storeLoading, storeHasMore } = useRenderComments(token, setComments, commentPageNumber, match.params.id);
-    const history = useHistory()
-    const refreshStore = RefreshStore()
+    const [canDelete, setCanDelete] = useState(true);
+    const [loading, setLoading] = useState(true);
+    const { token, id } = UserInfo();
+    const { commentsLoading, storeHasMore } = useRenderComments(token, setComments, commentPageNumber, match.params.id);
+    const history = useHistory();
+    const refreshStore = RefreshStore();
+    const commentRef = useRef();
 
     useEffect(() => {
       fetchItem();
@@ -74,6 +76,30 @@ function HomeCardModal({ match }) {
         })
     }
 
+    const addComment = async e => {
+        if(e.key === "Enter" && currentComment !== "") {
+            try {
+                await axios.post(`http://localhost:5000/api/comments/${match.params.id}/add`, {
+                    body: currentComment
+                }, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: "Bearer " + token
+                    }
+                }).then(() => {
+                    setCurrentComment("");
+                    setCommentPageNumber(2)
+                    setCommentPageNumber(1);
+                    console.log(comments);
+                });
+            }
+            catch (error) {
+                console.error(error);
+            }
+        }
+        
+    }
+
     return (
         <div className="modalScreen">
             <div className="modal mainModal">
@@ -103,14 +129,20 @@ function HomeCardModal({ match }) {
                             </div>
                             <hr id="break"/>
                             <div id="commentBoxHome">
-                                {comments.map(comment => {
+                                {commentsLoading ? (
+                                    <div className="container loadPage">
+                                        <img src={LoadingAnimation}></img>
+                                        Loading...
+                                    </div>
+                                )
+                                : comments.map(comment => {
                                     return <Comment key={comment._id} body={comment.body} postBy={comment.postBy} photo={comment.itemId}/>
                                 })
                                 }
                             </div>
                         </div>
                         <div id="commentBar">
-                            <input id="comment" placeholder="Enter a comment"></input>
+                            <input autoComplete="off" onKeyDown={addComment} id="comment" placeholder="Enter a comment" value={currentComment} onChange={e => setCurrentComment(e.target.value)}></input>
                         </div>
                     </div>
                 </>

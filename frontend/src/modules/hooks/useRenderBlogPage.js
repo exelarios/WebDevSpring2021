@@ -2,14 +2,13 @@ import { useState, useEffect } from 'react';
 import { UserInfo } from '../UserInfoContext';
 import axios from 'axios';
 
-export default function useRenderBlogPage(setFunction, currentPage=1) {
-  const { token } = UserInfo();
-  const [loading, setLoading] = useState(true);
-  const [hasMore, setHasMore] = useState(false);
+export default function useRenderBlogPage(token, setFunction, currentPage, nameQuery, categoryQuery) {
+  const [blogLoading, setBlogLoading] = useState(true);
+  const [blogHasMore, setBlogHasMore] = useState(false);
 
   useEffect(() => {
-    async function fetchThreads(pageFunction, page) {
-      setLoading(true)
+    async function fetchThreads(pageFunction, page, blogName, blogCategory) {
+      setBlogLoading(true)
       let secondResponse = []
       let index = 0
       const settings = {
@@ -19,10 +18,10 @@ export default function useRenderBlogPage(setFunction, currentPage=1) {
           }
       }
 
-      const firstResponse = await axios.get(`http://localhost:5000/api/posts/search?page=${page}`,
+      const firstResponse = await axios.get(`http://localhost:5000/api/posts/search?category=${blogCategory}&name=${blogName}&page=${page}`,
       settings)
       .then(response => {
-        setHasMore(response.data.pages !== page)
+        setBlogHasMore(response.data.pages !== page)
         return response.data.posts
       }, (error) => {
         console.error(error)
@@ -61,12 +60,12 @@ export default function useRenderBlogPage(setFunction, currentPage=1) {
           })
         })
 
-        setLoading(false) 
+        setBlogLoading(false) 
       })).catch(errors => {
         console.error(errors);
       })
     }
     fetchThreads(setFunction, currentPage);
   }, [currentPage])
-  return { loading, hasMore }
+  return { blogLoading, blogHasMore }
 }
