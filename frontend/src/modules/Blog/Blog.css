@@ -95,13 +95,16 @@
 }
 
 .edit-box {
-    width: 100%;
+    width: 97%;
+    height:20px;
     border: 0.5px solid #dfdfdf;
+    display: inline;
+    border-radius: 3px;
 }
 
 .comments {
     display: grid;
-    grid-template-columns: 1fr 14fr 1.5fr;
+    grid-template-columns: 1fr 15fr 1fr;
     grid-template-rows: 30px auto;
     grid-template-areas:
         "photo username"
@@ -124,8 +127,13 @@
 }
 
 .editComment {
-    max-height: 18px;
+    max-width: 15px;
     float: right;
+    margin: 3px;
+}
+
+.editComment:hover {
+    border: 1px dashed #d6d6d6;
 }
 
 
@@ -138,6 +146,14 @@
     background-color: #d6d6d6;
     height: 50px;
     padding-top: 20px;
+}
+
+.comment-body img:hover {
+    border: 1px dashed #ffffff;
+}
+
+.comment img:hover {
+    border: 1px dashed #d6d6d6;
 }
 
 #commentBox {

@@ -62,7 +62,7 @@ function Blog() {
       </div>
       {blogLoading ? (
         <div className="container loadPage">
-          <img src={LoadingAnimation}></img>
+          <img src={LoadingAnimation} alt='loading'></img>
           Loading...
         </div>
         ) : (null)

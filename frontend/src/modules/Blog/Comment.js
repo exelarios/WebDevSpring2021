@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './Blog.css';
 import { UserInfo } from '../UserInfoContext';
 import axios from 'axios';
 
 import deleteBtn from '../../trash.svg';
 import updateBtn from '../../pencil.svg';
+import paperPlane from '../../paper-plane.svg';
 
 function Comment ({body, photo, postBy, id}) {
 
     const { name, token } = UserInfo();
     const [ update, setUpdate ] = useState(false);
+    const [currentComment, setCurrentComment] = useState(body);
+
+    const commentRef = useRef();
 
     // Delete a comment and reload the modal
     const deleteComment = async () => {
@@ -28,35 +32,45 @@ function Comment ({body, photo, postBy, id}) {
         })
     }
 
+    // Switch to edit the comment
     const confirmUpdate = () => {
         setUpdate(!update);
     }
 
+    // Update the comment
     const updateComment = async () => {
-        const settings = {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + token
-            }
+        try {
+            await axios.put(`http://localhost:5000/api/comments/${id}`, {
+                body: commentRef.current.value
+            }, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token
+                }
+            });
+            setCurrentComment(commentRef.current.value);
+            console.log(body);
+            setUpdate(!update);
         }
-        axios.delete(`http://localhost:5000/api/comments/`,
-        settings)
-        .then(() => {
-        }, (error) => {
+        catch (error) {
             console.error(error);
-        })
+        }
     }
+    console.log("after" + body);
     return (
         <div className="comments">
             <div>
                 <div className="userPhoto" style={{backgroundImage: `url(${photo})`}}></div>
             </div>
-            <div>
+            <div className="comment-body">
                 <h4 className="usernameComment">{postBy}</h4>
                 { update ? (
-                    <input className="edit-box" value={body}></input>
+                    <>
+                    <input className="edit-box" type="text" id="editComment" name="editComment" defaultValue={currentComment} ref={commentRef}></input>
+                    <img onClick={updateComment} src={paperPlane} style={{height: '18px'}} alt="paperplane"/>
+                    </>
                 )  : (
-                    <p className="commentText">{body}</p>
+                    <p className="commentText">{currentComment}</p>
                 )}
                 
             </div>
