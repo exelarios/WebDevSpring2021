@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-export default function useRenderComments(token, setFunction, currentPage, userId) {
+export default function useRenderComments(token, setFunction, currentPage, userId, setRefresh, refresh) {
     const [commentsLoading, setCommentsLoading] = useState(true);
     const [hasMore, setHasMore] = useState(false);
 
@@ -43,12 +43,13 @@ export default function useRenderComments(token, setFunction, currentPage, userI
                 for(let counter = 0; counter < responses.length; counter++) {
                     if(responses[counter] !== "Deleted User") {
                         firstResponse[counter].postBy = `${responses[counter].data.firstName} ${responses[counter].data.lastName}`
-                        firstResponse[counter].itemId = `${responses[counter].data.picture}`
+                        firstResponse[counter].photo = `${responses[counter].data.picture}`
                     } else {
                         firstResponse[counter].postBy = responses[counter]
                     }
                 }
     
+                setRefresh(false);
                 //Uses set function passed through parameter to update the items in the state
                 pageFunction(prevState => {
                     let seen = new Set();
@@ -66,6 +67,6 @@ export default function useRenderComments(token, setFunction, currentPage, userI
             })
         }
         fetchItems(setFunction, currentPage, userId);
-    }, [currentPage, userId])
+    }, [currentPage, userId, refresh])
     return { commentsLoading, hasMore }
 }

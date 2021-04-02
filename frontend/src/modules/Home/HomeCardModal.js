@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import Comment from './Comment'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import { UserInfo, RefreshStore } from '../UserInfoContext'
+import { UserInfo, RefreshPage } from '../UserInfoContext'
 import { useHistory } from 'react-router-dom';
 import LoadingAnimation from '../../5.svg';
 import useRenderComments from '../hooks/useRenderComments'
@@ -12,14 +12,14 @@ function HomeCardModal({ match }) {
     const [userInfo, setUserInfo] = useState({});
     const [currentComment, setCurrentComment] = useState("");
     const [comments, setComments] = useState([]);
+    const [refresh, setRefresh] = useState(false);
     const [commentPageNumber, setCommentPageNumber] = useState(1);
     const [canDelete, setCanDelete] = useState(true);
     const [loading, setLoading] = useState(true);
     const { token, id } = UserInfo();
-    const { commentsLoading, storeHasMore } = useRenderComments(token, setComments, commentPageNumber, match.params.id);
+    const { commentsLoading, storeHasMore } = useRenderComments(token, setComments, commentPageNumber, match.params.id, setRefresh, refresh);
     const history = useHistory();
-    const refreshStore = RefreshStore();
-    const commentRef = useRef();
+    const refreshStore = RefreshPage();
 
     useEffect(() => {
       fetchItem();
@@ -88,9 +88,7 @@ function HomeCardModal({ match }) {
                     }
                 }).then(() => {
                     setCurrentComment("");
-                    setCommentPageNumber(2)
-                    setCommentPageNumber(1);
-                    console.log(comments);
+                    setRefresh(true);
                 });
             }
             catch (error) {
@@ -122,7 +120,7 @@ function HomeCardModal({ match }) {
                                         <button id="homeModalButton" className="siteButton">
                                             <a style={{color: "inherit", textDecoration: "none"}} href={`mailto:${userInfo.email}`}>Contact</a>
                                         </button>
-                                        <button id="deleteButton" onClick={deleteThread} className="siteButton" style={{display: canDelete ? 'block' : 'none', marginLeft: '1em'}}>Delete</button>
+                                        <button id="deleteButton" onClick={deleteThread} className="deleteButtonStyle" style={{display: canDelete ? 'block' : 'none', marginLeft: '1em'}}>Delete</button>
                                     </nav>
                                     <h4>{`$${item.price}`}</h4>
                                 </div>
@@ -136,7 +134,7 @@ function HomeCardModal({ match }) {
                                     </div>
                                 )
                                 : comments.map(comment => {
-                                    return <Comment key={comment._id} body={comment.body} postBy={comment.postBy} photo={comment.itemId}/>
+                                    return <Comment key={comment._id} body={comment.body} setComments={setComments} postBy={comment.postBy} setRefresh={setRefresh} id={comment._id} photo={comment.photo}/>
                                 })
                                 }
                             </div>

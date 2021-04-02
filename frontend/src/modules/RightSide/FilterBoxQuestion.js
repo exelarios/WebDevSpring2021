@@ -1,9 +1,9 @@
 import React, { } from 'react'
-import { UserInfo, BlogFilterUpdate } from '../UserInfoContext'
+import { UserInfo, PageFilterUpdate } from '../UserInfoContext'
 
 function FilterBoxQuestion() {
     const { blogFilter } = UserInfo()
-    const updateBlogFilter = BlogFilterUpdate()
+    const updateBlogFilter = PageFilterUpdate()
 
     const changeFilter = id => {
         let newArr = [...blogFilter]

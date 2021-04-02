@@ -6,43 +6,43 @@ import useRenderBlogPage from './hooks/useRenderBlogPage'
 
 const UserInfoContext = React.createContext();
 const UserInfoUpdateContext = React.createContext();
-const HomeFilterUpdateContext = React.createContext();
-const BlogFilterUpdateContext = React.createContext();
-const StorePageNumberUpdateContext = React.createContext();
-const BlogPageNumberUpdateContext = React.createContext();
-const RefreshStoreContext = React.createContext();
+const PageFilterUpdateContext = React.createContext();
+const PageNumberUpdateContext = React.createContext();
+const RefreshPageContext = React.createContext();
 const NameQueryUpdateContext = React.createContext();
+const PageUpdateContext = React.createContext();
+const SetPageContext = React.createContext();
 
 export function UserInfo() {
-    return useContext(UserInfoContext)
+    return useContext(UserInfoContext);
 }
 
 export function UserInfoUpdate() {
-    return useContext(UserInfoUpdateContext)
+    return useContext(UserInfoUpdateContext);
 }
 
-export function HomeFilterUpdate() {
-    return useContext(HomeFilterUpdateContext)
+export function PageFilterUpdate() {
+    return useContext(PageFilterUpdateContext);
 }
 
-export function BlogFilterUpdate() {
-    return useContext(BlogFilterUpdateContext)
+export function PageNumberUpdate() {
+    return useContext(PageNumberUpdateContext);
 }
 
-export function StorePageNumberUpdate() {
-    return useContext(StorePageNumberUpdateContext)
-}
-
-export function BlogPageNumberUpdate() {
-    return useContext(BlogPageNumberUpdateContext)
-}
-
-export function RefreshStore() {
-    return useContext(RefreshStoreContext)
+export function RefreshPage() {
+    return useContext(RefreshPageContext);
 }
 
 export function NameQueryUpdate() {
-    return useContext(NameQueryUpdateContext)
+    return useContext(NameQueryUpdateContext);
+}
+
+export function PageUpdate() {
+    return useContext(PageUpdateContext);
+}
+
+export function SetPage() {
+    return useContext(SetPageContext);
 }
 
 export function UserInfoProvider({ children }) {
@@ -107,9 +107,10 @@ export function UserInfoProvider({ children }) {
     const [token, setToken] = useLocalStorage('token');
     const [name, setName] = useLocalStorage('name');
     const [id, setId] = useLocalStorage('id');
-    const [homeFilter, setHomeFilter] = useState(homeObjectArray);
+    const [storeFilter, setStoreFilter] = useState(homeObjectArray);
     const [blogFilter, setBlogFilter] = useState(blogObjectArray);
     const [pageRefresh, setPageRefresh] = useState(false)
+    const [currentPage, setCurrentPage] = useState("store");
     //Home Page states
     const [items, setItems] = useState([]);
     const [storePageNumber, setStorePageNumber] = useState(1);
@@ -122,13 +123,20 @@ export function UserInfoProvider({ children }) {
     const [blogCategory, setBlogCategory] = useState("");
 
     const { storeLoading, storeHasMore } = useRenderStorePage(token, setItems, storePageNumber, storeName, storeCategory, setPageRefresh, pageRefresh);
-    const { blogLoading, blogHasMore } = useRenderBlogPage(token, setThreads, blogPageNumber, blogName, blogCategory);
+    const { blogLoading, blogHasMore } = useRenderBlogPage(token, setThreads, blogPageNumber, blogName, blogCategory, setPageRefresh, pageRefresh);
 
-    function refreshStorePage() {
-        setItems([]);
-        setStoreName("");
-        setStoreCategory("");
-        setStorePageNumber(1);
+    function refreshPage() {
+        if(currentPage === "store") {
+            setItems([]);
+            setStoreName("");
+            setStoreCategory("");
+            setStorePageNumber(1);
+        } else {
+            setThreads([]);
+            setBlogName("");
+            setBlogCategory("");
+            setBlogPageNumber(1);
+        }
         setPageRefresh(true);
     }
 
@@ -139,20 +147,20 @@ export function UserInfoProvider({ children }) {
         setId(decodedToken.id);
     }
 
-    function updateHomeFilter(filter) {
-        setHomeFilter(filter);
+    function updatePageFilter(filter) {
+        if(currentPage === "store") {
+            setStoreFilter(filter);
+        } else {
+            setBlogFilter(filter);
+        }
     }
 
-    function updateBlogFilter(filter) {
-        setBlogFilter(filter);
-    }
-
-    function updateStorePageNumber(page) {
-        setStorePageNumber(page);
-    }
-
-    function updateBlogPageNumber(page) {
-        setBlogPageNumber(page);
+    function updatePageNumber(page) {
+        if(currentPage === "store") {
+            setStorePageNumber(page);
+        } else {
+            setBlogPageNumber(page);
+        }
     }
 
     function updateNameQuery(pageType, nameQuery) {
@@ -165,22 +173,33 @@ export function UserInfoProvider({ children }) {
         }
     }
 
+    function changePage(pageType) {
+        setCurrentPage(pageType);
+        refreshPage();
+    }
+
+    function setPage(pageType) {
+        setCurrentPage(pageType);
+    }
+
     return (
-        <UserInfoContext.Provider value={{ token, name, id, homeFilter, blogFilter, storePageNumber, items, storeLoading, storeHasMore, threads, blogLoading, blogHasMore}}>
+        <UserInfoContext.Provider value={{ token, name, id, storeFilter, blogFilter, storePageNumber, items, storeLoading, storeHasMore, threads, blogLoading, blogHasMore, currentPage}}>
             <UserInfoUpdateContext.Provider value={updateUser}>
-                <HomeFilterUpdateContext.Provider value={updateHomeFilter}>
-                    <BlogFilterUpdateContext.Provider value={updateBlogFilter}>
-                        <StorePageNumberUpdateContext.Provider value={updateStorePageNumber}>
-                            <RefreshStoreContext.Provider value={refreshStorePage}>
-                                <NameQueryUpdateContext.Provider value={updateNameQuery}>
-                                    <BlogPageNumberUpdateContext.Provider value={updateBlogPageNumber}>
-                                        {children}
-                                    </BlogPageNumberUpdateContext.Provider>
-                                </NameQueryUpdateContext.Provider>
-                            </RefreshStoreContext.Provider>
-                        </StorePageNumberUpdateContext.Provider>
-                    </BlogFilterUpdateContext.Provider>
-                </HomeFilterUpdateContext.Provider>
+                <PageFilterUpdateContext.Provider value={updatePageFilter}>
+                    <PageNumberUpdateContext.Provider value={updatePageNumber}>
+                        <RefreshPageContext.Provider value={refreshPage}>
+                            <NameQueryUpdateContext.Provider value={updateNameQuery}>
+                                <PageNumberUpdateContext.Provider value={updatePageNumber}>
+                                    <PageUpdateContext.Provider value={changePage}>
+                                        <SetPageContext.Provider value={setPage}>
+                                            {children}
+                                        </SetPageContext.Provider>
+                                    </PageUpdateContext.Provider>
+                                </PageNumberUpdateContext.Provider>
+                            </NameQueryUpdateContext.Provider>
+                        </RefreshPageContext.Provider>
+                    </PageNumberUpdateContext.Provider>
+                </PageFilterUpdateContext.Provider>
             </UserInfoUpdateContext.Provider>
         </UserInfoContext.Provider>
     )

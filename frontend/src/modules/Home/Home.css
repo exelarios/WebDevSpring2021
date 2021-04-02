@@ -168,20 +168,23 @@
     cursor: pointer;
 }
 
+.editComment {
+    min-height: 100px;
+    grid-area: text;
+}
+
+.editComment > textarea{
+    min-height: 100px;
+    width: 100%;
+    resize: none;
+}
+
 #homeModalButton {
     padding: 5px;
     width: 45%;
     height: 25px;
     border-radius: 3px;
     min-width: 55px;
-}
-
-#deleteButton {
-    background-color: #fb7373;
-    padding: 5px;
-    height: 25px;
-    width: 100%;
-    border-radius: 3px;
 }
 
 #itemInfo::-webkit-scrollbar {
@@ -199,17 +202,6 @@
     box-sizing: border-box;
     resize: none;
     z-index: 10;
-}
-
-.comments {
-    display: grid;
-    font-size: .7em;
-    grid-template-columns: 1fr 6fr;
-    grid-template-rows: 40px auto;
-    grid-template-areas: 
-        "photo username"
-        ". text";
-    margin-bottom: 1em;
 }
 
 .userPhoto {

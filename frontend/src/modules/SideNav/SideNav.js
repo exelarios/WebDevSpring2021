@@ -2,24 +2,21 @@ import Logo from '../../cpp-octo-web.svg'
 import React, {  } from 'react'
 import './SideNav.css';
 import { Link } from 'react-router-dom';
-import { UserInfo, HomeFilterUpdate, BlogFilterUpdate, RefreshStore } from '../UserInfoContext'
+import { UserInfo, PageUpdate } from '../UserInfoContext'
 
 const SideNav = (props) => {
-  const { homeFilter, blogFilter, token } = UserInfo()
-  const updateHomeFilter = HomeFilterUpdate()
-  const updateBlogFilter = BlogFilterUpdate()
-  const refreshStore = RefreshStore();
+  const { storeFilter, blogFilter, token } = UserInfo();
+  const pageUpdate = PageUpdate();
 
   const setDefaultFilter = (type) => {
-    let newArr = (type === "home") ? [...homeFilter] : [...blogFilter]
+    let newArr = (type === "store") ? [...storeFilter] : [...blogFilter]
     newArr.forEach(item => {
       item.checked = false;
     })
-    if(type === "home") { //If you are clicking on the blog page button
-      updateHomeFilter(newArr)
+    if(type === "store") { //If you are clicking on the blog page button
+      pageUpdate("blog");
     } else { //If you are clicking on the home page button
-      refreshStore();
-      updateBlogFilter(newArr)
+      pageUpdate("store");
     }
 }
 
@@ -28,9 +25,9 @@ const SideNav = (props) => {
         <img src={Logo} alt="logo"/>
         <nav id="navigation">
           <Link to='/home/store' onClick={() => setDefaultFilter("blog")}>
-            <button onClick={props.toggleHomePage} id="home" className="sideButton">Home</button>
+            <button onClick={props.toggleHomePage} id="store" className="sideButton">Home</button>
           </Link>
-          <Link to='/home/blog' onClick={() => setDefaultFilter("home")}>
+          <Link to='/home/blog' onClick={() => setDefaultFilter("store")}>
             <button onClick={props.toggleBlogPage} id="blog" className="sideButton">Blog</button>
           </Link>
         </nav>

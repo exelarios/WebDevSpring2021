@@ -1,15 +1,22 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useRef, useEffect } from 'react';
 import './Blog.css';
 import ThreadCard from './ThreadCard';
 import { Link } from 'react-router-dom';
-import { UserInfo, BlogPageNumberUpdate } from '../UserInfoContext';
+import { UserInfo, PageNumberUpdate, SetPage } from '../UserInfoContext';
 import LoadingAnimation from "../../5.svg";
 
 
 function Blog() {
-  const { blogFilter, blogLoading, blogHasMore, threads } = UserInfo();
-  const setPageNumber = BlogPageNumberUpdate()
+  const { blogFilter, blogLoading, blogHasMore, threads, currentPage } = UserInfo();
+  const setPageNumber = PageNumberUpdate()
   const observe = useRef();
+  const setPage = SetPage();
+
+  useEffect(() => {
+    if(currentPage !== "blog") {
+      setPage("blog");
+    }
+  }, [])
 
   const lastBookElementRef = useCallback(node => {
     if(blogLoading) return;

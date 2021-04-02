@@ -1,16 +1,22 @@
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback, useRef, useEffect } from 'react'
 import './Home.css';
 import HomeCard from './HomeCard';
 import { Link } from 'react-router-dom';
-import { UserInfo, StorePageNumberUpdate } from '../UserInfoContext'
+import { UserInfo, PageNumberUpdate, SetPage } from '../UserInfoContext'
 import LoadingAnimation from '../../5.svg'
 
 
 function Home() {
-  const { homeFilter, storeLoading, storeHasMore, items } = UserInfo()
-  const setPageNumber = StorePageNumberUpdate()
-  
-  const observer = useRef()
+  const { storeFilter, storeLoading, storeHasMore, items, currentPage } = UserInfo();
+  const setPageNumber = PageNumberUpdate();
+  const setPage = SetPage();
+  const observer = useRef();
+
+  useEffect(() => {
+    if(currentPage !== "store") {
+      setPage("store");
+    }
+  }, [])
 
   const lastBookElementRef = useCallback(node => {
       if(storeLoading) return 
@@ -25,15 +31,15 @@ function Home() {
 
   const checkFilter = card => {
     let boolean = true;
-    for(let i = 0; i < homeFilter.length; i++) {
-      if(homeFilter[i].checked) {
+    for(let i = 0; i < storeFilter.length; i++) {
+      if(storeFilter[i].checked) {
         boolean = false
         break
       }
     }
     
     if(!boolean) {
-      homeFilter.forEach(item => {
+      storeFilter.forEach(item => {
         if(item.checked && card.category === item.category) {
           boolean = true
         }

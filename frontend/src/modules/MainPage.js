@@ -13,7 +13,7 @@ import ProfileModal from './RightSide/ProfileModal';
 export const API_URL = 'http://localhost:5000'
 
 function MainPage() {
-    const [sideNavActive, setSideNavActive] = useState(true)
+    const [sideNavActive, setSideNavActive] = useState(false)
     const [isTop, setisTop] = useState(true)
 
     const closeSideNav = () => {

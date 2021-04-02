@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import Comment from './Comment';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { UserInfo, RefreshStore } from '../UserInfoContext';
+import { UserInfo, RefreshPage } from '../UserInfoContext';
 import { useHistory } from 'react-router-dom';
 import LoadingAnimation from '../../5.svg';
 import { API_URL } from '../MainPage';
@@ -20,7 +20,7 @@ function ThreadCardModal({ match }) {
     const { token, id } = UserInfo();
     const { storeLoading, storeHasMore } = useRenderComments(token, setComments, commentPageNumber, match.params.id);
     const history = useHistory();
-    const refreshStore = RefreshStore();
+    const refreshStore = RefreshPage();
     
     const commentRef = useRef();
 
@@ -127,7 +127,7 @@ function ThreadCardModal({ match }) {
                         </div>
                         <p id="threadContain">{ thread.body }</p>
                         <Link to="/home/blog" onClick={deleteThread} style={{textDecoration: "none", width: "45%"}}>
-                            <button id="deleteButton" className="siteButton" style={{display: canDelete ? 'block' : 'none'}}>Delete</button>
+                            <button id="deleteButton" className="deleteButtonStyle" style={{display: canDelete ? 'block' : 'none'}}>Delete</button>
                         </Link>
                     </div>
                     

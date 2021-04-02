@@ -1,18 +1,18 @@
-import { UserInfo, HomeFilterUpdate } from '../UserInfoContext'
+import { UserInfo, PageFilterUpdate } from '../UserInfoContext'
 
 function FilterBoxItem() {
-    const { homeFilter } = UserInfo()
-    const updateHomeFilter = HomeFilterUpdate()
+    const { storeFilter } = UserInfo()
+    const updateHomeFilter = PageFilterUpdate()
 
     const changeFilter = id => {
-        let newArr = [...homeFilter]
+        let newArr = [...storeFilter]
         newArr[id].checked = !newArr[id].checked
         updateHomeFilter(newArr)
     }
 
     return (
         <section>
-            {homeFilter.map(item => {
+            {storeFilter.map(item => {
                 return (
                     <label className="filterRows" style={{backgroundColor: (item.checked) ? "#588b60" : "#69a673"}} key={item.id}>
                         <input type="checkbox" value={item.category} onClick={() => changeFilter(item.id)}/>
