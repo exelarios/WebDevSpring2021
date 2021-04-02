@@ -25,39 +25,38 @@ function ThreadCardModal({ match }) {
     const commentRef = useRef();
 
     useEffect(() => {
-      fetchThread()
-    }, [])
-  
-    const fetchThread = async () => {
-        const settings = {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + token
+        const fetchThread = async () => {
+            const settings = {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token
+                }
             }
-        }
-  
-        const threadInfo = await axios.get(API_URL + `/api/posts/${match.params.id}`,
-             settings)
-             .then(response => {
-                setThread(response.data);
-                setCanDelete(response.data.postBy === id);
-                return response.data;
-             }, (error) => {
-                 console.error(error);
-             });
-
-        axios.get(API_URL + `/api/users/${threadInfo.postBy}`,
-            settings)
-            .then(response => {
-                setAuthor(response.data);
-                setLoading(false);
-            }, (error) => {
-                setAuthor({firstName: "Deleted User",
-                             lastName: ""});
-                console.error(error);
-                setLoading(false);
-            })
-    };
+      
+            const threadInfo = await axios.get(API_URL + `/api/posts/${match.params.id}`,
+                 settings)
+                 .then(response => {
+                    setThread(response.data);
+                    setCanDelete(response.data.postBy === id);
+                    return response.data;
+                 }, (error) => {
+                     console.error(error);
+                 });
+    
+            axios.get(API_URL + `/api/users/${threadInfo.postBy}`,
+                settings)
+                .then(response => {
+                    setAuthor(response.data);
+                    setLoading(false);
+                }, (error) => {
+                    setAuthor({firstName: "Deleted User",
+                                 lastName: ""});
+                    console.error(error);
+                    setLoading(false);
+                })
+        };
+        fetchThread();
+    }, [id, match.params.id, token])
 
     const deleteThread = async () => {
         const settings = {

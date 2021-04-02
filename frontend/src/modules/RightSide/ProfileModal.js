@@ -10,25 +10,24 @@ function ProfileModal () {
     const [vertifyStr, setVertifyStr] = useState('');
 
     useEffect(() => {
-        fetchProfile();
-    }, []);
-
-    const fetchProfile = async () => {
-        const settings = {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + token
+        const fetchProfile = async () => {
+            const settings = {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token
+                }
             }
-        }
-
-        axios.get(`http://localhost:5000/api/users/${id}`,
-            settings)
-            .then(response => {
-                setUserInfo(response.data);
-            }, (error) => {
-                console.error(error);
-            })
-    }
+    
+            axios.get(`http://localhost:5000/api/users/${id}`,
+                settings)
+                .then(response => {
+                    setUserInfo(response.data);
+                }, (error) => {
+                    console.error(error);
+                })
+        };
+        fetchProfile();
+    }, [id, token]);
 
     function deleteAcc() {
         const settings = {
