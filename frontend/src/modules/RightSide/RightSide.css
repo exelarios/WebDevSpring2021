@@ -77,8 +77,49 @@
     color: #6c6c6c;
 }
 
+.uploadModal {
+    width: 80vw;
+    max-width: 310px;
+}
+
 .uploadForm {
     display: flex;
+}
+
+.uploadInput {
+    border: #444444 1px solid;
+    min-height: 30px;
+    width: 90%;
+    margin-top: 15px;
+    box-sizing: border-box;
+}
+
+.uploadItem {
+    width: 30%;
+    min-height: 30px;
+    border: none;
+    font-size: 1em;
+    text-align: start;
+    margin-bottom: 1em;
+}
+  
+.uploadItem:hover {
+    background: #0c4279;
+    color: #dbdbdb;
+    transition: .2s;
+    cursor: pointer;
+}
+
+.uploadItem:focus {
+    outline: none;
+    border: none;
+}
+
+#uploadDescription {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    resize: none;
+    height: 100px;
 }
 
 #homeUpload:hover {
@@ -128,13 +169,12 @@
 
 .modalHeader {
     display: flex;
-    min-height: 120px;
+    font-size: .8em;
+    padding-left: 15px;
     width: 100%;
     text-align: center;
     align-items: center;
-    font-size: 1.3em;
     font-weight: normal;
-    padding-left: 60px;
 }
 
 .modalBody > form {
@@ -144,10 +184,8 @@
   
 .modalBody {
     background-color: #eeeff0;
-    max-height: 800px;
-    width: 100%;
-    padding-left: 60px;
     box-sizing: border-box;
+    padding-left: 15px;
 }
 
 #userInfo {
@@ -244,6 +282,49 @@
         align-items: center;
         padding: 10px;
         margin-right: 0;
+    }
+
+    .modalHeader {
+        min-height: 120px;
+        font-size: 1.3em;
+        padding-left: 60px;
+    }
+
+    .modalBody {
+        max-height: 800px;
+        width: 100%;
+        padding-left: 60px;
+    }
+
+    .uploadInput {
+        margin-top: 40px;
+        width: 85%;
+        min-height: 45px;
+        border-radius: 5px;
+        font-size: 1.2em;
+        padding: 0px 10px 0px;
+    }
+
+      
+    #uploadDescription {
+        height: 200px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        resize: none;
+    }
+
+    .uploadModal {
+        width: 55vw;
+        max-width: 700px;
+        min-height: 50vh;
+        max-height: 1000px;
+    }
+
+    .uploadItem {
+        width: 12vw;
+        min-height: 50px;
+        font-size: 1.2em;
+        margin-bottom: 2em;
     }
 }
 

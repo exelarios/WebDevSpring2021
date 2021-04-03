@@ -56,7 +56,7 @@ function Comment ({body, photo, postBy, id}) {
             console.error(error);
         }
     }
-    console.log("after" + body);
+    
     return (
         <div className="comments">
             <div>

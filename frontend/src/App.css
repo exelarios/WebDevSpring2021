@@ -113,6 +113,12 @@ h2 {
   margin-bottom: 1em;
 }
 
+.comments > button {
+  font-size: .7em;
+  height: 20px;
+  padding: 5px;
+}
+
 .comments > button:hover {
   color: #cccaca;
   transition: .3s;
@@ -147,13 +153,6 @@ h2 {
   overflow: hidden;
 }
 
-.uploadModal {
-  width: 55vw;
-  max-width: 700px;
-  min-height: 50vh;
-  max-height: 1000px;
-}
-
 .mainModal {
   width: 85vw;
   min-height: 300px;
@@ -173,26 +172,8 @@ input, select, textarea{
   outline: none;
 }
 
-.uploadInput {
-  margin-top: 40px;
-  border: #444444 1px solid;
-  width: 85%;
-  min-height: 45px;
-  border-radius: 5px;
-  font-size: 1.2em;
-  padding: 0px 10px 0px;
-}
-
-
 .typeInput {
   text-align: end;
-}
-
-#uploadDescription {
-  height: 200px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  resize: none;
 }
 
 #optionPlaceholder {
@@ -238,27 +219,6 @@ input, select, textarea{
   background: #3189e0;
   color: white;
   padding-left: 8px;
-}
-
-.uploadItem {
-  width: 12vw;
-  min-height: 50px;
-  border: none;
-  font-size: 1.2em;
-  text-align: start;
-  margin-bottom: 2em;
-}
-
-.uploadItem:hover {
-  background: #0c4279;
-  color: #dbdbdb;
-  transition: .2s;
-  cursor: pointer;
-}
-
-.uploadItem:focus {
-  outline: none;
-  border: none;
 }
 
 .Main {

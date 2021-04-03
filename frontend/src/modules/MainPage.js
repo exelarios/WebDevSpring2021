@@ -38,7 +38,7 @@ function MainPage() {
             <SideNav sideNavActive={sideNavActive} />
             <div onClick={closeSideNav} id="mainContainer">
                 <Route path="/home/store" component={Home}/>
-                <Route exact path="/home/blog" component={Blog}/>
+                <Route path="/home/blog" component={Blog}/>
                 <Route path="/home" component={RightSide}/>
             </div>
             <Switch>

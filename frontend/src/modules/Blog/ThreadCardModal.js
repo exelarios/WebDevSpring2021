@@ -17,8 +17,9 @@ function ThreadCardModal({ match }) {
     const [commentPageNumber, setCommentPageNumber] = useState(1);
     const [canDelete, setCanDelete] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [refresh, setRefresh] = useState(false);
     const { token, id } = UserInfo();
-    const { storeLoading, storeHasMore } = useRenderComments(token, setComments, commentPageNumber, match.params.id);
+    const { storeLoading, storeHasMore } = useRenderComments(token, setComments, commentPageNumber, match.params.id, setRefresh, refresh);
     const history = useHistory();
     const refreshStore = RefreshPage();
     
