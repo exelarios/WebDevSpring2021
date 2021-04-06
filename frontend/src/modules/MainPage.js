@@ -52,7 +52,6 @@ function MainPage() {
                 <Route path="/home/profile/:id" render={() => (
                   <ProfileModal />
                 )}/>
-
             </Switch>
         </div>
     )

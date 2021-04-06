@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import useLocalStorage from './hooks/useLocalStorage'
 import jwt_decode from "jwt-decode";
 import useRenderStorePage from './hooks/useRenderStorePage'
@@ -124,6 +124,22 @@ export function UserInfoProvider({ children }) {
 
     const { storeLoading, storeHasMore } = useRenderStorePage(token, setItems, storePageNumber, storeName, storeCategory, setPageRefresh, pageRefresh);
     const { blogLoading, blogHasMore } = useRenderBlogPage(token, setThreads, blogPageNumber, blogName, blogCategory, setPageRefresh, pageRefresh);
+
+
+    useEffect(() => {
+        let arrayCheck = false;
+        storeFilter.forEach(filter => {
+            if(filter.checked === true) {
+                setStoreCategory(filter.category);
+                arrayCheck = true;
+            }
+        })
+        if(!arrayCheck) {
+            setStoreCategory("")
+        }
+        setItems([]);
+        setStorePageNumber(1);
+    }, [storeFilter])
 
     function refreshPage() {
         if(currentPage === "store") {

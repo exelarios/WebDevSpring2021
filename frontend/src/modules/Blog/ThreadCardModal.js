@@ -133,7 +133,7 @@ function ThreadCardModal({ match }) {
                     
                     <div className="threadComments">
                         {comments.map(comment => {
-                            return <Comment key={comment._id} body={comment.body} postBy={comment.postBy} photo={comment.itemId} id={comment._id} />
+                            return <Comment key={comment._id} body={comment.body} postBy={comment.postBy} photo={comment.photo} id={comment._id} />
                         })
                         }
                     </div>

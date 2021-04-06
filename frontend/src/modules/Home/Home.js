@@ -52,7 +52,7 @@ function Home() {
     <>
       <div className="container" >
         <div id="homePage">
-          {items.filter(card => checkFilter(card)).map((item, index) => {
+          {items.map((item, index) => {
             if(items.length === index + 1) {
               return (
                 <Link ref={lastBookElementRef} key={item._id} to={`/home/store/${item._id}`} style={{ color: 'inherit', textDecoration: 'inherit'}}>

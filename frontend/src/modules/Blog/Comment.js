@@ -74,10 +74,8 @@ function Comment ({body, photo, postBy, id}) {
                 )}
                 
             </div>
-            <div className='editBtn'>
-                <img onClick={confirmUpdate} className='editComment' src={updateBtn} style={{display: postBy === name ? 'block' : 'none'}} alt="update"/>
-                <img onClick={deleteComment} className='editComment' src={deleteBtn} style={{display: postBy === name ? 'block' : 'none'}} alt="delete"/>
-            </div>
+            <button className="commentEdit siteButton" onClick={confirmUpdate} style={{display: postBy === name ? 'block' : 'none'}}>Edit</button>
+            <button className="commentDelete deleteButtonStyle" onClick={deleteComment}style={{display: postBy === name ? 'block' : 'none'}}>Delete</button>
         </div>
     )
 }

@@ -25,7 +25,7 @@ const SideNav = (props) => {
         <img src={Logo} alt="logo"/>
         <nav id="navigation">
           <Link to='/home/store' onClick={() => setDefaultFilter("blog")}>
-            <button onClick={props.toggleHomePage} id="store" className="sideButton">Home</button>
+            <button onClick={props.toggleHomePage} id="store" className="sideButton">Store</button>
           </Link>
           <Link to='/home/blog' onClick={() => setDefaultFilter("store")}>
             <button onClick={props.toggleBlogPage} id="blog" className="sideButton">Blog</button>
