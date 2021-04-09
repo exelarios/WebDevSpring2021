@@ -46,7 +46,8 @@ router.get("/search", protected, async (req, res) => {
         const count = await Item.countDocuments({ ...keyword });
         const items = await Item.find({ ...keyword })
             .limit(itemsPerPage)
-            .skip(itemsPerPage * (page - 1));
+            .skip(itemsPerPage * (page - 1))
+            .sort({date: -1});
 
         res.json({
             items: items,
@@ -86,7 +87,8 @@ router.post("/add", [protected, validation.postItem], async(req, res) => {
                 category: category,
                 price: price,
                 seller: req.user.id,
-                thumbnail: item.thumbnail
+                thumbnail: item.thumbnail,
+                date: item.date
             },
             success: true
         });
@@ -113,7 +115,8 @@ router.get("/:id", protected, async (req, res) => {
             category: item.category,
             price: item.price,
             seller: item.seller,
-            thumbnail: item.thumbnail
+            thumbnail: item.thumbnail,
+            date: item.date
         });
     } catch(error) {
         res.status(404).json({
@@ -136,7 +139,9 @@ router.get("/:itemId/comments", protected, async (req, res) => {
         const count = await Item.countDocuments({ itemId: itemId });
         const comments = await Comment.find({ itemId: itemId })
             .limit(itemsPerPage)
-            .skip(itemsPerPage * (page - 1));
+            .skip(itemsPerPage * (page - 1))
+            .sort({date: -1});
+
         if (!comments) throw Error("Failed to find comments.");
         res.send({
             comments: comments,

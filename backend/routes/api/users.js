@@ -53,7 +53,8 @@ router.get("/:id", protected, async (req, res) => {
             email: user.email,
             firstName: user.firstName,
             lastName: user.lastName,
-            picture: user.picture
+            picture: user.picture,
+            date: user.date
         });
     } else {
         res.status(404).json({
@@ -70,7 +71,6 @@ router.get("/:id", protected, async (req, res) => {
  */
 router.put("/update", protected, async (req, res) => {
     res.send({
-        message: "lit",
         success: true
     })
 });
