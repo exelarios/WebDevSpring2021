@@ -43,7 +43,8 @@ router.get("/search", protected, async (req, res) => {
         const count = await Post.countDocuments({ ...keyword });
         const posts = await Post.find({ ...keyword })
             .limit(postsPerPage)
-            .skip(postsPerPage * (page -1));
+            .skip(postsPerPage * (page -1))
+            .sort({date: -1});
 
         res.json({
             posts: posts,
@@ -89,7 +90,8 @@ router.post("/add", protected, async(req, res) => {
                 title: title,
                 topic: topic,
                 body: body,
-                postBy: req.user.id
+                postBy: req.user.id,
+                date: post.date
             },
             success: true
         })
@@ -114,7 +116,8 @@ router.get("/:id", protected, async (req, res) => {
             title: post.title,
             topic: post.topic,
             body: post.body,
-            postBy: post.postBy
+            postBy: post.postBy,
+            date: post.date
         });
     } else {
         res.status(404).json({

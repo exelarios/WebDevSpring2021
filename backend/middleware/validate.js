@@ -6,9 +6,7 @@ const anyMulter = multer.any();
 async function register(req, res, next) {
     // Checks the database if the email already exist to prevent people from registering more than once.
     anyMulter(req, res, async () => {
-        console.log(req.files);
         const email = req.body.email;
-        console.log(email);
         const userExists = await User.findOne({ email });
         if (userExists) {
             return res.status(400).json({
