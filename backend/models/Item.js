@@ -21,6 +21,10 @@ const itemSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    date: {
+        type: Date,
+        default: Date.now
+    },
     thumbnail: {
         main: {
             type: Number,
@@ -30,7 +34,7 @@ const itemSchema = new mongoose.Schema({
         images: {
             type: Array,
             required: false,
-            default: [`${process.env.S3_URL}/defaults/profile.png`]
+            default: [`${process.env.S3_URL}/defaults/item.png`]
         }
     }
 });

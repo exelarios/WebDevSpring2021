@@ -22,7 +22,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         require: false,
         default: `${process.env.S3_URL}/defaults/profile.png`
-    }
+    },
+    date: {
+        type: Date,
+        default: Date.now
+    },
 });
 
 module.exports = mongoose.model("User", userSchema);

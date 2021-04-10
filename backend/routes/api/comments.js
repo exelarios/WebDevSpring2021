@@ -46,7 +46,8 @@ router.post("/:postId/add", protected, async (req, res) => {
             comment: {
                 body: comment.body,
                 postBy: comment.postBy,
-                id: comment._id
+                id: comment._id,
+                date: comment.date
             },
             success: true
         })
