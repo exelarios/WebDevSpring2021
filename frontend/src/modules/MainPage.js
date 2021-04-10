@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import SideNav from './SideNav/SideNav';
 import Home from './Home/Home';
 import RightSide from './RightSide/RightSide';
@@ -15,6 +15,13 @@ export const API_URL = 'http://localhost:5000'
 function MainPage() {
     const [sideNavActive, setSideNavActive] = useState(false)
     const [isTop, setisTop] = useState(true)
+    const [suggestedSearchActive, setSuggestedSearchActive] = useState(false);
+
+    useEffect(() => {
+        if(!isTop && sideNavActive) {
+            setSuggestedSearchActive(false);
+        }
+    }, [sideNavActive, isTop])
 
     const closeSideNav = () => {
         setSideNavActive(false)
@@ -34,7 +41,7 @@ function MainPage() {
 
     return (
         <div id="mainPage" onScroll={checkTop}>
-            <SearchBar sideNavActive={sideNavActive} openSideNav={openSideNav} isTop={isTop} />
+            <SearchBar setSuggestedSearchActive={setSuggestedSearchActive} suggestedSearchActive={suggestedSearchActive} sideNavActive={sideNavActive} openSideNav={openSideNav} isTop={isTop} />
             <SideNav sideNavActive={sideNavActive} />
             <div onClick={closeSideNav} id="mainContainer">
                 <Route path="/home/store" component={Home}/>

@@ -139,6 +139,7 @@
 #commentBar {
     min-height: 50px;
     width: 100%;
+    padding: 0 2px;
     bottom: 0;
     display: flex;
     background-color: #e2dede;
@@ -196,16 +197,25 @@
     background: transparent;  /* Optional: just make scrollbar invisible */
 }
 
+
 #comment {
     min-height: 25px;
-    width: 92%;
     border: none;
+    width: 75%;
     border-radius: 5px;
     padding-left: 5px;
     font-size: .7em;
     box-sizing: border-box;
     resize: none;
     z-index: 10;
+    margin-right: 1em;
+}
+
+#commentSubmit {
+    font-size: .6em;
+    width: 15%;
+    min-height: 25px;
+    border-radius: 3px;
 }
 
 .userPhoto {
@@ -259,6 +269,15 @@
         height: 100%;
         width: 30%;
     }
+
+    #commentSubmit {
+        width: 25%;
+        font-size: .7em;
+    }
+
+    #comment {
+        width: 60%;
+    }
 }
 
 @media only screen and (min-width: 850px) {
@@ -272,8 +291,12 @@
 
     #comment {
         min-height: 30px;
-        width: 92%;
         padding-left: 10px;
+        font-size: 1em;
+    }
+
+    #commentSubmit {
+        min-height: 30px;
         font-size: 1em;
     }
 

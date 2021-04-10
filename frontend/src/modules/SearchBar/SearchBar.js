@@ -11,13 +11,12 @@ function SearchBar(props) {
     const [searchQuery, setSearchQuery] = useState("");
     const { token, currentPage } = UserInfo();
     const [itemType, setItemType] = useState("");
-    const [suggestedSearchActive, setSuggestedSearchActive] = useState(false);
     const [suggestedSearches, setSuggestedSearches] = useState([]);
     const updateNameQuery = NameQueryUpdate();
     const setPageNumber = PageNumberUpdate();
 
     useEffect(() => {
-        setSuggestedSearchActive(false);
+        props.setSuggestedSearchActive(false);
     }, [currentPage])
 
     const handleSearch = e => {
@@ -41,19 +40,19 @@ function SearchBar(props) {
             return []
         })
         setItemType((currentPage === "store") ? "name" : "title");
-        setSuggestedSearchActive((e.target.value !== "") ? true : false);
+        props.setSuggestedSearchActive((e.target.value !== "") ? true : false);
     }
 
     const submitSearch = e => {
         if(e.key === "Enter") {
-            setSuggestedSearchActive(false);
+            props.setSuggestedSearchActive(false);
             updateNameQuery(currentPage, searchQuery);
             setPageNumber(1);
         }
     }
 
     const handleSuggestedSearch = id => {
-        setSuggestedSearchActive(false);
+        props.setSuggestedSearchActive(false);
         if(currentPage === "store") {
             history.push(`/home/store/${id}`);
         } else {
@@ -67,7 +66,7 @@ function SearchBar(props) {
             <img src={Menu} id="navButton" onClick={props.openSideNav}></img>
             <div id="searchContainer">
                 <input autoComplete="off" onKeyDown={submitSearch} type="search" onChange={handleSearch} id="searchBar" placeholder="Search" style={{opacity: (props.isTop || !props.sideNavActive) ? '1' : '0'}}></input>
-                <div id="suggestedSearchContainer" style={{display: suggestedSearchActive ? "block" : "none"}}>
+                <div id="suggestedSearchContainer" style={{display: props.suggestedSearchActive ? "block" : "none"}}>
                     {suggestedSearches.map(suggestion => {
                         return <div key={suggestion._id} onClick={() => handleSuggestedSearch(suggestion._id)}className="suggestedSearch">{suggestion[itemType]}</div>
                     })}

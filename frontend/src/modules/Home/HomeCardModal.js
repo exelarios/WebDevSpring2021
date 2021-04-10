@@ -75,27 +75,28 @@ function HomeCardModal({ match }) {
             console.error(error);
         })
     }
-
-    const addComment = async e => {
+    const registerInputSubmit = e => {
         if(e.key === "Enter" && currentComment !== "") {
-            try {
-                await axios.post(`http://localhost:5000/api/comments/${match.params.id}/add`, {
-                    body: currentComment
-                }, {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: "Bearer " + token
-                    }
-                }).then(() => {
-                    setCurrentComment("");
-                    setRefresh(true);
-                });
-            }
-            catch (error) {
-                console.error(error);
-            }
+            addComment()
         }
-        
+    }
+    const addComment = async () => {
+        try {
+            await axios.post(`http://localhost:5000/api/comments/${match.params.id}/add`, {
+                body: currentComment
+            }, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token
+                }
+            }).then(() => {
+                setCurrentComment("");
+                setRefresh(true);
+            });
+        }
+        catch (error) {
+            console.error(error);
+        }
     }
 
     return (
@@ -140,7 +141,8 @@ function HomeCardModal({ match }) {
                             </div>
                         </div>
                         <div id="commentBar">
-                            <input autoComplete="off" onKeyDown={addComment} id="comment" placeholder="Enter a comment" value={currentComment} onChange={e => setCurrentComment(e.target.value)}></input>
+                            <input autoComplete="off" onKeyDown={registerInputSubmit} id="comment" placeholder="Enter a comment" value={currentComment} onChange={e => setCurrentComment(e.target.value)}></input>
+                            <button onClick={addComment} id="commentSubmit" className="siteButton">Submit</button>
                         </div>
                     </div>
                 </>
