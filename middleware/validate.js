@@ -11,7 +11,6 @@ async function register(req, res, next) {
         if (userExists) {
             return res.status(400).json({
                 message: "Email already registered.",
-                location: req.files[0].location,
                 success: false
             });
         }
