@@ -1,1 +1,1 @@
-worker: node ./backend/server.js
+worker: node ./server.js
