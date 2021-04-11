@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { UserInfo } from '../UserInfoContext';
 import axios from 'axios';
+import API_URL from '../../environment'
 
 function Comment({body, photo, postBy, id, setRefresh, setComments}) {
     const { name, token } = UserInfo();
@@ -14,7 +15,7 @@ function Comment({body, photo, postBy, id, setRefresh, setComments}) {
     }
 
     const deleteComment = async () => {
-        axios.delete(`http://localhost:5000/api/comments/${id}`,
+        axios.delete(API_URL + `/api/comments/${id}`,
         settings)
         .then(() => {
             setComments([]);
@@ -26,7 +27,7 @@ function Comment({body, photo, postBy, id, setRefresh, setComments}) {
 
     const editComment = async () =>  {
         setEditingComment(false);
-        axios.put(`http://localhost:5000/api/comments/${id}`,
+        axios.put(API_URL + `/api/comments/${id}`,
         {
             body: commentText
         },

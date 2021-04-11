@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { UserInfo } from '../UserInfoContext';
 import { Link } from 'react-router-dom';
+import API_URL from '../../environment'
 
 function ProfileModal () {
     const { token, id } = UserInfo();
@@ -18,7 +19,7 @@ function ProfileModal () {
                 }
             }
     
-            axios.get(`http://localhost:5000/api/users/${id}`,
+            axios.get(API_URL + `/api/users/${id}`,
                 settings)
                 .then(response => {
                     setUserInfo(response.data);
@@ -37,7 +38,7 @@ function ProfileModal () {
             }
         }
 
-        axios.delete(`http://localhost:5000/api/users/delete`,
+        axios.delete(API_URL + `/api/users/delete`,
         settings)
         .then(() => {
             localStorage.clear();
@@ -62,14 +63,11 @@ function ProfileModal () {
     return (
         <div className="modalScreen">
             <div className="modal profileModal">
-                <h1>Profile Info</h1>
                 <div className="profile">
                     <img src={userInfo.picture} alt="logo"></img>
                     <div className="profileInfo">
-                        <h5>Full Name</h5>
-                        <p>{userInfo.firstName} {userInfo.lastName}</p>
-                        <h5>Email</h5>
-                        <p>{userInfo.email}</p>
+                        <h2>{userInfo.firstName} {userInfo.lastName}</h2>
+                        <h4>{userInfo.email}</h4>
                     </div>
                 </div>
                 {!confirmDel ? (

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useHistory } from 'react-router-dom';
 import { UserInfoUpdate } from '../UserInfoContext';
+import API_URL from '../../environment'
 
 function SignUp() {
     const [registerToken, setRegisterToken] = useState("");
@@ -47,7 +48,7 @@ function SignUp() {
             console.log(key, value);
         }
 
-        await axios.put("http://localhost:5000/api/users/picture/", payload,
+        await axios.put(API_URL + "/api/users/picture/", payload,
         config)
         .then(response => {
             console.log(response);
@@ -71,7 +72,7 @@ function SignUp() {
         try {
             let payload = new FormData();
             keys.forEach(element => checkPayload(payload, element, Errors))
-            await axios.post("http://localhost:5000/api/auth/register", payload,
+            await axios.post(API_URL + "/api/auth/register", payload,
             config)
             .then(response => {
                 updateUser(response.data);

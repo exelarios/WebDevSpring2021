@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { UserInfo } from '../UserInfoContext';
+import API_URL from '../../environment'
 
 function UploadQuestion () {
     const { token } = UserInfo();
@@ -13,7 +14,7 @@ function UploadQuestion () {
 
     const addThread = async () => {
         try {
-            await axios.post('http://localhost:5000/api/posts/add', {
+            await axios.post(API_URL + '/api/posts/add', {
                 title: titleRef.current.value,
                 body: bodyRef.current.value,
                 topic: topicRef.current.value

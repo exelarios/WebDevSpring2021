@@ -2,8 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { UserInfo, RefreshPage } from '../UserInfoContext';
-import { API_URL } from '../MainPage';
 import LoadingAnimation from '../../5.svg'
+import API_URL from '../../environment';
 
 function UploadItem () {
     const { token } = UserInfo()
@@ -41,7 +41,7 @@ function UploadItem () {
         let payload = new FormData();
         payload.append("images", form.picture);
 
-        await axios.put(`http://localhost:5000/api/items/${itemId}/upload`, payload,
+        await axios.put(API_URL + `/api/items/${itemId}/upload`, payload,
         config)
         .then(() => {
             setLoading(false)
@@ -55,7 +55,7 @@ function UploadItem () {
     const addItem = async () => {
         setLoading(true)
         try { 
-            await axios.post('http://localhost:5000/api/items/add', {
+            await axios.post(API_URL +'/api/items/add', {
                 name: nameRef.current.value,
                 description: descriptionRef.current.value,
                 category: categoryRef.current.value,

@@ -2,9 +2,9 @@ import React, { useState, useRef } from 'react';
 import './Blog.css';
 import { UserInfo } from '../UserInfoContext';
 import axios from 'axios';
+import API_URL from '../../environment'
 
-import deleteBtn from '../../trash.svg';
-import updateBtn from '../../pencil.svg';
+
 import paperPlane from '../../paper-plane.svg';
 
 function Comment ({body, photo, postBy, id}) {
@@ -23,7 +23,8 @@ function Comment ({body, photo, postBy, id}) {
                 Authorization: "Bearer " + token
             }
         }
-        axios.delete(`http://localhost:5000/api/comments/${id}`,
+
+        axios.delete(API_URL + `/api/comments/${id}`,
         settings)
         .then(() => {
             window.location.reload();
@@ -40,7 +41,7 @@ function Comment ({body, photo, postBy, id}) {
     // Update the comment
     const updateComment = async () => {
         try {
-            await axios.put(`http://localhost:5000/api/comments/${id}`, {
+            await axios.put(API_URL + `/api/comments/${id}`, {
                 body: commentRef.current.value
             }, {
                 headers: {

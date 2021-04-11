@@ -12,6 +12,7 @@ const RefreshPageContext = React.createContext();
 const NameQueryUpdateContext = React.createContext();
 const PageUpdateContext = React.createContext();
 const SetPageContext = React.createContext();
+const LogoutContext = React.createContext();
 
 export function UserInfo() {
     return useContext(UserInfoContext);
@@ -44,6 +45,11 @@ export function PageUpdate() {
 export function SetPage() {
     return useContext(SetPageContext);
 }
+
+export function Logout() {
+    return useContext(LogoutContext);
+}
+
 
 export function UserInfoProvider({ children }) {
 
@@ -126,6 +132,8 @@ export function UserInfoProvider({ children }) {
     const { blogLoading, blogHasMore } = useRenderBlogPage(token, setThreads, blogPageNumber, blogName, blogCategory, setPageRefresh, pageRefresh);
 
 
+
+
     useEffect(() => {
         let arrayCheck = false;
         storeFilter.forEach(filter => {
@@ -194,6 +202,13 @@ export function UserInfoProvider({ children }) {
         refreshPage();
     }
 
+    function logout() {
+        console.log('works');
+        setToken('none');
+        setName('none');
+        setId('none');
+    }
+
     function setPage(pageType) {
         setCurrentPage(pageType);
     }
@@ -208,7 +223,9 @@ export function UserInfoProvider({ children }) {
                                 <PageNumberUpdateContext.Provider value={updatePageNumber}>
                                     <PageUpdateContext.Provider value={changePage}>
                                         <SetPageContext.Provider value={setPage}>
-                                            {children}
+                                            <LogoutContext.Provider value={logout}>
+                                                {children}
+                                            </LogoutContext.Provider>
                                         </SetPageContext.Provider>
                                     </PageUpdateContext.Provider>
                                 </PageNumberUpdateContext.Provider>

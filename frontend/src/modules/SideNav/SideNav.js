@@ -2,10 +2,11 @@ import Logo from '../../cpp-octo-web.svg'
 import React, {  } from 'react'
 import './SideNav.css';
 import { Link } from 'react-router-dom';
-import { UserInfo, PageUpdate } from '../UserInfoContext'
+import { UserInfo, PageUpdate, Logout } from '../UserInfoContext'
 
 const SideNav = (props) => {
   const { storeFilter, blogFilter, token } = UserInfo();
+  const logout = Logout();
   const pageUpdate = PageUpdate();
 
   const setDefaultFilter = (type) => {
@@ -31,7 +32,7 @@ const SideNav = (props) => {
             <button onClick={props.toggleBlogPage} id="blog" className="sideButton">Blog</button>
           </Link>
         </nav>
-        <Link to='/entry' onClick={() => (token !== 'none') ? localStorage.clear() : null}>
+        <Link to='/entry' onClick={() => (token !== 'none') ? logout() : null}>
           <button type="button" id="logButton">{(token !== 'none') ? 'Logout' : 'Login'}</button> 
         </Link>
         

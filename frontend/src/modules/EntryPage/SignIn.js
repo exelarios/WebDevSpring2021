@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import axios from 'axios'
 import { UserInfoUpdate } from '../UserInfoContext'
+import API_URL from '../../environment'
 
 function SignIn() {
     const history = useHistory();
@@ -11,7 +12,7 @@ function SignIn() {
     const [formFailed, setFormFailed] = useState(false);
 
     const postLogIn = async () => {
-        axios.post('http://localhost:5000/api/auth/login', {
+        axios.post(API_URL + '/api/auth/login', {
             email: usernameRef.current.value,
             password: passwordRef.current.value
         })

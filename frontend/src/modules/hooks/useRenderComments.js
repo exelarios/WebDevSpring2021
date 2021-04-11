@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import API_URL from '../../environment'
 
 export default function useRenderComments(token, setFunction, currentPage, userId, setRefresh, refresh) {
     const [commentsLoading, setCommentsLoading] = useState(true);
@@ -16,7 +17,7 @@ export default function useRenderComments(token, setFunction, currentPage, userI
                     Authorization: "Bearer " + token
                 }
             }
-            const firstResponse = await axios.get(`http://localhost:5000/api/items/${id}/comments?page=${page}`,
+            const firstResponse = await axios.get(API_URL + `/api/items/${id}/comments?page=${page}`,
             settings)
             .then(response => {
                 setHasMore(response.data.pages !== page)
@@ -28,7 +29,7 @@ export default function useRenderComments(token, setFunction, currentPage, userI
     
             if(firstResponse !== undefined) {
                 firstResponse.forEach(item => {
-                secondResponse[index] = axios.get(`http://localhost:5000/api/users/${item.postBy}`,
+                secondResponse[index] = axios.get(API_URL + `/api/users/${item.postBy}`,
                 settings)
                 .then(response => {
                     return response

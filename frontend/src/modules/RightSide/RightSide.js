@@ -4,6 +4,7 @@ import './RightSide.css';
 import { Link } from 'react-router-dom';
 import { UserInfo } from '../UserInfoContext';
 import axios from 'axios';
+import API_URL from '../../environment';
 
 function RightSide() {
 
@@ -24,7 +25,7 @@ function RightSide() {
             }
         }
 
-        await axios.get(`http://localhost:5000/api/users/${id}`,
+        await axios.get(API_URL + `/api/users/${id}`,
         settings)
         .then(response => {
             setProfilePicture(response.data.picture)

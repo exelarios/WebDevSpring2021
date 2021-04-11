@@ -6,6 +6,7 @@ import { UserInfo, RefreshPage } from '../UserInfoContext'
 import { useHistory } from 'react-router-dom';
 import LoadingAnimation from '../../5.svg';
 import useRenderComments from '../hooks/useRenderComments'
+import API_URL from '../../environment'
 
 function HomeCardModal({ match }) {
     const [item, setItem] = useState({});
@@ -34,7 +35,7 @@ function HomeCardModal({ match }) {
             }
         }
   
-        const firstResponse = await axios.get(`http://localhost:5000/api/items/${match.params.id}`,
+        const firstResponse = await axios.get(API_URL + `/api/items/${match.params.id}`,
              settings)
              .then(response => {
                 setItem(response.data);
@@ -44,7 +45,7 @@ function HomeCardModal({ match }) {
                  console.error(error);
              });
 
-        axios.get(`http://localhost:5000/api/users/${firstResponse.seller}`,
+        axios.get(API_URL + `/api/users/${firstResponse.seller}`,
             settings)
             .then(response => {
                 setUserInfo(response.data);
@@ -66,7 +67,7 @@ function HomeCardModal({ match }) {
             }
         }
 
-        axios.delete(`http://localhost:5000/api/items/${match.params.id}`,
+        axios.delete(API_URL + `/api/items/${match.params.id}`,
         settings)
         .then(() => {
             refreshStore()
@@ -82,7 +83,7 @@ function HomeCardModal({ match }) {
     }
     const addComment = async () => {
         try {
-            await axios.post(`http://localhost:5000/api/comments/${match.params.id}/add`, {
+            await axios.post(API_URL + `/api/comments/${match.params.id}/add`, {
                 body: currentComment
             }, {
                 headers: {

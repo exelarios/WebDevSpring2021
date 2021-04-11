@@ -2,11 +2,10 @@ import React, { useEffect, useState, useRef } from 'react';
 import Comment from './Comment';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { UserInfo, RefreshPage } from '../UserInfoContext';
-import { useHistory } from 'react-router-dom';
+import { UserInfo } from '../UserInfoContext';
 import LoadingAnimation from '../../5.svg';
-import { API_URL } from '../MainPage';
 import useRenderComments from '../hooks/useRenderComments';
+import API_URL from '../../environment'
 
 import paperPlane from '../../paper-plane.svg';
 
@@ -20,8 +19,6 @@ function ThreadCardModal({ match }) {
     const [refresh, setRefresh] = useState(false);
     const { token, id } = UserInfo();
     const { storeLoading, storeHasMore } = useRenderComments(token, setComments, commentPageNumber, match.params.id, setRefresh, refresh);
-    const history = useHistory();
-    const refreshStore = RefreshPage();
     
     const commentRef = useRef();
 

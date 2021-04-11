@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom'
 import { NameQueryUpdate, PageNumberUpdate, UserInfo } from '../UserInfoContext'
 import './SearchBar.css'
 import axios from 'axios'
+import API_URL from '../../environment'
 
 function SearchBar(props) {
     const history = useHistory();
@@ -27,7 +28,7 @@ function SearchBar(props) {
                 Authorization: "Bearer " + token
             }
         }
-        axios.get(`http://localhost:5000/api/${(currentPage === "store") ? "items" : "posts"}/search?&${(currentPage === "store") ? "name" : "title"}=${e.target.value}&page=1`,
+        axios.get(API_URL + `/api/${(currentPage === "store") ? "items" : "posts"}/search?&${(currentPage === "store") ? "name" : "title"}=${e.target.value}&page=1`,
         settings)
         .then(response => {
             if(currentPage === "store") {

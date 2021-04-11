@@ -128,7 +128,7 @@ h2 {
 #deleteButton {
   padding: 5px;
   height: 25px;
-  width: 100%;
+  background-color: #fb7373;
 }
 
 .deleteButtonStyle {
@@ -287,44 +287,70 @@ left:35%;
 .profileModal {
   width: 50vw;
   max-width: 500px;
-  min-height: 50vh;
+  height: 50vh;
   max-height: 1000px;
-  padding: 40px;
-  display: table;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  position: relative;
 }
 
 .profileModal h1 {
-  text-indent: 5vw;
-  font-family: 'Snell Roundhand, cursive', 'Jazz LET, fantasy', 'Brush Script MT', Arial, sans-serif;
+  font-size: 1.8em;
+  font-family: sans-serif;
+  font-weight: lighter;
+  color: #303030;
+  margin-top: 0;
+  margin-bottom: 50px;
+}
+
+.profileModal h2 {
+  margin-bottom: 5px;
+  color: white;
+  font-size: 1.7em;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+.profileModal h4 {
+  color: white;
+  margin-top: 0;
+  font-size: .7em;
+  font-weight: lighter;
 }
 
 .profile {
   display: grid;
   grid-template-columns: 1fr 2fr;
+  grid-gap: 10px;
+  padding: 20px 30px;
+  background: rgb(105,166,115);
+  background: linear-gradient(90deg, rgba(105,166,115,1) 0%, rgba(49,137,224,1) 100%);
 }
 
 .profile img {
   display: block;
-  margin-left: auto;
-  margin-right: auto;
   border-radius: 50%;
-  height: 80px;
-  width: 80px;
+  height: 110px;
+  width: 110px;
   padding: 10px;
 }
 
 .profileInfo h5{
   margin-bottom: -10px;
-  font-family: 'Lucida Bright', 'Helvetica';
+  font-family: sans-serif;
 }
 
 .profile p {
   border-bottom: 0.5px solid rgb(206, 206, 206);
-  font-family: 'Candara', 'Optima', 'Garamond', 'Didot';
+  font-family: sans-serif;
+  width: 70%;
 }
 
-.deleteAccount {
-  margin-top: 50px;
+.confirmForm {
+  margin-top: 5em;
+  width: 60%;
+  align-self: center;
 }
 
 /**Media Queries**/
@@ -403,11 +429,13 @@ left:35%;
 
 .confirm{
   padding: 5px;
-  width: 97%;
+  width: 100%;
   margin-bottom: 5px;
+  box-sizing: border-box;
 }
 
 #NoButton {
+  box-sizing: border-box;
   padding: 5px;
   height: 25px;
   width: 100%;
